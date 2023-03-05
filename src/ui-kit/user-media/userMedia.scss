@@ -1,0 +1,25 @@
+@import "../../styles/scss/global.scss";
+.user-media {
+  padding: 1rem;
+  &.user {
+    .user__img {
+      padding: 1rem 1rem 1rem 0;
+    }
+    .user__name,
+    .user__email,
+    .user__project-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .user__name {
+      font-weight: bold;
+    }
+    .user__email,
+    .user__project-name {
+      font-size: 1.8rem;
+    }
+  }
+  &--bluish {
+    background-color: $bluish-white-2;
+  }
+}

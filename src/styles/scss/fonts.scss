@@ -1,0 +1,32 @@
+
+@font-face {
+    font-family: 'cabin';
+    src: url('../../assets/fonts/cabin-bold.woff2') format('woff2'),
+         url('../../assets/fonts/cabin-bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'cabin';
+    src: url('../../assets/fonts/cabin-medium.woff2') format('woff2'),
+         url('../../assets/fonts/cabin-medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'cabin';
+    src: url('../../assets/fonts/cabin-regular.woff2') format('woff2'),
+         url('../../assets/fonts/cabin-regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+$font-family-base:'cabin',Arial, Helvetica, sans-serif;
+
+

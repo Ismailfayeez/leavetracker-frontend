@@ -1,0 +1,61 @@
+@import "../../../styles/scss/colors.scss";
+
+.project-card {
+  border-radius: 1rem;
+  background-color: yellow;
+  padding: 1rem;
+  margin: 1rem 0;
+  width: 100%;
+  max-width: 230px;
+  overflow: hidden;
+  &__content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+  }
+  &__title,
+  &__description {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    &:after {
+      content: ".";
+      visibility: hidden;
+    }
+  }
+  &__logo {
+    margin: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  &__title {
+    font-weight: bold;
+  }
+  &__description {
+    font-size: 1.5rem;
+    display: block;
+    white-space: nowrap;
+  }
+  &--theme-pink {
+    background-color: $pink;
+  }
+  &--theme-green {
+    background-color: $pista-green;
+  }
+  &--theme-coral {
+    background-color: $coral;
+  }
+  &--theme-gray {
+    background-color: $gray;
+  }
+}

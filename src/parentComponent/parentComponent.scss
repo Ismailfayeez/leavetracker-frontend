@@ -1,0 +1,67 @@
+@import "../styles/scss/global.scss";
+.parent-component {
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  &.bg-auth {
+    background-image: url("../assets/images/liquid-cheese (4).svg");
+  }
+  .sidebar-section {
+    height: 100%;
+    padding: 1rem 0;
+  }
+}
+
+@mixin side-bar-container-mixin {
+  overflow-y: auto;
+  width: $sidebar-width-md;
+  @media #{$xl_desktop} {
+    width: $sidebar-width-wd;
+  }
+}
+
+.side-bar-container {
+  @include side-bar-container-mixin;
+  @media #{$mobile_only} {
+    display: none;
+  }
+  @media #{$tablet_only} {
+    display: none;
+  }
+}
+
+.floating-side-bar-container {
+  @include side-bar-container-mixin;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 151;
+  @media #{$desktop} {
+    display: none;
+  }
+  &.hide {
+    width: 0;
+  }
+}
+
+.floating-side-bar-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 150;
+  cursor: pointer;
+  @media #{$desktop} {
+    display: none;
+  }
+  &.hide {
+    width: 0;
+  }
+}

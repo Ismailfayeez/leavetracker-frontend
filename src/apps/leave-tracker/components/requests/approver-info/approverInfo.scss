@@ -1,0 +1,32 @@
+@import "../../../../../styles/scss/colors.scss";
+.approverNotFound {
+  padding: 1rem;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.redAlert {
+    color: rgb(196, 6, 6);
+  }
+}
+
+.approver-info {
+  background-color: $dark-sea-blue;
+  border-radius: 15px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  height: 100%;
+  &__header {
+    padding-left: 0.5rem;
+  }
+  &__body {
+    padding: 0.5rem;
+    overflow: auto;
+    .approverCard:not(:last-of-type) {
+      margin-bottom: 1rem;
+    }
+  }
+}

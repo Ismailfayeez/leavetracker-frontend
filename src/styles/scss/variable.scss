@@ -1,0 +1,35 @@
+@import "./colors.scss";
+//sizes
+$xs: 0;
+$mobile: 480px;
+$tablet-lr-min: 481px;
+$tablet-lr-max: 767px;
+$tablet-hr-min: 768px;
+$tablet-hr-max: 991px;
+$tablet-max: 991px;
+$desktop: 992px;
+$xl-desktop: 1540px;
+
+// screen sizes
+$mobile_only: "(max-width:#{$mobile})";
+$tablet_only: "(min-width:#{$tablet-lr-min}) and (max-width:#{$tablet-max})";
+$tablet_lr_only: "(min-width:#{$tablet-lr-min}) and (max-width:#{$tablet-lr-max})";
+$tablet_hr_only: "(min-width:#{$tablet-hr-min}) and (max-width:#{$tablet-hr-max})";
+$tablet: "(min-width:#{$tablet-lr-min})";
+$tablet_hr: "(min-width:#{$tablet-hr-min})";
+$desktop: "(min-width:#{$desktop})";
+$xl_desktop: "(min-width:#{$xl-desktop})";
+
+// default values
+$color-primary: $bluish-white-1;
+$color-accent: $charcoal-black;
+$color-heading: $matte-black;
+$color-body: $matte-black;
+$color-body-lighter: $gray;
+$color-border: #ccc;
+$border-radius: 30px;
+$sidebar-width-md: 244px;
+$sidebar-width-wd: 335px;
+$error: rgb(128, 3, 3);
+$warning: rgb(189, 189, 10);
+$success: rgb(2, 116, 2);

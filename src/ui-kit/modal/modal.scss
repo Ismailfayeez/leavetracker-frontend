@@ -1,0 +1,80 @@
+@import "../../styles/scss/colors.scss";
+
+.modal {
+  $self: &;
+  overflow: auto;
+  &__overlay {
+    display: flex;
+    background-color: $semi-transparent-black;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 150;
+    padding: 1rem;
+    overflow: auto;
+  }
+  &__container {
+    margin: auto;
+    background-color: white;
+    border-radius: 10px;
+    padding: 1rem;
+    position: relative;
+    width: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    gap: 0.5rem;
+  }
+  &__header {
+    display: flex;
+    align-items: center;
+  }
+  &__body {
+    flex-grow: 1;
+    overflow: auto;
+  }
+  &__close {
+    font-size: 2.5rem;
+    cursor: pointer;
+    margin-left: 1rem;
+  }
+  &.modal-height {
+    &--auto {
+      #{$self}__container {
+        height: auto;
+        min-height: 150px;
+        max-height: 900px;
+      }
+    }
+    &--sm {
+      #{$self}__container {
+        height: 150px;
+      }
+    }
+    &--md {
+      #{$self}__container {
+        height: 400px;
+      }
+    }
+    &--lg {
+      #{$self}__container {
+        height: 600px;
+      }
+    }
+  }
+  &.modal-width {
+    &--sm {
+      #{$self}__container {
+        max-width: 350px;
+      }
+    }
+    &--md {
+      #{$self}__container {
+        max-width: 600px;
+      }
+    }
+  }
+}

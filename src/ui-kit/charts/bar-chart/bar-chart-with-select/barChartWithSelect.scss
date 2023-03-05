@@ -1,0 +1,30 @@
+.bar-chart-with-select {
+  font-size: 1.5rem;
+  overflow: auto;
+  background-color: #f0e0ff;
+  display: flex;
+  flex-direction: column;
+  border-radius: 2rem;
+  width: 100%;
+  padding: 1rem;
+  max-width: 500px;
+  .bar-chart-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    height: 300px;
+    max-width: 500px;
+    min-width: 0;
+  }
+  .bar-chart-input {
+    .select {
+      padding: 0.3rem;
+    }
+  }
+
+  .bar-chart {
+    height: 25rem;
+  }
+}

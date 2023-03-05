@@ -1,0 +1,10 @@
+@import "../../../../styles/scss/global.scss";
+.project {
+  &__main {
+    max-width: 768px;
+    margin: auto;
+    @media #{$tablet-hr} {
+      padding-right: 1rem;
+    }
+  }
+}

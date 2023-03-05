@@ -1,0 +1,62 @@
+.leave-status {
+  $self: &;
+  &.card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    padding: 1rem;
+    width: 100%;
+    max-width: 400px;
+    overflow: hidden;
+    color: black;
+    gap: 1rem;
+    font-size: 1.8rem;
+    margin: auto;
+    #{$self}__info,
+    #{$self}__request-no,
+    #{$self}__range {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    #{$self}__info {
+      flex-grow: 1;
+    }
+
+    #{$self}__range {
+      font-size: 1.5rem;
+    }
+
+    #{$self}__status {
+      font-weight: bold;
+    }
+    #{$self}__delete-icon {
+      margin: 0 1rem;
+    }
+    #{$self}__to-date {
+      margin-left: 0.5rem;
+    }
+    #{$self}__range-arrow {
+      margin-left: 0.5rem;
+    }
+    #{$self}__to-date,
+    #{$self}__from-date {
+      white-space: nowrap;
+    }
+    @media screen and (max-width: 380px) {
+      #{$self}__to-date {
+        margin: 0;
+        display: block;
+      }
+      #{$self}__range-arrow {
+        transform: rotate(90deg);
+      }
+    }
+  }
+  &--blue.card {
+    background-color: #e8faff;
+  }
+  &--red.card {
+    background-color: #ffe8d4;
+  }
+}

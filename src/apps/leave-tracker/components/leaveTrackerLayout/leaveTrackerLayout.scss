@@ -1,0 +1,17 @@
+@import "../../../../styles/scss/variable.scss";
+
+.leaveTrackerLayout{
+    max-width:$md;
+    border-radius: 1rem;
+    margin: auto;
+    height: 100vh;
+    
+}
+
+.leaveTrackerLayout--white-bg{
+    background-color: white;
+}
+.leaveTrackerContent{
+    width:96%;
+    margin:auto
+}

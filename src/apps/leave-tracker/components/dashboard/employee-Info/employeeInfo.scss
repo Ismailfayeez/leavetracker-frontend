@@ -1,0 +1,22 @@
+@import "../../../../../styles/scss/global.scss";
+.employee-info {
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  &--dark {
+    background-color: $bluish-white-2;
+  }
+}
+.leave-balance-graph-container {
+  overflow: hidden;
+}
+.leave-balance-graph {
+  font-size: 1.5rem;
+  height: 250px;
+  max-width: 500px;
+  margin: auto;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}

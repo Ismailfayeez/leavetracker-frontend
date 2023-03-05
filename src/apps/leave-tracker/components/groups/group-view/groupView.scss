@@ -1,0 +1,31 @@
+@import "../../../../../styles/scss/global.scss";
+.group-view {
+  max-width: 100%;
+  &__participants {
+    padding: 1rem;
+    background-color: $bluish-white-1;
+    border-radius: 1rem;
+    margin: 1rem 0;
+    .content {
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      max-height: 400px;
+    }
+
+    @media #{$mobile_only} {
+      max-width: 500px;
+    }
+  }
+  .input {
+    width: 100%;
+  }
+
+  .on-back-icon {
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+  .title {
+    margin: 1rem 0;
+  }
+}

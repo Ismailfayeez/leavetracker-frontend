@@ -1,0 +1,61 @@
+@import "../../../../styles/scss/global.scss";
+.group-detail,
+.group-edit {
+  max-width: 100%;
+  &__participants {
+    padding: 1rem;
+    background-color: $bluish-white-1;
+    border-radius: 1rem;
+    margin: 1rem 0;
+    max-height: 400px;
+    .content {
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      height: 100%;
+    }
+    @media #{$mobile_only} {
+      max-width: 350px;
+    }
+    max-width: 100%;
+
+    &-content {
+      width: 100%;
+      flex-grow: 1;
+      overflow: auto;
+      padding-right: 1rem;
+    }
+  }
+  .input {
+    width: 100%;
+  }
+  // max-width: 600px;
+  // background-color: $bluish-white-1;
+  // padding:1rem;
+  // border-radius: 1rem;
+  .on-back-icon {
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+  .title {
+    margin: 1rem 0;
+  }
+}
+
+.group {
+  &-items-container {
+    display: grid;
+    gap: 1rem;
+    @media #{$tablet} {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+.my-groups {
+  .add-icon {
+    font-size: 2rem;
+    @media #{$tablet} {
+      font-size: 1.6rem;
+    }
+  }
+}

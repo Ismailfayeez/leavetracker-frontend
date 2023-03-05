@@ -1,0 +1,14 @@
+.approval-leave-info {
+  .leave-dates {
+    &__body {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
+      gap: 1rem;
+    }
+    &__item {
+      justify-self: self-start;
+      align-self: center;
+      width: 90px;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+@import "../../../../../styles/scss/global.scss";
+.request-success {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  text-align: center;
+  .success-tick {
+    color: $success;
+    margin-right: 0.5rem;
+  }
+}

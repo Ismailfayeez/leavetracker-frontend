@@ -1,0 +1,30 @@
+.project.card {
+  max-width: 350px;
+}
+.project.card .card__body {
+  display: flex;
+  flex-direction: column;
+}
+.project.card .project__logo {
+  align-items: center;
+  align-self: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  height: 5rem;
+  justify-content: center;
+  margin: 1rem;
+  width: 5rem;
+}
+.project.card .project__title,
+.project.card .project__description {
+  text-align: center;
+  white-space: nowrap;
+}
+.project.card .project__title {
+  font-weight: bold;
+}
+.project.card .project__description {
+  font-size: 1.5rem;
+}/*# sourceMappingURL=projectCard.css.map */

@@ -1,0 +1,23 @@
+.leave-request {
+  $self: &;
+  &.card {
+    #{$self}__to,
+    #{$self}__from {
+      white-space: nowrap;
+    }
+    #{$self}__to,
+    .range-arrow {
+      margin-left: 0.5rem;
+    }
+
+    @media screen and (max-width: 380px) {
+      #{$self}__to {
+        margin: 0;
+        display: block;
+      }
+      .range-arrow {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+@import "../../../styles/scss/colors.scss";
+
+.approverCard {
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  padding: 0.5rem 1rem;
+  max-width: 500px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: black;
+}
+.approverCardContent {
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.approverCard__name {
+  white-space: nowrap;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.approverCard__email {
+  font-size: 1.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.approver-card--theme-bluish-white {
+  background-color: rgb(234, 247, 248);
+}
+.approver-card--theme-pink {
+  background-color: $pink;
+}
+.approver-card--theme-green {
+  background-color: $pista-green;
+}
+.approver-card--theme-coral {
+  background-color: $coral;
+}

@@ -1,0 +1,27 @@
+@import "../../styles/scss/colors.scss";
+@import "../../styles/scss/variable.scss";
+
+.searchBar {
+  width: 100%;
+  border: 1px solid $gray;
+  border-radius: 30px;
+  display: flex;
+  overflow: hidden;
+  padding: 0 10px;
+  align-items: center;
+  .searchBar__input {
+    border: 0;
+    flex-grow: 1;
+    padding: 0.5rem;
+    width: 0;
+    outline: 0;
+    height: 4rem;
+  }
+  .searchBar__icon {
+    margin: 0.5rem;
+    display: inline-flex;
+    width: 2rem;
+    height: 2rem;
+    color: grey;
+  }
+}

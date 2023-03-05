@@ -1,0 +1,11 @@
+@import "../../../../styles/scss/global.scss";
+.my-projects {
+  &__list-container {
+    @media #{$tablet} {
+      grid-template-columns: 1fr 1fr;
+    }
+    @media #{$tablet-hr} {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+}

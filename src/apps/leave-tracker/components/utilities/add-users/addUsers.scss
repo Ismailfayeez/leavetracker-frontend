@@ -1,0 +1,20 @@
+.add-users {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  &__header {
+    margin-bottom: 1rem;
+  }
+  .on-back-icon {
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+  .title {
+    margin: 0;
+  }
+  .selected-badge {
+    display: inline-block;
+    margin: 0.5rem 0;
+    font-size: 1.6rem;
+  }
+}

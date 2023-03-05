@@ -1,0 +1,13 @@
+@import "../../../../../styles/scss/colors.scss";
+.card {
+  &.leaveBalance {
+    display: flex;
+    flex-direction: column;
+    background-color: $ice-blue;
+    height: 100%;
+    .card__content {
+      flex-grow: 1;
+      overflow: auto;
+    }
+  }
+}

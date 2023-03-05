@@ -1,0 +1,12 @@
+.project-section-item.card {
+  .employee {
+    &__name {
+      font-size: 1.8rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    &__email {
+      font-size: 1.5rem;
+    }
+  }
+}

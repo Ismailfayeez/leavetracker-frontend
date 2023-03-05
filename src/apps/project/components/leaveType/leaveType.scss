@@ -1,0 +1,12 @@
+.project-section-item.card {
+  .leave-type {
+    &__code {
+      font-size: 1.8rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    &__name {
+      font-size: 1.5rem;
+    }
+  }
+}

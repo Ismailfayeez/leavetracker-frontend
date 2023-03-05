@@ -1,0 +1,14 @@
+.absentee {
+  &.card {
+    .icon-container {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      margin-right: 5px;
+      overflow: hidden;
+    }
+  }
+  &__name {
+    font-weight: bold;
+  }
+}

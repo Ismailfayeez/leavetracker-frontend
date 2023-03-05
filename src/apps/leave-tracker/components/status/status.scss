@@ -1,0 +1,17 @@
+@import "../../../../styles/scss/global.scss";
+.leave-status {
+  height: 100%;
+  &__info {
+    .leave-dates {
+      &__body {
+        display: flex;
+        gap: 1rem;
+      }
+      &__item {
+        justify-self: self-start;
+        align-self: center;
+        width: 90px;
+      }
+    }
+  }
+}

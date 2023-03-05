@@ -1,0 +1,40 @@
+@import "../../styles/scss/global.scss";
+
+.calendar-picker {
+  &.week {
+    font-size: 1.5rem;
+    max-width: 650px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__dates {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+  }
+  &__date {
+    padding: 0.7rem;
+    border-radius: 10px;
+    text-align: center;
+  }
+  &__date-active {
+    background-color: rgba(17, 17, 17, 0.925);
+    font-weight: bold;
+    color: white;
+  }
+  &__prev-arrow-btn,
+  &__next-arrow-btn {
+    font-size: 2rem;
+    margin: 0 2rem;
+    cursor: pointer;
+    @media #{$mobile_only} {
+      display: none;
+    }
+  }
+  &__prev-arrow-btn {
+    transform: rotate(180deg);
+  }
+}

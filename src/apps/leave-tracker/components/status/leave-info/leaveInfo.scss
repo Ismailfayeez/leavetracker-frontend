@@ -1,0 +1,14 @@
+.leave-info {
+  .leave-dates {
+    &__body {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    &__item {
+      justify-self: self-start;
+      align-self: center;
+      width: 90px;
+    }
+  }
+}
