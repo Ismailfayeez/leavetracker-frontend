@@ -23,7 +23,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "../styles/scss/global.scss";
 import Accounts from "../apps/leave-tracker/components/accounts/Accounts";
 import ApiErrorModal from "../ui-kit/api-error-modal/ApiErrorModal";
-import PlayGround from "../playground/PlayGround";
 import Project from "../apps/project/components/project/Project";
 import { handleLogout } from "../utilities/authMethods";
 import MyProfile from "../apps/auth/components/my-profile/MyProfile";
@@ -33,6 +32,8 @@ import { LEAVETRACKER_APP_PERMISSIONS } from "../apps/leave-tracker/leaveTracker
 import EnvError from "../ui-kit/env-error/EnvError";
 import ProtectedRoute from "../apps/auth/utilities/authentication/ProtectedRoute";
 import useErrorHandler from "../utilities/hooks/useErrorHandler";
+import { motion as m, AnimatePresence } from "framer-motion";
+import FloatingSideBar from "../ui-kit/floating-side-bar/FloatingSideBar";
 function ParentComponent(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -73,7 +74,6 @@ function ParentComponent(props) {
   useEffect(() => {
     fetchCurrentUserData();
   }, []);
-
   return (
     <div
       className={`parent-component page-layout ${isAuthRoute ? "bg-auth" : ""}`}
@@ -89,21 +89,14 @@ function ParentComponent(props) {
       <main className="page-layout__main flex overflow-auto">
         {currentUser.email && (
           <section className="sidebar-section">
-            <div
-              className={`floating-side-bar-overlay ${
-                displayFloatingSidebar ? "" : "display-none"
-              }`}
-              onClick={handleDisplayFloatingSideBar}
-            ></div>
-            <div
-              className={`floating-side-bar-container ${
-                displayFloatingSidebar ? "" : "hide"
-              }`}
-            >
-              <UserMedia />
-              <SideBarNav appNavData={appNavData} />
+            <div className="display--mobile-tablet-hr-only">
+              <FloatingSideBar
+                displayFloatingSideBar={displayFloatingSidebar}
+                setDisplayFloatingSideBar={setDisplayFloatingSideBar}
+                appNavData={appNavData}
+              />
             </div>
-            <div className="side-bar-container">
+            <div className="display--desktop">
               <SideBarNav appNavData={appNavData} />
             </div>
           </section>

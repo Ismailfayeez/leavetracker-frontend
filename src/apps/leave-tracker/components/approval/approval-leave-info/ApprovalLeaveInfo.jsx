@@ -74,7 +74,7 @@ function ApprovalLeaveInfo(props) {
           <div className="flex flex--center flex-wrap btn-container btn-items-grow">
             {renderButton({
               content: "accept",
-              className: "btn--md btn--matte-black",
+              className: "btn--md btn--brown",
               onClick: () => {
                 setApproverStatus("A");
                 openDisplayConfirmationModal();

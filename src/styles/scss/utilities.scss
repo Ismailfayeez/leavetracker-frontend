@@ -533,15 +533,23 @@ ul {
       display: block;
     }
   }
+  &--tablet {
+    @media #{$mobile_only} {
+      display: none;
+    }
+  }
+  &--tablet-hr {
+    @media #{$mobile_only} {
+      display: none;
+    }
+    @media #{$tablet_lr_only} {
+      display: none;
+    }
+  }
   &--tablet-only {
     display: none;
     @media #{$tablet_only} {
       display: block;
-    }
-  }
-  &--mobile-tablet-lr-only {
-    @media #{$tablet_hr} {
-      display: none;
     }
   }
   &--tablet-lr-only {
@@ -556,28 +564,17 @@ ul {
       display: block;
     }
   }
-  &--mobile-tablet-lr {
-    display: none;
-    @media #{$mobile_only} {
-      display: block;
-    }
-    @media #{$tablet_lr_only} {
-      display: block;
-    }
-  }
-  &--tablet {
-    @media #{$mobile_only} {
+  &--mobile-tablet-lr-only {
+    @media #{$tablet_hr} {
       display: none;
     }
   }
-  &--tablet-hr {
-    @media #{$mobile_only} {
-      display: none;
-    }
-    @media #{$tablet_lr_only} {
+  &--mobile-tablet-hr-only {
+    @media #{$desktop} {
       display: none;
     }
   }
+
   &--desktop {
     @media #{$mobile_only} {
       display: none;

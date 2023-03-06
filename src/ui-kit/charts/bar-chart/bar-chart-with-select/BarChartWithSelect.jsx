@@ -25,6 +25,7 @@ function BarChartWithSelect(props) {
     label,
     select,
     graph: { data, defaultMsg, isLoading },
+    ...otherProps
   } = props;
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setCurrentPageSize] = useState(4);
@@ -36,7 +37,7 @@ function BarChartWithSelect(props) {
     setCurrentPage(1);
   }, [data]);
   return (
-    <div className={`bar-chart-with-select ${className || ""}`}>
+    <div className={`bar-chart-with-select ${className || ""}`} {...otherProps}>
       <label
         className="bold"
         style={{ fontSize: "1.8rem", paddingBottom: "0.5rem" }}

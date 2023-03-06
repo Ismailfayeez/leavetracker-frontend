@@ -35,11 +35,9 @@ function NavBar(props) {
   useEffect(() => {
     console.log("displayUserDropdown", displayUserDropdown);
     if (displayUserDropdown) {
-      console.log("mounted");
       document.addEventListener("click", handleClickOutside);
     }
     if (!displayUserDropdown) {
-      console.log("unmounted");
       document.removeEventListener("click", handleClickOutside);
     }
   }, [displayUserDropdown]);
@@ -94,7 +92,10 @@ function NavBar(props) {
             <FontAwesomeIcon
               icon={faBars}
               className="navbar__bars"
-              onClick={props.handleDisplayFloatingSideBar}
+              onClick={(e) => {
+                e.stopPropagation();
+                props.handleDisplayFloatingSideBar();
+              }}
             />
           </div>
         </section>

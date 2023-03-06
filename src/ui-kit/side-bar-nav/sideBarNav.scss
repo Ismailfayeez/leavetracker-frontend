@@ -1,3 +1,17 @@
+@import "../../styles/scss/global.scss";
+
+@mixin side-bar-container-mixin {
+  overflow-y: auto;
+  width: $sidebar-width-md;
+  @media #{$xl_desktop} {
+    width: $sidebar-width-wd;
+  }
+}
+
+.side-bar-container {
+  @include side-bar-container-mixin;
+}
+
 .sidebar-nav {
   &__content {
     display: flex;

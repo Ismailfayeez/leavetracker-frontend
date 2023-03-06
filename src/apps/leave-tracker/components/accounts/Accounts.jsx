@@ -55,11 +55,10 @@ function Accounts(props) {
     <div>
       <Modal
         open={displayModal}
-        handleClose={() => setDisplayModal(false)}
+        handleClose={() => navigate("/my-profile", { replace: true })}
         title="My Accounts"
         height="md"
         width="sm"
-        disableClose={true}
       >
         {isLoading && (
           <div style={{ height: "100%" }}>

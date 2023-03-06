@@ -8,6 +8,7 @@ import {
 import useValidator from "../../../../utilities/useValidator";
 import { COUNTRY_URL, TIMEZONE_URL } from "../../apiConstants";
 import { loadUtils, login, signup } from "../../store/userProfile";
+import { Link } from "react-router-dom";
 import signupSchema from "./signup.schema";
 
 function SignUp(props) {
@@ -73,6 +74,9 @@ function SignUp(props) {
   const timeZoneOptions = timeZones.data[data.country] || [];
   return (
     <div className="content-area login">
+      <div className="flex flex--center" style={{ margin: "1rem 0" }}>
+        Already have an account? &nbsp;<Link to="/auth/login">Log in</Link>
+      </div>
       <header>
         <h3 className="header"> Sign up</h3>
       </header>

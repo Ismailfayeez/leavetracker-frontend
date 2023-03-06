@@ -1,0 +1,17 @@
+@mixin side-bar-container-mixin {
+  overflow-y: auto;
+  width: $sidebar-width-md;
+  @media #{$xl_desktop} {
+    width: $sidebar-width-wd;
+  }
+}
+
+.side-bar-container {
+  @include side-bar-container-mixin;
+  @media #{$mobile_only} {
+    display: none;
+  }
+  @media #{$tablet_only} {
+    display: none;
+  }
+}
