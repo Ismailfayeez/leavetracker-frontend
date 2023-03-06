@@ -54,7 +54,7 @@ export const useProjectSectionView = (sectionConstants, sectionId) => {
       methodType == "close" ? "closed" : "deleted"
     }
   ${" "} successfully`;
-    toast.success(toastMessage);
+    toast.success(<span className="toast-msg">{toastMessage}</span>);
   };
   const handleDelete = () => handleRemoveData();
   const handleClose = () => handleRemoveData("close");

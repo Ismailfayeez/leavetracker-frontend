@@ -40,7 +40,9 @@ function MyProfile({ handleLogoutUser }) {
   }, []);
   const handleEditSuccess = () => {
     setdisplayEditProfileModal(false);
-    toast.success("your profile edited successfully");
+    toast.success(
+      <span className="toast-msg">{"your profile edited successfully"}</span>
+    );
   };
 
   return (
