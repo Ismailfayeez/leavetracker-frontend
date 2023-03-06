@@ -61,7 +61,9 @@ function GroupView(props) {
       await dispatch(deleteGroup({ baseUrl: MY_TEAM_URL, id: groupId }));
       closeModal();
       navigate("/lt/groups", { replace: true });
-      toast.success("group deleted successfully");
+      toast.success(
+        <span className="toast-msg">{"group deleted successfully"}</span>
+      );
     } catch (err) {
       console.log(err);
     }

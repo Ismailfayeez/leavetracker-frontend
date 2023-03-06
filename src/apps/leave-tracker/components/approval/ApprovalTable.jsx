@@ -8,6 +8,8 @@ import LeaveRequestCard from "../../../../ui-kit/cards/apps/leavetracker/leave-r
 import Table from "../../../../ui-kit/Table/Table";
 import Pagination from "../../../../ui-kit/pagination/Pagination";
 import { paginate } from "../../../../utilities/paginate";
+import { motion as m } from "framer-motion";
+import { listVariant } from "../../../../utilities/AnimateVariants";
 
 function ApprovalTable({ data, ...others }) {
   const [{ openModal, moveToNextNav }] = useModalNav(ModalNavContext);
@@ -31,13 +33,20 @@ function ApprovalTable({ data, ...others }) {
       <div className="display-mobile-only">
         <div className="grid grid-gap-10px grid--1x2 grid--tablet">
           {paginatedData.map((leave) => (
-            <LeaveRequestCard
-              leave={leave}
-              handleRequest={handleInfoModal}
-              handleStatus={handleApproverStatusModal}
-              className="card--desert"
-              {...others}
-            />
+            <m.div
+              variants={listVariant}
+              layout
+              initial="hidden"
+              animate="visible"
+            >
+              <LeaveRequestCard
+                leave={leave}
+                handleRequest={handleInfoModal}
+                handleStatus={handleApproverStatusModal}
+                className="card--desert"
+                {...others}
+              />
+            </m.div>
           ))}
         </div>
       </div>

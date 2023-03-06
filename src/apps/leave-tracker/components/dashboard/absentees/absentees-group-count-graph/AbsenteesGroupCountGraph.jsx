@@ -32,11 +32,11 @@ function AbsenteesGroupCountGraph({ date }) {
       <text
         x={x}
         y={y}
-        fill="black"
+        fill="white"
         textAnchor={x > cx ? "start" : "end"}
         dominantBaseline="central"
       >
-        {data[index]["name"]} - {data[index]["value"]}
+        {data[index]["value"]}
       </text>
     );
   };
@@ -48,33 +48,48 @@ function AbsenteesGroupCountGraph({ date }) {
     "#2e84a7",
     "#87ccdb",
   ];
+
   return (
-    <div
-      className="absentees__group-count-graph"
-      style={{ fontSize: "1.6rem" }}
-    >
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-          <Pie
-            data={data}
-            cx="50%"
-            cy="50%"
-            labelLine={false}
-            label={renderCustomizedLabel}
-            outerRadius="100%"
-            fill="#8884d8"
-            dataKey="value"
-          >
-            {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
-        </PieChart>
-      </ResponsiveContainer>
-    </div>
+    <>
+      <div
+        className="absentees__group-count-graph"
+        style={{ fontSize: "1.6rem" }}
+      >
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+            <Pie
+              data={data}
+              cx="50%"
+              cy="50%"
+              labelLine={false}
+              label={renderCustomizedLabel}
+              outerRadius="100%"
+              fill="#8884d8"
+              dataKey="value"
+            >
+              {data.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="piechart-label-container">
+        {data.map(({ name }, index) => (
+          <span style={{ whiteSpace: "nowrap", display: "inline-block" }}>
+            <span
+              className="circle"
+              style={{ background: COLORS[index] }}
+            ></span>{" "}
+            {name}
+            {index + 1 < data.length && ","}&nbsp;
+          </span>
+        ))}
+      </div>
+    </>
   );
 }
 

@@ -12,7 +12,9 @@ function AppNav({ appNavData }) {
           {appNavData.navList.map((item) => (
             <li
               className={`app-nav__list-item ${
-                location.pathname.startsWith("/" + item.path)
+                location.pathname.startsWith(
+                  "/" + (item.activePath || item.path)
+                )
                   ? "app-nav__list-item--active"
                   : ""
               }`}

@@ -4,11 +4,13 @@ import LeaveRequestCard from "../../../../ui-kit/cards/apps/leavetracker/leave-r
 import NoResult from "../../../../ui-kit/no-result/NoResult";
 import Pagination from "../../../../ui-kit/pagination/Pagination";
 import Table from "../../../../ui-kit/Table/Table";
+import { listVariant } from "../../../../utilities/AnimateVariants";
 import { ModalNavContext } from "../../../../utilities/context/ModalNavContext";
 import { useModalNav } from "../../../../utilities/hooks/useModalNav";
 import { paginate } from "../../../../utilities/paginate";
 import { leaveTrackerModalNames } from "../../leaveTracker.constants";
 import getLeaveTableColumns from "./tableColumns";
+import { motion as m } from "framer-motion";
 
 function LeaveTable({ data, ...others }) {
   const [{ openModal, moveToNextNav }] = useModalNav(ModalNavContext);
@@ -31,7 +33,12 @@ function LeaveTable({ data, ...others }) {
       <div className="display-mobile-only">
         <div className="grid grid-gap-10px grid--1x2 grid--tablet">
           {paginatedData.map((leave) => (
-            <>
+            <m.div
+              variants={listVariant}
+              layout
+              initial="hidden"
+              animate="visible"
+            >
               <LeaveRequestCard
                 leave={leave}
                 handleRequest={handleInfoModal}
@@ -39,7 +46,7 @@ function LeaveTable({ data, ...others }) {
                 className="card--purple"
                 {...others}
               />
-            </>
+            </m.div>
           ))}
         </div>
       </div>

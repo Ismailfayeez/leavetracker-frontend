@@ -6,6 +6,8 @@ import Absentees from "./absentees/Absentees";
 import AbsenteesGroupLevelAnalysis from "./absentees/absentees-group-level-analysis/AbsenteesGroupLevelAnalysis";
 import { useSelector } from "react-redux";
 import { getLastName } from "../../../../utilities/helper";
+import { motion as m } from "framer-motion";
+import { pageVariant } from "../../../../utilities/AnimateVariants";
 
 function Dashboard(props) {
   const currentUser = useSelector(
@@ -13,7 +15,12 @@ function Dashboard(props) {
   );
   const lastName = getLastName(currentUser.username);
   return (
-    <div className="dashboard page-layout">
+    <m.div
+      className="dashboard page-layout"
+      variants={pageVariant}
+      initial="hidden"
+      animate="visible"
+    >
       <header>
         <h3 className="page-layout__header">Hello, {lastName}</h3>
       </header>
@@ -22,7 +29,7 @@ function Dashboard(props) {
         <EmployeeInfo />
         <AbsenteesGroupLevelAnalysis />
       </main>
-    </div>
+    </m.div>
   );
 }
 

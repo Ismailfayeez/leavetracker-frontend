@@ -23,7 +23,7 @@ function ConfirmationModalContent({
         {renderButton({
           content: "cancel",
           onClick: handleCancel,
-          className: " btn--md btn--matte-black",
+          className: " btn--md btn--matte-black-outline",
         })}
       </div>
     </div>

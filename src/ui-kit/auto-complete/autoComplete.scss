@@ -12,7 +12,7 @@
     background-color: white;
     max-height: 15rem;
     overflow: auto;
-    z-index: 5;
+    z-index: 1000000;
     padding: 0.5rem;
     &:empty {
       display: none;

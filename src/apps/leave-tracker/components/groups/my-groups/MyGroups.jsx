@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { sliceFirstLettersOfSentence } from "../../../../../utilities/helper";
-import { renderButton } from "../../../../../utilities/uiElements";
 import { MY_TEAM_URL } from "../../../apiConstants";
 import {
   leaveTrackerModalNames,
@@ -19,6 +16,8 @@ import { ModalNavContext } from "../../../../../utilities/context/ModalNavContex
 import "../groups.scss";
 import AddButton from "../../../../../ui-kit/button/add-button/AddButton";
 import { ReactComponent as AddTasksImg } from "../../../../../assets/images/add-tasks.svg";
+import { motion as m } from "framer-motion";
+import { listVariant } from "../../../../../utilities/AnimateVariants";
 function MyGroups(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -66,11 +65,20 @@ function MyGroups(props) {
       </div>
       <div className="group-items-container">
         {groups.list.map((group, index) => (
-          <GroupCard
-            className="card--grey-paste"
-            group={group}
-            handleGroupName={() => navigate(`${myGroupsPathName}/${group.id}`)}
-          />
+          <m.div
+            variants={listVariant}
+            layout
+            initial="hidden"
+            animate="visible"
+          >
+            <GroupCard
+              className="card--grey-paste"
+              group={group}
+              handleGroupName={() =>
+                navigate(`${myGroupsPathName}/${group.id}`)
+              }
+            />
+          </m.div>
         ))}
       </div>
     </div>

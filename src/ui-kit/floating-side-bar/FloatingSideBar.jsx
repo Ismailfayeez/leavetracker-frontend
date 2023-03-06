@@ -3,6 +3,10 @@ import SideBarNav from "../side-bar-nav/SideBarNav";
 import UserMedia from "../user-media/UserMedia";
 import { motion as m, AnimatePresence } from "framer-motion";
 import "./floatingSideBar.scss";
+import {
+  floatingSideBarVariant,
+  overlayVariant,
+} from "../../utilities/AnimateVariants";
 
 function FloatingSideBar({
   displayFloatingSideBar,
@@ -29,14 +33,24 @@ function FloatingSideBar({
     <AnimatePresence>
       {displayFloatingSideBar && (
         <>
-          <div className="floating-side-bar-overlay"></div>
-          <div
+          <m.div
+            variants={overlayVariant}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            className="floating-side-bar-overlay"
+          ></m.div>
+          <m.div
+            variants={floatingSideBarVariant}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
             className="floating-side-bar-container"
             onClick={(e) => e.stopPropagation()}
           >
             <UserMedia />
             <SideBarNav appNavData={appNavData} />
-          </div>
+          </m.div>
         </>
       )}
     </AnimatePresence>

@@ -25,7 +25,6 @@ export const appNavData = [
     header: "leavetracker",
     navList: [
       { name: "dashboard", path: "lt/dashboard", icon: mdiViewDashboard },
-      // { name: "request", path: "lt/request", icon: mdiFormSelect },
       { name: "My Leaves", path: "lt/status", icon: mdiListStatus },
       { name: "approval", path: "lt/approval", icon: mdiCheckDecagramOutline },
       { name: "groups", path: "lt/groups", icon: mdiAccountGroup },
@@ -39,6 +38,7 @@ export const appNavData = [
       {
         name: "my projects",
         path: "project/my-projects",
+        activePath: "project",
         icon: mdiOfficeBuildingOutline,
       },
     ],

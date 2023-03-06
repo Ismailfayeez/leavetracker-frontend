@@ -27,7 +27,9 @@ function Index({ setDisplayModal }) {
     if (error) return;
     try {
       await dispatch(createMyProject(MY_PROJECTS_URL, data));
-      toast.success(`Project ${data.name} added successfully`);
+      toast.success(
+        <span className="toast-msg">{`Project ${data.name} added successfully`}</span>
+      );
     } catch (err) {}
     setDisplayModal(false);
   };

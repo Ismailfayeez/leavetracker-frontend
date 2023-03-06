@@ -21,7 +21,9 @@ function AddApprovers(props) {
     try {
       await dispatch(addApprovers({ baseUrl: APPROVER_URL, data: approvers }));
       closeModal();
-      toast.success("Approvers updated successfully");
+      toast.success(
+        <span className="toast-msg">{`Approvers updated successfully"`}</span>
+      );
     } catch (err) {
       console.log(err);
     }

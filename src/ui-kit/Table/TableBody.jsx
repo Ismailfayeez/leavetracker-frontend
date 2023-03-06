@@ -1,5 +1,7 @@
 import React from "react";
 import _ from "lodash";
+import { motion as m, AnimatePresence } from "framer-motion";
+import { listVariant } from "../../utilities/AnimateVariants";
 
 function TableBody({ data, columns }) {
   const renderCell = (item, column, index) => {
@@ -8,19 +10,28 @@ function TableBody({ data, columns }) {
   };
 
   const createKey = (item, column) => {
-    return item._id + (column.path || column.key);
+    console.log(item, column);
+    return item.id + (column.path || column.key);
   };
   return (
     <tbody>
-      {data.map((item, index) => (
-        <tr key={item._id}>
-          {columns.map((column) => (
-            <td key={createKey(item, column)} className={column.className}>
-              {renderCell(item, column, index)}
-            </td>
-          ))}
-        </tr>
-      ))}
+      <AnimatePresence>
+        {data.map((item, index) => (
+          <m.tr
+            key={item.id}
+            variants={listVariant}
+            layout
+            initial="hidden"
+            animate="visible"
+          >
+            {columns.map((column) => (
+              <td key={createKey(item, column)} className={column.className}>
+                {renderCell(item, column, index)}
+              </td>
+            ))}
+          </m.tr>
+        ))}
+      </AnimatePresence>
     </tbody>
   );
 }

@@ -43,7 +43,7 @@ function Employee(props) {
     },
     {
       label: "info",
-      path: "username",
+      key: "info-username",
       content: (employee) => (
         <>
           <div

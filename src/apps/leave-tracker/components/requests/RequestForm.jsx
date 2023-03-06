@@ -21,7 +21,6 @@ function RequestForm(props) {
     leaveList,
     dropDownOptions,
     optionKeys,
-    openLeaveBalanceModal,
     handleChange,
     handleBlur,
     handleSelect,

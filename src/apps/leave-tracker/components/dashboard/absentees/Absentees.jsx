@@ -33,7 +33,11 @@ import { loadGroups } from "../../../store/groups";
 import Pagination from "../../../../../ui-kit/pagination/Pagination";
 import { paginate } from "../../../../../utilities/paginate";
 import { ReactComponent as EngineeringTeamImg } from "../../../../../assets/images/engineering-team.svg";
-
+import {
+  overlayVariant,
+  pageVariant,
+} from "../../../../../utilities/AnimateVariants";
+import { motion as m, AnimatePresence } from "framer-motion";
 function Absentees(props) {
   const currentDate = moment();
   const [date, setDate] = useState(currentDate.format("YYYY-MM-DD"));
@@ -122,7 +126,7 @@ function Absentees(props) {
       {subscribedGroups.length ? (
         <div className="absentees">
           <h4 className="absentees__selected-date">
-            {moment(date).format("Do MMMM")}
+            Absentees as of {moment(date).format("Do MMMM")}
           </h4>
           <div className="flex flex--column gap--1rem">
             <div className="flex flex--center">
@@ -138,14 +142,27 @@ function Absentees(props) {
             {isLoading && <LoadingScreen />}
             {!isLoading &&
               (data[date] && data[date].length <= 0 ? (
-                <NoResult
-                  statement={"No absentees found"}
-                  illustration={EngineeringTeamImg}
-                />
+                <m.div
+                  variants={pageVariant}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                >
+                  <NoResult
+                    statement={"No absentees found"}
+                    illustration={EngineeringTeamImg}
+                  />
+                </m.div>
               ) : (
                 data[date] &&
                 data[date].length > 0 && (
-                  <div className="grid grid--1x2-6fr-4fr grid--tablet gap--1rem">
+                  <m.div
+                    className="grid grid--1x2-6fr-4fr grid--tablet gap--1rem"
+                    variants={pageVariant}
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                  >
                     <div className="absentees__list">
                       <SearchBar placeholder="search by name or group" />
                       <p className="absentees__count">
@@ -172,7 +189,6 @@ function Absentees(props) {
                       />
                     </div>
                     <div className="absentees-group-count-graph-container">
-                      <AbsenteesGroupCountGraph date={date} />
                       <label
                         style={{
                           textAlign: "center",
@@ -181,10 +197,11 @@ function Absentees(props) {
                           // fontWeight: "bold",
                         }}
                       >
-                        absentees group by count
+                        Absentees group by count
                       </label>
+                      <AbsenteesGroupCountGraph date={date} />
                     </div>
-                  </div>
+                  </m.div>
                 )
               ))}
           </div>

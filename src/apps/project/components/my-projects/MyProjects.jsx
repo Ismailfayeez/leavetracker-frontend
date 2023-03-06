@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  projectGlobalModalNav,
   PROJECT_APP_PERMISSIONS,
   PROJECT_SECTION_LABELS,
 } from "../../project.constants";
@@ -11,6 +10,8 @@ import AddButton from "../../../../ui-kit/button/add-button/AddButton";
 import Index from "../createProject/Index";
 import Modal from "../../../../ui-kit/modal/Modal";
 import { useState } from "react";
+import { motion as m } from "framer-motion";
+import { pageVariant } from "../../../../utilities/AnimateVariants";
 function MyProjects(props) {
   const myProjects = useSelector((state) => state.entities.projects.myProjects);
   const [displayCreateProjectModal, setDisplayCreateProjectModal] =
@@ -24,7 +25,12 @@ function MyProjects(props) {
       .map((item) => item.code)
       .includes(PROJECT_APP_PERMISSIONS.CREATE_PROJECT);
   return (
-    <div className="my-projects full-height page-layout gap--1rem">
+    <m.div
+      className="my-projects full-height page-layout gap--1rem"
+      variants={pageVariant}
+      initial="hidden"
+      animate="visible"
+    >
       {displayCreateProjectModal && (
         <Modal
           open={displayCreateProjectModal}
@@ -52,7 +58,7 @@ function MyProjects(props) {
           setDisplayCreateProjectModal={setDisplayCreateProjectModal}
         />
       </main>
-    </div>
+    </m.div>
   );
 }
 

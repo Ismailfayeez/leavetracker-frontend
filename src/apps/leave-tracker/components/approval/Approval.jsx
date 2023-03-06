@@ -1,23 +1,17 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  approvalReceived,
-  loadApprovalData,
-  updateApproval,
-} from "../../store/approval";
+import { loadApprovalData } from "../../store/approval";
 import { useState } from "react";
 import ApprovalTable from "./ApprovalTable";
 import TabItems from "../../../../ui-kit/tab-items/TabItems";
 import {
-  Accepted,
-  Rejected,
-  Pending,
   LEAVETRACKER_SECTION_LABELS,
   LEAVETRACKER_SECTION_NAMES,
 } from "../../leaveTracker.constants";
 import { APPROVAL_URL } from "../../apiConstants";
-import moment from "moment";
 import LoadingScreen from "../../../../ui-kit/loading/loadingScreen/LoadingScreen";
+import { motion as m } from "framer-motion";
+import { pageVariant } from "../../../../utilities/AnimateVariants";
 
 function Approval(props) {
   const { newApproval, actionedApproval, previousApproval } =
@@ -81,7 +75,12 @@ function Approval(props) {
   if (isLoading) return <LoadingScreen />;
 
   return (
-    <div className="approval page-layout">
+    <m.div
+      className="approval page-layout"
+      variants={pageVariant}
+      initial="hidden"
+      animate="visible"
+    >
       <header className="page-layout__header">
         <h3>Approvals</h3>
       </header>
@@ -108,7 +107,7 @@ function Approval(props) {
           />
         )}
       </main>
-    </div>
+    </m.div>
   );
 }
 

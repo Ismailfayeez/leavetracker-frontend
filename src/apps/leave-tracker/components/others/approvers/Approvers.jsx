@@ -10,6 +10,8 @@ import { useModalNav } from "../../../../../utilities/hooks/useModalNav";
 import { useState } from "react";
 import AddButton from "../../../../../ui-kit/button/add-button/AddButton";
 import { ReactComponent as AddTasksImg } from "../../../../../assets/images/add-tasks.svg";
+import { motion as m } from "framer-motion";
+import { listVariant } from "../../../../../utilities/AnimateVariants";
 function Approvers(props) {
   const dispatch = useDispatch();
   const [{ openModal, moveToNextNav }] = useModalNav(ModalNavContext);
@@ -58,12 +60,19 @@ function Approvers(props) {
         <div className="grid grid--1x2 gap--1rem grid--tablet">
           {approvers.length > 0 &&
             approvers.map((approver) => (
-              <ApproverCard
-                approver={approver}
-                enableRemoveBtn={true}
-                handleRemove={() => handleRemoveApprover(approver.id)}
-                loading={loadingId == approver.id}
-              />
+              <m.div
+                variants={listVariant}
+                layout
+                initial="hidden"
+                animate="visible"
+              >
+                <ApproverCard
+                  approver={approver}
+                  enableRemoveBtn={true}
+                  handleRemove={() => handleRemoveApprover(approver.id)}
+                  loading={loadingId == approver.id}
+                />
+              </m.div>
             ))}
         </div>
       </main>

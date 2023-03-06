@@ -564,7 +564,7 @@ ul {
       display: block;
     }
   }
-  &--mobile-tablet-lr-only {
+  &--mobile-tablet-lr {
     @media #{$tablet_hr} {
       display: none;
     }
@@ -853,4 +853,11 @@ canvas {
 }
 .bg--pale-green {
   background-color: #e0ecde !important;
+}
+
+.circle {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
 }

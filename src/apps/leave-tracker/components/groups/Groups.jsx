@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import TabItems from "../../../../ui-kit/tab-items/TabItems";
 import AllGroups from "./all-groups/AllGroups";
 import MyGroups from "./my-groups/MyGroups";
-
+import { motion as m } from "framer-motion";
+import { pageVariant } from "../../../../utilities/AnimateVariants";
 function Groups(props) {
   const [currentTab, setCurrentTab] = useState("myGroups");
   const tabItems = [
@@ -16,7 +17,12 @@ function Groups(props) {
     },
   ];
   return (
-    <div className="groups page-layout">
+    <m.div
+      className="groups page-layout"
+      variants={pageVariant}
+      initial="hidden"
+      animate="visible"
+    >
       <header className="page-layout__header">
         <h3>Groups</h3>
       </header>
@@ -42,7 +48,7 @@ function Groups(props) {
         {currentTab == "myGroups" && <MyGroups />}
         {currentTab == "allGroups" && <AllGroups />}
       </main>
-    </div>
+    </m.div>
   );
 }
 

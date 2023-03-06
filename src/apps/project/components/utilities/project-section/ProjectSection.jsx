@@ -51,18 +51,20 @@ function ProjectSection({
               <span className="count">{data.length}</span> total results
             </p>
           )}
-        </div>
+        </div>{" "}
         {isLoading && <LoadingScreen />}
         {!isLoading && (
           <div className="project-section__data-list">
             {searchQuery && data.length <= 0 && <NoResult />}
             {data.length > 0 && (
               <>
-                <Table
-                  data={paginatedData}
-                  columns={columns}
-                  className="table--transparant padding-body"
-                />
+                <div>
+                  <Table
+                    data={paginatedData}
+                    columns={columns}
+                    className="table table--transparant padding-body"
+                  />
+                </div>
                 <Pagination
                   itemsCount={data.length}
                   pageSize={pageSize}

@@ -4,7 +4,8 @@ import AutoComplete from "../ui-kit/auto-complete/AutoComplete";
 import LoadingSpinner from "../ui-kit/loading/loading-spinner/LoadingSpinner";
 import Select from "../ui-kit/select/Select";
 import TextArea from "../ui-kit/text-area/TextArea";
-
+import { motion as m } from "framer-motion";
+import { buttonBasicVariant } from "./AnimateVariants";
 export const renderInput = ({
   type = "text",
   name,
@@ -61,7 +62,13 @@ export const renderSelect = ({
   );
 };
 export const renderButton = ({ content, className, ...others }) => (
-  <button className={`btn ${className}`} {...others} disabled={others.loading}>
+  <m.button
+    className={`btn ${className}`}
+    {...others}
+    disabled={others.loading}
+    variants={buttonBasicVariant}
+    whileTap="whileTap"
+  >
     <div className="flex--center">
       {content}
       {others.loading && (
@@ -70,7 +77,7 @@ export const renderButton = ({ content, className, ...others }) => (
         </div>
       )}
     </div>
-  </button>
+  </m.button>
 );
 
 export const renderAutoComplete = ({

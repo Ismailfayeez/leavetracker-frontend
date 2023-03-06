@@ -41,9 +41,11 @@ function AddGroupMember(props) {
         }
         closeModal();
         toast.success(
-          groupId == "new"
-            ? `new group added successfully`
-            : `members added successfully`
+          <span className="toast-msg">
+            {groupId == "new"
+              ? `new group added successfully`
+              : `members added successfully`}
+          </span>
         );
       }
     } catch (err) {}

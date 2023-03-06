@@ -44,7 +44,9 @@ function EditGroupInfo(props) {
     try {
       await dispatch(updateGroupInfo({ baseUrl, id: groupId, data }));
       closeModal();
-      toast.success("group info updated successfully");
+      toast.success(
+        <span className="toast-msg">{"group info updated successfully"}</span>
+      );
     } catch (err) {}
   };
 

@@ -48,7 +48,7 @@ function AutoComplete({
                     onSelect({ currentTarget: { name, value: item.value } })
                   }
                 >
-                  {item.name}
+                  {item.value}
                 </li>
               ))}
             </ul>

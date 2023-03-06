@@ -16,6 +16,8 @@ import { ReactComponent as employeeIcon } from "../../../../assets/images/user-p
 import { ReactComponent as DomainIcon } from "../../../../assets/images/working-on-laptop-icon.svg";
 import { ReactComponent as leaveTypeIcon } from "../../../../assets/images/flight-ticket-icon.svg";
 import { ReactComponent as fyMonthIcon } from "../../../../assets/images/clock-date-calendar-icon.svg";
+import { motion as m } from "framer-motion";
+import { pageVariant } from "../../../../utilities/AnimateVariants";
 function ProjectDetailMain(props) {
   const { edit, enableEdit } = props;
   const myProjects = useSelector((state) => state.entities.projects.myProjects);
@@ -89,7 +91,13 @@ function ProjectDetailMain(props) {
   if (edit) return <EditProjectInfo enableEdit={enableEdit} />;
 
   return (
-    <main className="page-layout__main" style={{ padding: "0 0.5rem" }}>
+    <m.main
+      className="page-layout__main"
+      style={{ padding: "0 0.5rem" }}
+      variants={pageVariant}
+      initial="hidden"
+      animate="visible"
+    >
       <h4>Categories</h4>
       <div className="grid grid-1x2 grid--tablet gap--2rem">
         {pages.map(({ displayContent, ...otherProps }) => {
@@ -104,7 +112,7 @@ function ProjectDetailMain(props) {
           );
         })}
       </div>
-    </main>
+    </m.main>
   );
 }
 

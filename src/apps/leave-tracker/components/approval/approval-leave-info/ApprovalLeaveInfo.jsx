@@ -39,9 +39,9 @@ function ApprovalLeaveInfo(props) {
       );
       closeModal();
       toast.success(
-        `approval request  ${
+        <span className="toast-msg">{`approval request  ${
           approverStatus == "A" ? "accepted" : "rejected"
-        } successfully`
+        } successfully`}</span>
       );
     } catch (err) {}
   };

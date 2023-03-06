@@ -11,6 +11,8 @@ import LoadingScreen from "../../../../../ui-kit/loading/loadingScreen/LoadingSc
 import GroupCard from "../../../../../ui-kit/cards/apps/leavetracker/group-card/GroupCard";
 import { ReactComponent as EmptyImg } from "../../../../../assets/images/empty.svg";
 import "../groups.scss";
+import { motion as m } from "framer-motion";
+import { listVariant } from "../../../../../utilities/AnimateVariants";
 function AllGroups(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,17 +48,24 @@ function AllGroups(props) {
         </div>
         <div className="grid group-items-container">
           {groups.list.map((group, index) => (
-            <GroupCard
-              className="card--orange"
-              group={group}
-              handleGroupName={() =>
-                navigate(`${allGroupsPathName}/${group.id}`)
-              }
-              enableSubscribeBtn={group.enable_subscription}
-              handleSubscribe={() => handleSubscribe(group.id)}
-              handleUnSubscribe={() => handleSubscribe(group.id)}
-              subscribed={group.subscribed}
-            />
+            <m.div
+              variants={listVariant}
+              layout
+              initial="hidden"
+              animate="visible"
+            >
+              <GroupCard
+                className="card--orange"
+                group={group}
+                handleGroupName={() =>
+                  navigate(`${allGroupsPathName}/${group.id}`)
+                }
+                enableSubscribeBtn={group.enable_subscription}
+                handleSubscribe={() => handleSubscribe(group.id)}
+                handleUnSubscribe={() => handleSubscribe(group.id)}
+                subscribed={group.subscribed}
+              />
+            </m.div>
           ))}
         </div>
       </div>

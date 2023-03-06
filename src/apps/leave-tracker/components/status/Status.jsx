@@ -12,6 +12,9 @@ import { ModalNavContext } from "../../../../utilities/context/ModalNavContext";
 import { leaveTrackerModalNames } from "../../leaveTracker.constants";
 import { toast } from "react-toastify";
 import AddButton from "../../../../ui-kit/button/add-button/AddButton";
+import { motion as m } from "framer-motion";
+import { pageVariant } from "../../../../utilities/AnimateVariants";
+
 function Status(props) {
   const dispatch = useDispatch();
   const tabItems = [
@@ -70,7 +73,9 @@ function Status(props) {
       );
     } catch (err) {}
     closeModal();
-    toast.success(`leave ${request_number} deleted successfully`);
+    toast.success(
+      <span className="toast-msg">{`leave ${request_number} deleted successfully`}</span>
+    );
   };
 
   const getData = (name) => myLeaves[name]["list"];
@@ -90,43 +95,46 @@ function Status(props) {
   if (isLoading) return <LoadingScreen />;
 
   return (
-    <>
-      <div className="leave-status page-layout">
-        <header className="page-layout__header flex flex--space-between-align-center">
-          <h3 className="mb-0">My Leaves</h3>
-          <AddButton
-            content="Apply Leave"
-            iconOnMobileScreen
-            onClick={() => {
-              openModal();
-              moveToNextNav({}, leaveTrackerModalNames.applyLeaveForm);
-            }}
-          />
-        </header>
-        <main className="page-layout__main">
-          <TabItems
-            items={tabItems}
-            currentTab={currentTab}
-            handleClick={({ name }) => setCurrentTab(name)}
-          />
+    <m.div
+      className="leave-status page-layout"
+      variants={pageVariant}
+      initial="hidden"
+      animate="visible"
+    >
+      <header className="page-layout__header flex flex--space-between-align-center">
+        <h3 className="mb-0">My Leaves</h3>
+        <AddButton
+          content="Apply Leave"
+          iconOnMobileScreen
+          onClick={() => {
+            openModal();
+            moveToNextNav({}, leaveTrackerModalNames.applyLeaveForm);
+          }}
+        />
+      </header>
+      <main className="page-layout__main">
+        <TabItems
+          items={tabItems}
+          currentTab={currentTab}
+          handleClick={({ name }) => setCurrentTab(name)}
+        />
 
-          <article>
-            {currentTab == "upcomingLeaves" && (
-              <>
-                <LeaveTable
-                  handleDelete={handleDeleteConfirmationModal}
-                  data={getData("upcoming")}
-                  enableDelete
-                />
-              </>
-            )}
-            {currentTab == "previousLeaves" && (
-              <LeaveTable data={getData("previous")} />
-            )}
-          </article>
-        </main>
-      </div>
-    </>
+        <article>
+          {currentTab == "upcomingLeaves" && (
+            <>
+              <LeaveTable
+                handleDelete={handleDeleteConfirmationModal}
+                data={getData("upcoming")}
+                enableDelete
+              />
+            </>
+          )}
+          {currentTab == "previousLeaves" && (
+            <LeaveTable data={getData("previous")} />
+          )}
+        </article>
+      </main>
+    </m.div>
   );
 }
 
