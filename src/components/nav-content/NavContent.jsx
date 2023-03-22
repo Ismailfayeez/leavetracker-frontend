@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import UserProfileImageHolder from "../../ui-kit/user-profile-image-holder/UserProfileImageHolder";
-import logo from "../../assets/images/logo1.png";
+import logo from "../../assets/images/logo3.png";
 import "./navContent.scss";
 
 function NavContent(props) {
