@@ -1,7 +1,10 @@
-@import "../../styles/scss/colors.scss";
+@import "../../styles/scss/global.scss";
 
 .table {
   width: 100%;
+  th {
+    color: $color-label;
+  }
 }
 
 .table--plain {

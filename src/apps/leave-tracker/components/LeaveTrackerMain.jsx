@@ -22,11 +22,13 @@ import {
   LEAVE_DURATION_URL,
   LEAVE_TYPE_URL,
 } from "../apiConstants";
-import { LEAVETRACKER_APP_PERMISSION_GRANT_ALL } from "../leaveTracker.constants";
+import { LEAVETRACKER_APP_PERMISSIONS } from "../leaveTracker.constants";
 import "./leaveTracker.scss";
 
 function LeaveTrackerMain({ isPageLoading }) {
   const dispatch = useDispatch();
+  const { LEAVETRACKER_APP_PERMISSION_GRANT_ALL } =
+    LEAVETRACKER_APP_PERMISSIONS;
   const currentEmployee = useSelector(
     (state) =>
       state.entities.leaveTracker.employeeAccountData.employeeProfile

@@ -14,12 +14,12 @@ function UserMedia({}) {
           <UserProfileImageHolder sentence={userData.username} />
         </div>
         <div className="media-content">
-          <div className="user__name">
+          <div className="user__name label">
             <Link className="link-style-disable" to="/my-profile">
               {userData.username}
             </Link>
           </div>
-          <div className="user__email">{userData.email}</div>
+          <div className="user__email sub-text">{userData.email}</div>
         </div>
       </div>
     )

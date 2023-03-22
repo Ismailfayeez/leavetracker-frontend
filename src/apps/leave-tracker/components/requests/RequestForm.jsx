@@ -121,7 +121,7 @@ function RequestForm(props) {
         </span>
       </div>
 
-      <div className="leave-request__btn-container flex flex--center">
+      <div className="leave-request__btn-container btn-container-grow flex flex--center">
         {renderButton({
           type: "submit",
           content: "Submit",

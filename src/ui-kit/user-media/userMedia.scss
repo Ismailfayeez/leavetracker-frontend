@@ -1,6 +1,12 @@
 @import "../../styles/scss/global.scss";
 .user-media {
   padding: 1rem;
+  .media-content {
+    justify-content: center;
+
+    display: flex;
+    flex-direction: column;
+  }
   &.user {
     .user__img {
       padding: 1rem 1rem 1rem 0;
@@ -14,7 +20,7 @@
     .user__name {
       font-weight: bold;
     }
-    .user__email,
+
     .user__project-name {
       font-size: 1.8rem;
     }

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import UserProfileImageHolder from "../../ui-kit/user-profile-image-holder/UserProfileImageHolder";
+import logo from "../../assets/images/logo1.png";
 import "./navContent.scss";
 
 function NavContent(props) {
@@ -48,7 +49,7 @@ function NavContent(props) {
       }`}
     >
       <Link className="nav-content__brand link-style-disable" to="/">
-        Track it
+        <img src={logo} />
       </Link>
       {currentUser.email && (
         <section className="nav-user flex flex--center">
