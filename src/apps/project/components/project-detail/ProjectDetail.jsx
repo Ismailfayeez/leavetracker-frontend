@@ -114,17 +114,17 @@ function ProjectDetail(props) {
       }}
     >
       <ModalContainer />
-      <div className="project-detail page-layout gap--1rem">
+      <div className="project-detail page-layout">
         {!isLoading && (
           <header className="page-layout__header">
-            <div className="flex--space-between-align-center">
-              <div className="flex--center">
+            <div className="flex flex-justify--space-between flex-align--center">
+              <div className="flex flex--center">
                 {location.pathname == `/project/${projectId}` && (
                   <div onClick={() => navigate(-1)} className="back-arrow">
                     <FontAwesomeIcon icon={faArrowLeft} />
                   </div>
                 )}
-                <h3 className="mb-0">{ProjectDetail.name}</h3>
+                <h3 style={{ marginBottom: "3px" }}>{ProjectDetail.name}</h3>
               </div>
               {location.pathname == `/project/${projectId}` &&
                 projectMemberProfile.owner && (

@@ -49,15 +49,15 @@ function ProjectSectionView({
   console.log(data);
   return (
     <div className="project-section-view">
-      <div className="flex-item-grow-1">
+      <div className="flex-item-grow">
         <InfoDisplayList
           columns={fields}
           data={[data]}
-          className="flex flex--column gap--1rem"
+          className="flex flex--column gap--10px"
         />
       </div>
 
-      <div className="flex flex--center flex-wrap btn-container btn-items-grow">
+      <div className="btn-container-grow">
         {hasPermissionEdit &&
           data.manage_access &&
           renderButton({

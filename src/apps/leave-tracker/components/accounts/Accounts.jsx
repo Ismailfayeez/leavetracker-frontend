@@ -16,6 +16,12 @@ function Accounts(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [displayModal, setDisplayModal] = useState(true);
+  const currentProject =
+    useSelector(
+      (state) =>
+        state.entities.auth.userProfile.currentUser.data.leaveTracker
+          .currentProject
+    ) || {};
   const accounts =
     useSelector(
       (state) =>
@@ -24,6 +30,7 @@ function Accounts(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleAddCurrentProjectToPreference = async (account) => {
+    if (account.project == currentProject.id) return;
     setIsLoading(true);
     try {
       await dispatch(
@@ -77,11 +84,14 @@ function Accounts(props) {
             )}
             {accounts.length > 0 && (
               <div>
-                <p className="mb-1">Select your project</p>
+                <p className="margin-bottom--1">Select your project</p>
                 <ul className="account-card-list">
                   {accounts.map((account) => (
                     <div
-                      className="account-card"
+                      key={account.id}
+                      className={`account-card ${
+                        account.project == currentProject.id ? "active" : ""
+                      }`}
                       onClick={() =>
                         handleAddCurrentProjectToPreference(account)
                       }

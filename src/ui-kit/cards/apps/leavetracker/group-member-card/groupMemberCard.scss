@@ -1,0 +1,27 @@
+@import "../../../../../styles/scss/global.scss";
+.group-member {
+  $self: &;
+  &.card {
+    #{$self}__name {
+      font-weight: bold;
+    }
+    .ellipsis {
+      cursor: pointer;
+    }
+  }
+  &__action {
+    background-color: rgb(252, 252, 252);
+    overflow: hidden;
+    border-radius: 1rem;
+    &-item {
+      border-bottom: 1px solid lightgrey;
+      .btn:hover {
+        border-radius: 0;
+        background-color: rgba(211, 211, 211, 0.5);
+      }
+      &:last-child {
+        border: none;
+      }
+    }
+  }
+}

@@ -39,11 +39,11 @@ function EmployeePrimaryInfo(props) {
     },
   ];
   return (
-    <div className="employee-primary-info overflow-hidden text-overflow-ellipsis">
+    <div className="employee-primary-info overflow-hidden text-overflow--ellipsis">
       <InfoDisplayList
         data={data}
         columns={columns}
-        className="grid grid-1x2 grid--tablet-lr-only gap--1rem overflow-auto"
+        className="grid grid--1x2 grid--tablet-lr-only gap--10px overflow--auto"
       />
     </div>
   );

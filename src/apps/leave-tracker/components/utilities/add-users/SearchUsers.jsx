@@ -3,7 +3,6 @@ import EmployeeCard from "../../../../../ui-kit/cards/apps/leavetracker/employee
 import LoadingScreen from "../../../../../ui-kit/loading/loadingScreen/LoadingScreen";
 import SearchBar from "../../../../../ui-kit/search-bar/SearchBar";
 import { sliceFirstLettersOfSentence } from "../../../../../utilities/helper";
-
 function SearchUsers({
   searchedResult = [],
   existingMembers,
@@ -32,30 +31,28 @@ function SearchUsers({
 
             {data.length > 0 && (
               <span
-                className="selected-badge badge badge--bluish-black"
+                className="selected-badge badge badge--accent"
                 onClick={() => setDisplaySelectedPage(true)}
               >
                 selected {data.length}
               </span>
             )}
           </div>
-          <div className="flex-grow flex flex--column overflow-auto">
+          <div className="flex-item-grow flex flex--column overflow--auto">
             {searchedResult.map(({ name, email }) => (
-              <>
-                <EmployeeCard
-                  enableCheckBox={true}
-                  disableCheckBoxInput={existingMembers.some(
-                    (member) => member.email == email
-                  )}
-                  checked={data.some((member) => member.email == email)}
-                  handleChecked={handleChecked}
-                  img={sliceFirstLettersOfSentence(name)}
-                  employee={{ name, email }}
-                  name={name}
-                  email={email}
-                  className="employee-card--theme-bluish-white"
-                />
-              </>
+              <EmployeeCard
+                enableCheckBox={true}
+                disableCheckBoxInput={existingMembers.some(
+                  (member) => member.email == email
+                )}
+                checked={data.some((member) => member.email == email)}
+                handleChecked={handleChecked}
+                img={sliceFirstLettersOfSentence(name)}
+                employee={{ name, email }}
+                name={name}
+                email={email}
+                className="employee-card--theme-bluish-white"
+              />
             ))}
           </div>
         </>

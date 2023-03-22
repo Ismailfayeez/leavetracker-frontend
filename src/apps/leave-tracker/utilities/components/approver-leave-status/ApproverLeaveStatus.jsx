@@ -19,7 +19,7 @@ function ApproverLeaveStatus({ isLoading, data }) {
           <InfoDisplayList
             data={data}
             columns={columns}
-            className="flex flex--column gap--1rem"
+            className="flex flex--column gap--10px"
           />
         </>
       )}

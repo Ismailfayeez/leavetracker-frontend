@@ -12,8 +12,8 @@
   @include side-bar-container-mixin;
 }
 
-.sidebar-nav {
-  &__content {
+.side-bar {
+  &__main {
     display: flex;
     flex-direction: column;
     margin-top: 1rem;

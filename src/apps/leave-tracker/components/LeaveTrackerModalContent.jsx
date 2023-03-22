@@ -15,8 +15,9 @@ import ApprovalLeaveApproverStatus from "./approval/approval-leave-approver-stat
 import Request from "./requests/Request";
 import RequestSuccess from "./requests/request-success/RequestSuccess";
 import AbsenteeDetail from "./dashboard/absentees/AbsenteeDetail";
-import LeaveBalanceTable from "./requests/leave-balance-table/LeaveBalanceTable";
 import ConfirmationModalContent from "../../../ui-kit/confirmation-modal-content/ConfirmationModalContent";
+import AnnouncementDetail from "./announcements/announcement-detail/AnnouncementDetail";
+import CreateAnnouncement from "./announcements/create-announcement/CreateAnnouncement";
 
 function LeaveTrackerModalContent(props) {
   const [{ globalNav, globalVal, showModal, closeModal }] =
@@ -35,6 +36,8 @@ function LeaveTrackerModalContent(props) {
     applyLeaveForm,
     requestSuccess,
     absenteeDetail,
+    announcementDetail,
+    createAnnouncement,
   } = leaveTrackerModalNames;
   let children = "";
   let otherProps = {};
@@ -87,6 +90,14 @@ function LeaveTrackerModalContent(props) {
     case addApprovers:
       children = <AddApprovers />;
       otherProps = { height: "lg", width: "sm", title: "Add Approvers" };
+      break;
+    case announcementDetail:
+      children = <AnnouncementDetail />;
+      otherProps = { height: "md", width: "sm", title: "Announcement" };
+      break;
+    case createAnnouncement:
+      children = <CreateAnnouncement />;
+      otherProps = { height: "lg", width: "sm", title: "Announcement" };
       break;
     case confirmation:
       children = <ConfirmationModalContent {...globalVal[confirmation]} />;

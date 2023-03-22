@@ -2,7 +2,7 @@
 
 .modal {
   $self: &;
-  overflow: auto;
+
   &__overlay {
     display: flex;
     background-color: $semi-transparent-black;
@@ -22,11 +22,10 @@
     padding: 1rem;
     position: relative;
     width: 100%;
-    overflow: auto;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
     gap: 0.5rem;
+    z-index: 99;
   }
   &__header {
     display: flex;
@@ -35,6 +34,7 @@
   &__body {
     flex-grow: 1;
     overflow: auto;
+    z-index: 10100;
   }
   &__close {
     font-size: 2.5rem;

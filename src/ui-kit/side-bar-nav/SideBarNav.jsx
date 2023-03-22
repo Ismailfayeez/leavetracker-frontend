@@ -4,12 +4,12 @@ import "./sideBarNav.scss";
 function SideBarNav({ appNavData = [] }) {
   return (
     <div className="side-bar-container">
-      <div className="sidebar">
-        <div className="sidebar-nav__content">
+      <div className="side-bar">
+        <main className="side-bar__main">
           {appNavData.map((data) => (
-            <AppNav appNavData={data} />
+            <AppNav key={data.header} appNavData={data} />
           ))}
-        </div>
+        </main>
       </div>
     </div>
   );

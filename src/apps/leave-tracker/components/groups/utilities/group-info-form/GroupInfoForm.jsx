@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   renderButton,
   renderInput,
@@ -12,14 +12,21 @@ function GroupInfoForm({
   errors,
   id,
 }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    await handleSubmit();
+    setIsLoading(false);
+  };
   return (
-    <form onSubmit={handleSubmit} className="flex flex--column full-height">
-      <div className="flex-item-grow-1">
+    <form onSubmit={onSubmit} className="flex flex--column full-height">
+      <div className="flex-item-grow flex flex--column gap--10px">
         {renderInput({
           name: "name",
           label: "Name",
           type: "text",
-          className: "mb-1",
+          className: "margin-bottom--1",
           data,
           handleChange,
           onBlur: handleBlur,
@@ -30,18 +37,19 @@ function GroupInfoForm({
           name: "description",
           label: "description",
           type: "text",
-          className: "mb-1",
+          className: "margin-bottom--1",
           data,
           handleChange,
           onBlur: handleBlur,
           errors,
         })}
       </div>
-      <div className="flex flex--center flex-wrap btn-container btn-items-grow">
+      <div className="btn-container-grow">
         {renderButton({
           type: "submit",
           content: id == "new" ? "next" : "submit",
           className: " btn--md btn--matte-black",
+          loading: isLoading,
         })}
       </div>
     </form>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   Bar,
@@ -13,8 +13,9 @@ import NoResult from "../../../../../ui-kit/no-result/NoResult";
 import Pagination from "../../../../../ui-kit/pagination/Pagination";
 import { paginate } from "../../../../../utilities/paginate";
 import { ReactComponent as NoDataImg } from "../../../../../assets/images/no-data.svg";
-import "./employeeInfo.scss";
 import LoadingScreen from "../../../../../ui-kit/loading/loadingScreen/LoadingScreen";
+import "./employeeInfo.scss";
+
 function LeaveBalanceGraph(props) {
   const currentEmployee = useSelector(
     (state) =>

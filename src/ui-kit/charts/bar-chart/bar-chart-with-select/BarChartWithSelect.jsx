@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import { useEffect } from "react";
 
 import {
@@ -19,6 +19,7 @@ import Pagination from "../../../pagination/Pagination";
 import "./barChartWithSelect.scss";
 
 function BarChartWithSelect(props) {
+  const id = useId();
   const {
     className,
     barColor,
@@ -31,7 +32,7 @@ function BarChartWithSelect(props) {
   const [pageSize, setCurrentPageSize] = useState(4);
   const handleCurrentPage = (pageNumber) => setCurrentPage(pageNumber);
   const paginatedData = paginate(data, currentPage, pageSize);
-  console.log(paginatedData);
+
   useEffect(() => {
     console.log("changeee");
     setCurrentPage(1);
@@ -78,8 +79,10 @@ function BarChartWithSelect(props) {
             <NoResult statement="No leaves" />
           ))}
       </div>
-      <div className="bar-chart-input flex flex-wrap gap--2rem flex--center">
-        {select.map((item) => renderSelect({ ...item }))}
+      <div className="bar-chart-input flex flex-wrap flex--center gap--20px">
+        {select.map((item) => (
+          <div key={item.name + id}>{renderSelect({ ...item })}</div>
+        ))}
       </div>
     </div>
   );

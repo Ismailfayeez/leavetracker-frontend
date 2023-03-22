@@ -1,17 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { motion as m } from "framer-motion";
 import { loadApprovalData } from "../../store/approval";
-import { useState } from "react";
 import ApprovalTable from "./ApprovalTable";
 import TabItems from "../../../../ui-kit/tab-items/TabItems";
+import LoadingScreen from "../../../../ui-kit/loading/loadingScreen/LoadingScreen";
+import { pageVariant } from "../../../../utilities/AnimateVariants";
 import {
   LEAVETRACKER_SECTION_LABELS,
   LEAVETRACKER_SECTION_NAMES,
 } from "../../leaveTracker.constants";
 import { APPROVAL_URL } from "../../apiConstants";
-import LoadingScreen from "../../../../ui-kit/loading/loadingScreen/LoadingScreen";
-import { motion as m } from "framer-motion";
-import { pageVariant } from "../../../../utilities/AnimateVariants";
 
 function Approval(props) {
   const { newApproval, actionedApproval, previousApproval } =

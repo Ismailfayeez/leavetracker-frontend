@@ -4,7 +4,7 @@ import SelectedUsers from "./SelectedUsers";
 import "./addUsers.scss";
 import { loadData } from "../../../../../store/common/dispatchMethods";
 import { AddQueryParamToUrl } from "../../../../../utilities/queryParamGenerator";
-import { employeeUrl } from "../../../apiConstants";
+import { EMPLOYEE_URL } from "../../../apiConstants";
 import _ from "lodash";
 import { useDispatch } from "react-redux";
 function AddUsers({ title, handleSubmit, existingMembers }) {
@@ -19,7 +19,7 @@ function AddUsers({ title, handleSubmit, existingMembers }) {
     try {
       setIsLoading(true);
       const response = await dispatch(
-        loadData(AddQueryParamToUrl(employeeUrl, { search: input.value }))
+        loadData(AddQueryParamToUrl(EMPLOYEE_URL, { search: input.value }))
       );
       setSearchedResult(response.data);
     } catch (err) {}

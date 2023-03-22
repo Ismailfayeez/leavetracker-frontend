@@ -40,7 +40,7 @@ function AutoComplete({
             <ul className="auto-complete__suggestions">
               {suggestions.map((item) => (
                 <li
-                  className="auto-complete__suggestions-item"
+                  className="auto-complete__suggestions-item label"
                   onMouseDown={(e) => {
                     e.preventDefault();
                   }}

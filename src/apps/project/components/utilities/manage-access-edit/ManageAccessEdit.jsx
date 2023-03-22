@@ -13,6 +13,7 @@ import "./manageAccessEdit.scss";
 import { useModalNav } from "../../../../../utilities/hooks/useModalNav";
 function ManageAccessEdit({ sectionConstants }) {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const { name, totalAccessName, baseUrl, id } = sectionConstants;
   const [{ moveToPrevPage }] = usePageNav(PageNavContext);
   const [{ closeModal }] = useModalNav(ModalNavContext);
@@ -72,6 +73,7 @@ function ManageAccessEdit({ sectionConstants }) {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const postData = {
         access_code_list: [...data.currentList.map((item) => item.code)],
@@ -82,11 +84,13 @@ function ManageAccessEdit({ sectionConstants }) {
       );
       closeModal();
     } catch (err) {}
+    setIsLoading(false);
   };
+
   return (
     <div className="manage-access-edit">
       <header>
-        <p className="mb-0 bold">
+        <p className="margin-bottom--0 bold">
           <FontAwesomeIcon
             icon={faArrowLeft}
             className="back-arrow"
@@ -95,15 +99,13 @@ function ManageAccessEdit({ sectionConstants }) {
           Edit
         </p>
       </header>
-      <div className="content-grow">
+      <div className="flex-item-grow overflow--auto">
         current list:
         <div className="flex flex-wrap">
           {data.currentList.map((item) => (
             <span
-              className={`badge ${
-                selected.includes(item.code)
-                  ? "badge--black"
-                  : "badge--bluish-white"
+              className={`badge sub-text ${
+                selected.includes(item.code) ? "badge--black" : "badge--primary"
               }`}
               onClick={() => handleSelect(item.code)}
             >
@@ -115,10 +117,8 @@ function ManageAccessEdit({ sectionConstants }) {
         <div className="flex flex-wrap">
           {data.availableList.map((item) => (
             <span
-              className={`badge ${
-                selected.includes(item.code)
-                  ? "badge--black"
-                  : "badge--bluish-white"
+              className={`badge sub-text ${
+                selected.includes(item.code) ? "badge--black" : "badge--primary"
               }`}
               onClick={() => handleSelect(item.code)}
             >
@@ -127,7 +127,7 @@ function ManageAccessEdit({ sectionConstants }) {
           ))}
         </div>
       </div>
-      <div className="flex flex--center flex-wrap btn-container btn-items-grow">
+      <div className="btn-container-grow">
         {renderButton({
           content: "add",
           className: "btn--md btn--matte-black",
@@ -143,6 +143,7 @@ function ManageAccessEdit({ sectionConstants }) {
           content: "submit",
           className: "btn--md btn--matte-black",
           onClick: handleSubmit,
+          loading: isLoading,
         })}
       </div>
     </div>

@@ -1,7 +1,4 @@
 import axios from "axios";
-import { apiErrorReceived } from "../../store/error";
-import errorHandlers from "../errorHandlers/Index";
-
 const getAccessToken = () => {
   try {
     return localStorage.getItem("access");

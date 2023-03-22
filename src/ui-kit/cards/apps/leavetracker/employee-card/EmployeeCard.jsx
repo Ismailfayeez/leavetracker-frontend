@@ -1,5 +1,4 @@
-import React from "react";
-import TextIcon from "../../../../text-icon/TextIcon";
+import React, { useRef } from "react";
 import "./employeeCard.scss";
 function EmployeeCard({
   employee,
@@ -8,6 +7,7 @@ function EmployeeCard({
   handleChecked,
   disableCheckBoxInput,
 }) {
+  const inputRef = useRef(null);
   return (
     <div className="employee card">
       <div className="card__body flex">
@@ -16,18 +16,23 @@ function EmployeeCard({
             <input
               type="checkbox"
               className="check-box"
+              ref={inputRef}
               disabled={disableCheckBoxInput}
               checked={checked}
+              id={employee.id}
               onClick={(e) => handleChecked(e, { ...employee })}
             />
           </div>
         )}
 
-        <div className="flex-grow overflow-auto">
-          <div className="employee__name bold text-overflow-ellipsis">
+        <div className="flex-item-grow overflow--auto">
+          <div
+            className="employee__name bold text-overflow--ellipsis"
+            onClick={() => inputRef.current.click()}
+          >
             {employee.name}
           </div>
-          <div className="employee__email sub-text text-overflow-ellipsis">
+          <div className="employee__email sub-text text-overflow--ellipsis">
             {employee.email}
           </div>
         </div>

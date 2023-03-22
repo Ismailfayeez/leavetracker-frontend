@@ -5,11 +5,12 @@ import {
   renderInput,
   renderSelect,
 } from "../../../../utilities/uiElements";
-import useValidator from "../../../../utilities/useValidator";
+import useValidator from "../../../../utilities/hooks/useValidator";
 import { COUNTRY_URL, TIMEZONE_URL } from "../../apiConstants";
 import { loadUtils, login, signup } from "../../store/userProfile";
 import { Link } from "react-router-dom";
 import signupSchema from "./signup.schema";
+import { useRef } from "react";
 
 function SignUp(props) {
   const dispatch = useDispatch();
@@ -34,6 +35,30 @@ function SignUp(props) {
   const handleChange = ({ target: input }) => {
     setData({ ...data, [input.name]: input.value });
   };
+  const emailRef = useRef(null);
+  const nameRef = useRef(null);
+  const passwordRef = useRef(null);
+  const confirmPasswordRef = useRef(null);
+  const countryRef = useRef(null);
+  const timezoneRef = useRef(null);
+  const signUpRef = useRef(null);
+  const handleKeyDown = (e) => {
+    if (e.key == "Enter") {
+      if (e.target == emailRef.current) {
+        nameRef.current.focus();
+      } else if (e.target == nameRef.current) {
+        passwordRef.current.focus();
+      } else if (e.target == passwordRef.current) {
+        confirmPasswordRef.current.focus();
+      } else if (e.target == confirmPasswordRef.current) {
+        countryRef.current.focus();
+      } else if (e.target == countryRef.current) {
+        timezoneRef.current.focus();
+      } else if (e.target == timezoneRef.current) {
+        signUpRef.current.focus();
+      }
+    }
+  };
   const handleSignUp = async () => {
     const error = validateForm();
     if (error) return;
@@ -51,8 +76,9 @@ function SignUp(props) {
         localStorage.setItem("refresh", jwt.refresh);
         window.location.reload();
       }
-    } catch (err) {}
-    setIsLoading(false);
+    } catch (err) {
+      setIsLoading(false);
+    }
   };
   useEffect(() => {
     if (!utils["countries"]["lastFetch"]) {
@@ -72,6 +98,9 @@ function SignUp(props) {
   );
   const countriesOptions = countries.data;
   const timeZoneOptions = timeZones.data[data.country] || [];
+  useEffect(() => {
+    emailRef.current.focus();
+  }, []);
   return (
     <div className="content-area login">
       <div className="flex flex--center" style={{ margin: "1rem 0" }}>
@@ -88,7 +117,9 @@ function SignUp(props) {
           name: "email",
           data,
           handleChange,
+          onKeyDown: handleKeyDown,
           onBlur: handleBlur,
+          ref: emailRef,
           errors,
         })}
         {renderInput({
@@ -96,7 +127,9 @@ function SignUp(props) {
           name: "username",
           data,
           handleChange,
+          onKeyDown: handleKeyDown,
           onBlur: handleBlur,
+          ref: nameRef,
           errors,
         })}
         {renderInput({
@@ -105,7 +138,9 @@ function SignUp(props) {
           name: "password",
           data,
           handleChange,
+          onKeyDown: handleKeyDown,
           onBlur: handleBlur,
+          ref: passwordRef,
           errors,
         })}
         {renderInput({
@@ -114,7 +149,9 @@ function SignUp(props) {
           name: "confirmPassword",
           data,
           handleChange,
+          onKeyDown: handleKeyDown,
           onBlur: handleBlur,
+          ref: confirmPasswordRef,
           errors,
         })}
 
@@ -125,7 +162,9 @@ function SignUp(props) {
           data,
           handleChange,
           options: countriesOptions,
+          onKeyDown: handleKeyDown,
           onBlur: handleBlur,
+          ref: countryRef,
           errors,
         })}
         {renderSelect({
@@ -134,13 +173,17 @@ function SignUp(props) {
           data,
           handleChange,
           options: timeZoneOptions,
+          onKeyDown: handleKeyDown,
           onBlur: handleBlur,
+          ref: timezoneRef,
           errors,
         })}
         {renderButton({
           content: "Sign up",
           className: "btn--lg btn--block btn--blue",
           onClick: () => handleSignUp(data),
+          onKeyDown: handleKeyDown,
+          ref: signUpRef,
           loading,
         })}
       </main>

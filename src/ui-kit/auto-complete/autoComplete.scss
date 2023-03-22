@@ -1,19 +1,20 @@
-@import "../../styles/scss/colors.scss";
+@import "../../styles/scss/global.scss";
 .auto-complete {
   position: relative;
   max-width: inherit;
   &-suggestions-container {
-    margin-top: 2px;
-    width: 100%;
-    position: absolute;
-    border: 1px solid $grayish-blue;
-    box-shadow: 2px 2px 5px lightgray;
-    border-radius: 5px;
     background-color: white;
+    border-radius: 5px;
+    border: 1px solid $color-border;
+    box-shadow: 2px 2px 5px lightgray;
+    margin-top: 2px;
     max-height: 15rem;
-    overflow: auto;
-    z-index: 1000000;
+    overflow: hidden;
     padding: 0.5rem;
+    position: absolute;
+    width: 100%;
+    z-index: 1000000;
+    display: inline-block;
     &:empty {
       display: none;
     }
@@ -24,10 +25,10 @@
   }
   &__suggestions-item {
     border-bottom: 1px solid lightgray;
-    padding: 0.7rem 1rem;
-    line-height: 1.1;
     cursor: pointer;
+    line-height: 1.1;
     overflow: hidden;
+    padding: 0.7rem 1rem;
     text-overflow: ellipsis;
     &:hover {
       background-color: rgb(230, 228, 228);

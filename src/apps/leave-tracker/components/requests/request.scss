@@ -2,11 +2,9 @@
 
 .leave-request {
   height: 100%;
-  &-container {
-    display: grid;
-    @media screen and(min-width: 500px) {
-      padding: 0 1rem;
-    }
+  display: grid;
+  @media screen and(min-width: 500px) {
+    padding: 0 1rem;
   }
   &-form-container {
     min-width: 0;

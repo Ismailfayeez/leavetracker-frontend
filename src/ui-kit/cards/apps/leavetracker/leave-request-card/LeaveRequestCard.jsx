@@ -14,20 +14,20 @@ function LeaveRequestCard({
   return (
     <div className={`leave-request card ${className || ""}`}>
       <div className="card__body">
-        <div className="flex gap--1rem">
-          <div className="flex-grow overflow-auto">
+        <div className="flex gap--10px">
+          <div className="flex-item-grow overflow--auto">
             <div
-              className="card__item leave-request__no bold cursor-pointer text-overflow-ellipsis"
+              className="card__item leave-request__no bold cursor-pointer text-overflow--ellipsis"
               onClick={() => handleRequest(leave)}
             >
               {leave.request_number}
             </div>
             {leave.employee && (
-              <div className="leave-request__employee sub-text text-overflow-ellipsis">
+              <div className="leave-request__employee sub-text text-overflow--ellipsis">
                 {leave.employee.name}
               </div>
             )}
-            <div className="leave-request__range sub-text text-overflow-ellipsis">
+            <div className="leave-request__range sub-text text-overflow--ellipsis">
               <span className="card__item leave-request__from ">
                 {moment(leave.from_date).format("DD MMM YY")}
               </span>

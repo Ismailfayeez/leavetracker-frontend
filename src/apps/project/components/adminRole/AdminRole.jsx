@@ -27,7 +27,7 @@ function AdminRole(props) {
   const columns = [
     {
       label: "info",
-      path: "code",
+      key: "info",
       content: (adminRole) => (
         <>
           <div

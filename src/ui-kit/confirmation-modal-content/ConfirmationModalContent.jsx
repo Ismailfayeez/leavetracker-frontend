@@ -9,7 +9,7 @@ function ConfirmationModalContent({
   console.log(confirmationText, handleConfirm, handleCancel);
   return (
     <div className="confirmation-modal-content flex flex--column">
-      <div className="flex-grow">
+      <div className="flex-item-grow">
         <p style={{ textAlign: "center" }}>
           {confirmationText ? confirmationText : "Are you sure want to proceed"}
         </p>

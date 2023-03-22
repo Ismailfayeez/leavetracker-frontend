@@ -1,7 +1,6 @@
 import React from "react";
 import "./groupCard.scss";
 import { renderButton } from "../../../../../utilities/uiElements";
-import TextIcon from "../../../../text-icon/TextIcon";
 function GroupCard({
   className,
   group,
@@ -15,11 +14,11 @@ function GroupCard({
     <div className={`group card ${className || ""}`}>
       <div className="card__body">
         <div
-          className="flex flex--space-between"
+          className="flex flex-justify--space-between"
           style={{ justifyContent: "space-between" }}
         >
           <div
-            className="card__item group__name bold text-overflow-ellipsis cursor-pointer"
+            className="card__item group__name bold overflow--hidden text-overflow--ellipsis cursor-pointer"
             onClick={handleGroupName}
           >
             {name}
@@ -30,7 +29,7 @@ function GroupCard({
             </div>
           </div>{" "}
         </div>
-        <div className="card__item group__description text-overflow-ellipsis">
+        <div className="card__item group__description text-overflow--ellipsis">
           {description}
         </div>
 

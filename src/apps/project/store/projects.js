@@ -263,6 +263,7 @@ export const createSectionDetail =
       })
     );
   };
+
 export const updateSectionDetail =
   ({ baseUrl, id, nestedUrlPathName, method, name, data }) =>
   (dispatch) => {

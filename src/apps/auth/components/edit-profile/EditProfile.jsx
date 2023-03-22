@@ -6,7 +6,7 @@ import {
   renderInput,
   renderSelect,
 } from "../../../../utilities/uiElements";
-import useValidator from "../../../../utilities/useValidator";
+import useValidator from "../../../../utilities/hooks/useValidator";
 import { updateCurrentUser } from "../../store/userProfile";
 import editProfileFormSchema from "./editProfileForm.schema";
 function EditProfile(props) {
@@ -19,6 +19,7 @@ function EditProfile(props) {
   const currentUser = useSelector(
     (state) => state.entities.auth.userProfile.currentUser.data
   );
+  const [isLoading, setIsLoading] = useState(false);
   const { username, timezone, country } = currentUser;
   const [data, setData] = useState(initialState);
   const [errors, setErrors, validateForm, validateProperty] = useValidator(
@@ -47,12 +48,16 @@ function EditProfile(props) {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const error = validateForm();
     if (error) return;
+    setIsLoading(true);
+    console.log("ass");
     try {
       await dispatch(updateCurrentUser(data));
       props.handleEditSuccess();
     } catch (err) {}
+    setIsLoading(false);
   };
   console.log(data);
   useEffect(() => {
@@ -64,7 +69,7 @@ function EditProfile(props) {
   }, [data.country]);
   return (
     <form className=" flex flex--column  full-height" onSubmit={handleSubmit}>
-      <div className="flex-item-grow-1 flex flex--column gap--1rem">
+      <div className="flex-item-grow flex flex--column gap--10px">
         {renderInput({
           name: "username",
           label: "Name",
@@ -93,11 +98,12 @@ function EditProfile(props) {
           errors,
         })}
       </div>
-      <div className="flex flex--center flex-wrap btn-container btn-items-grow">
+      <div className="btn-container">
         {renderButton({
-          content: " Submit",
+          content: "Submit",
           className: "btn btn--md btn--matte-black",
           type: "submit",
+          loading: isLoading,
         })}
       </div>
     </form>

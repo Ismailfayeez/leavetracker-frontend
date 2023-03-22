@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import useValidator from "../../../../../utilities/useValidator";
+import useValidator from "../../../../../utilities/hooks/useValidator";
 import { updateGroupInfo } from "../../../store/groups";
 import groupDetailsSchema from "../groupDetailsForm.schema";
 import { MY_TEAM_URL } from "../../../apiConstants";
@@ -37,8 +37,7 @@ function EditGroupInfo(props) {
     validateProperty(input.name);
   };
 
-  const handleUpdateGroupInfo = async (e) => {
-    e.preventDefault();
+  const handleUpdateGroupInfo = async () => {
     const error = validateForm();
     if (error) return;
     try {

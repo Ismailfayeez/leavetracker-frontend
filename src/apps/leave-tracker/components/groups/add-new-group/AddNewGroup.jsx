@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import useValidator from "../../../../../utilities/useValidator";
+import useValidator from "../../../../../utilities/hooks/useValidator";
 import groupDetailsSchema from "../groupDetailsForm.schema";
 import AddUsers from "../../utilities/add-users/AddUsers";
 import { createGroup } from "../../../store/groups";
@@ -13,7 +13,6 @@ import {
   leaveTrackerModalNames,
   LEAVETRACKER_PATH_NAMES,
 } from "../../../leaveTracker.constants";
-import { useParams } from "react-router-dom";
 function AddNewGroup(props) {
   const groupDetail = useSelector(
     (state) =>
@@ -34,9 +33,9 @@ function AddNewGroup(props) {
     validateProperty(input.name);
   };
 
-  const handleNext = (e) => {
-    e.preventDefault();
+  const handleNext = () => {
     const error = validateForm();
+    console.log(error);
     if (error) return;
     openModal();
     moveToNextNav(

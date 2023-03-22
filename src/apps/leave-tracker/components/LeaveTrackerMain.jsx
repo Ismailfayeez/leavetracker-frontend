@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import { useEffect } from "react";
-import { loadCoreData } from "../store/core";
 import { useDispatch, useSelector } from "react-redux";
+import { loadCoreData } from "../store/core";
 import { loadEmployeeAdditionalInfo } from "../store/employeeProfile";
 import Dashboard from "./dashboard/Dashboard";
 import Others from "./others/Others";
@@ -11,8 +10,11 @@ import Request from "./requests/Request";
 import Status from "./status/Status";
 import Groups from "./groups/Groups";
 import AddApprovers from "./others/approvers/AddApprovers";
-import "./leaveTracker.scss";
 import GroupDetail from "./groups/group-detail/GroupDetail";
+import Announcements from "./announcements/Announcements";
+import LeaveTrackerModalContent from "./LeaveTrackerModalContent";
+import { ModalNavContext } from "../../../utilities/context/ModalNavContext";
+import EmployeeCheckRoute from "../utilities/components/EmployeeCheckRoute";
 import {
   CURRENT_FY_URL,
   FY_LIST_URL,
@@ -21,9 +23,7 @@ import {
   LEAVE_TYPE_URL,
 } from "../apiConstants";
 import { LEAVETRACKER_APP_PERMISSION_GRANT_ALL } from "../leaveTracker.constants";
-import LeaveTrackerModalContent from "./LeaveTrackerModalContent";
-import { ModalNavContext } from "../../../utilities/context/ModalNavContext";
-import EmployeeCheckRoute from "../utilities/components/EmployeeCheckRoute";
+import "./leaveTracker.scss";
 
 function LeaveTrackerMain({ isPageLoading }) {
   const dispatch = useDispatch();
@@ -41,37 +41,37 @@ function LeaveTrackerMain({ isPageLoading }) {
     nextNav: "",
   });
   const fetchEmployeeAdditionalData = async () => {
-    try {
-      await dispatch(
-        loadCoreData({
-          requestDetails: [
-            { url: LEAVE_TYPE_URL, name: "leaveType" },
-            { url: LEAVE_DURATION_URL, name: "leaveDuration" },
-            { url: CURRENT_FY_URL, name: "currentFY" },
-          ],
-        })
-      );
-      await dispatch(
-        loadEmployeeAdditionalInfo({
-          requestDetails: [
-            { url: FY_LIST_URL, name: "fyList" },
-            { url: LEAVE_BALANCE_URL, name: "leaveBalance" },
-          ],
-        })
-      );
-    } catch (err) {}
+    if (currentEmployeeData.id) {
+      try {
+        await dispatch(
+          loadCoreData({
+            requestDetails: [
+              { url: LEAVE_TYPE_URL, name: "leaveType" },
+              { url: LEAVE_DURATION_URL, name: "leaveDuration" },
+              { url: CURRENT_FY_URL, name: "currentFY" },
+            ],
+          })
+        );
+        await dispatch(
+          loadEmployeeAdditionalInfo({
+            requestDetails: [
+              { url: FY_LIST_URL, name: "fyList" },
+              { url: LEAVE_BALANCE_URL, name: "leaveBalance" },
+            ],
+          })
+        );
+      } catch (err) {}
+    }
   };
 
   useEffect(() => {
-    if (currentEmployeeData.id) {
-      fetchEmployeeAdditionalData();
-    }
+    fetchEmployeeAdditionalData();
   }, [currentEmployeeData.id]);
 
   return (
-    <div className="leavetracker app-content">
-      <div className="app-content__display-area">
-        <div className="app-content__body">
+    <div className="leavetracker app-main-display">
+      <div className="full-height overflow--auto">
+        <main className="app-main">
           <ModalNavContext.Provider
             value={{
               globalNav,
@@ -133,6 +133,14 @@ function LeaveTrackerMain({ isPageLoading }) {
                 })}
               />
               <Route
+                path="announcements"
+                element={EmployeeCheckRoute({
+                  component: Announcements,
+                  isPageLoading,
+                  allowedAccess: LEAVETRACKER_APP_PERMISSION_GRANT_ALL,
+                })}
+              />
+              <Route
                 path="others/add-approver"
                 element={EmployeeCheckRoute({
                   component: AddApprovers,
@@ -154,7 +162,7 @@ function LeaveTrackerMain({ isPageLoading }) {
               />
             </Routes>
           </ModalNavContext.Provider>
-        </div>
+        </main>
       </div>
     </div>
   );

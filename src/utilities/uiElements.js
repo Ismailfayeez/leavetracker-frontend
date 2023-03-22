@@ -69,10 +69,10 @@ export const renderButton = ({ content, className, ...others }) => (
     variants={buttonBasicVariant}
     whileTap="whileTap"
   >
-    <div className="flex--center">
+    <div className="flex flex--center">
       {content}
       {others.loading && (
-        <div style={{ marginLeft: "0.5rem" }}>
+        <div style={{ marginLeft: "0.5rem", display: "inline-block" }}>
           <LoadingSpinner />
         </div>
       )}

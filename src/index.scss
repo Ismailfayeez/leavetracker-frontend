@@ -1,10 +1,12 @@
 @import "styles/scss/global.scss";
-
+// global style
 *,
 *::after,
 *::before {
   box-sizing: border-box;
 }
+
+// typography
 html {
   font-size: 62.5%;
 }
@@ -12,8 +14,11 @@ html {
 img {
   width: 100%;
 }
+canvas {
+  height: 100%;
+}
 body {
-  background-color: $bluish-white-2;
+  background-color: $color-primary;
   color: $color-body;
   font-size: 1.8rem;
   line-height: 1.4;
@@ -27,6 +32,7 @@ h4,
 h5,
 h6 {
   margin: 0 0 1rem 0;
+  color: $color-heading;
 }
 
 h1 {
@@ -50,6 +56,9 @@ p {
 }
 ul {
   margin: 0;
+}
+select option {
+  border-bottom: 1px solid black;
 }
 @media #{$desktop} {
   h1 {
@@ -78,20 +87,15 @@ ul {
   width: 20px;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-  // background: #f1f1f1;
-}
-
 /* Handle */
 ::-webkit-scrollbar-thumb {
   border-left: 10px solid rgba(0, 0, 0, 0);
   background-clip: padding-box;
-  background-color: #aaaaaa;
+  background-color: #d1d0d0;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
+  background-color: #7a7a7a;
   border-left: 10px solid rgba(0, 0, 0, 0);
 }

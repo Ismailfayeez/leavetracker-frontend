@@ -32,9 +32,10 @@ function Groups(props) {
           currentTab={currentTab}
           handleClick={({ name }) => setCurrentTab(name)}
         />
-        <ul className="tabbed-list align-center mb-1">
-          {tabItems.map((item) => (
+        <ul className="tabbed-list align-center margin-bottom--1">
+          {tabItems.map((item, index) => (
             <li
+              key={item.name}
               className={`tabbed-item ${
                 item.name == currentTab ? "active" : ""
               }`}

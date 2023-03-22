@@ -48,14 +48,14 @@ function MyGroups(props) {
   if (groups.isLoading) return <LoadingScreen />;
   if (groups.list.length <= 0)
     return (
-      <div className="flex flex--column flex--center gap--1rem">
+      <div className="flex flex--column flex--center gap--10px">
         <AddTasksImg className="illustration base-size" />
         <AddButton onClick={handleOpenNewGroup} content="Add group" />
       </div>
     );
   return (
-    <div className="my-groups">
-      <div className="flex--space-between-align-center mb-1">
+    <div className="my-groups flex flex--column gap--10px">
+      <div className="flex flex-justify--space-between flex-align--center margin-bottom--1">
         <p>{`Total group(s) :${groups.list.length}`}</p>
         <AddButton
           onClick={handleOpenNewGroup}
@@ -66,10 +66,12 @@ function MyGroups(props) {
       <div className="group-items-container">
         {groups.list.map((group, index) => (
           <m.div
+            key={group.id}
             variants={listVariant}
             layout
             initial="hidden"
             animate="visible"
+            className="overflow--hidden"
           >
             <GroupCard
               className="card--grey-paste"

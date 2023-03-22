@@ -36,7 +36,7 @@ function AddButton({ content, iconOnMobileScreen, ...otherProps }) {
               </span>
             )}
             <span
-              className={`flex flex--center gap--0_5rem ${
+              className={`flex flex--center gap--5px ${
                 iconOnMobileScreen ? "display--tablet" : ""
               }`}
             >

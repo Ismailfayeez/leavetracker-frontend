@@ -34,7 +34,10 @@ function RequestForm(props) {
   const [showLeaveDates, setShowLeaveDates] = useState(false);
 
   return (
-    <form className="leave-request__form grid grid-1x2" onSubmit={handleSubmit}>
+    <form
+      className="leave-request__form grid grid--1x2"
+      onSubmit={handleSubmit}
+    >
       {renderInput({
         name: "from",
         label: "From date",
@@ -44,7 +47,6 @@ function RequestForm(props) {
         onBlur: handleBlur,
         errors,
       })}
-
       {renderInput({
         name: "to",
         label: "To date",

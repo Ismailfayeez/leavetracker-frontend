@@ -48,7 +48,7 @@ function MyProfile({ handleLogoutUser }) {
   return (
     <section className="my-profile-content-layout">
       <div className="app-content__display-area">
-        <div className="app-content__body">
+        <main className="app-content__main">
           <Modal
             title="Edit Profile"
             open={displayEditProfileModal}
@@ -61,11 +61,11 @@ function MyProfile({ handleLogoutUser }) {
           <header>
             <h3>My Profile</h3>{" "}
           </header>
-          <div className="flex flex--column gap--1rem">
+          <div className="flex flex--column gap--10px">
             <InfoDisplayList
               data={[user]}
               columns={columns}
-              className="flex flex--column gap--1rem"
+              className="flex flex--column gap--10px"
             />
             {userLtData.currentProject && (
               <InfoDisplay
@@ -76,7 +76,7 @@ function MyProfile({ handleLogoutUser }) {
             )}
 
             <Link to="/switch-accounts">switch accounts</Link>
-            <div className="flex gap--1rem">
+            <div className="flex gap--10px">
               {renderButton({
                 content: "edit profile",
                 className: "btn--md btn--brown",
@@ -89,7 +89,7 @@ function MyProfile({ handleLogoutUser }) {
               })}
             </div>
           </div>
-        </div>
+        </main>
       </div>
     </section>
   );

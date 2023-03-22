@@ -26,14 +26,14 @@ function Project(props) {
   }, []);
 
   return (
-    <div className="project app-content">
-      <div className="project app-content__display-area">
-        <div className="app-content__body">
+    <div className="project app-main-display">
+      <div className="full-height overflow--auto">
+        <main className="app-main">
           <Routes>
             <Route path="my-projects" element={<MyProjects />} />
             <Route path=":projectId/*" element={<ProjectDetail />} />
           </Routes>
-        </div>
+        </main>
       </div>
     </div>
   );

@@ -44,7 +44,7 @@ function Admin(props) {
     },
     {
       label: "info",
-      path: "name",
+      key: "info",
       content: (admin) => (
         <>
           <div

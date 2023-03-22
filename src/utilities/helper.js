@@ -1,6 +1,8 @@
 import _ from "lodash";
 import moment from "moment";
+import { useDispatch } from "react-redux";
 import { CACHING_TIME_IN_MINUTES } from "../apps/leave-tracker/leaveTracker.constants";
+import { loadData } from "../store/common/dispatchMethods";
 
 export const sliceFirstLettersOfSentence = (text, count = 1, capitalize) => {
   const result = text
@@ -141,5 +143,14 @@ export const updateExistingObjWithNewObj = (existingObj, newObj) => {
 };
 
 export const getLastName = (name) => {
-  return name.split(" ").reverse()[0].charAt(0).toUpperCase() + name.slice(1);
+  const lastName = name.split(" ").reverse()[0];
+  return lastName.charAt(0).toUpperCase() + lastName.slice(1);
+};
+export const getFirstName = (name) => {
+  const lastName = name.split(" ")[0];
+  return lastName.charAt(0).toUpperCase() + lastName.slice(1);
+};
+
+export const checkArrayStartsWith = (array, value) => {
+  return array.some((i) => i.toLowerCase().startsWith(value.toLowerCase()));
 };

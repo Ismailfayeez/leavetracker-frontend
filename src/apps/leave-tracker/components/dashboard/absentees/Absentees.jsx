@@ -1,9 +1,15 @@
-import moment from "moment";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useId, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { motion as m } from "framer-motion";
+import moment from "moment";
+import AbsenteesGroupCountGraph from "./absentees-group-count-graph/AbsenteesGroupCountGraph";
 import CalenderPickerWeek from "../../../../../ui-kit/calenderPickerWeek/CalenderPickerWeek";
+import SearchBar from "../../../../../ui-kit/search-bar/SearchBar";
+import NoResult from "../../../../../ui-kit/no-result/NoResult";
+import LoadingScreen from "../../../../../ui-kit/loading/loadingScreen/LoadingScreen";
+import Pagination from "../../../../../ui-kit/pagination/Pagination";
+import AbsenteeCard from "../../../../../ui-kit/cards/apps/leavetracker/absentee-card/AbsenteeCard";
+import { paginate } from "../../../../../utilities/paginate";
 import { getWeekDates } from "../../../../../utilities/dateUtils";
 import {
   absenteesListCleared,
@@ -12,10 +18,9 @@ import {
   loadAbsenteesCountByGroup,
   absenteesCountByGroupCleared,
 } from "../../../store/absentees";
-import "./absentees.scss";
-import SearchBar from "../../../../../ui-kit/search-bar/SearchBar";
-import NoResult from "../../../../../ui-kit/no-result/NoResult";
-import LoadingScreen from "../../../../../ui-kit/loading/loadingScreen/LoadingScreen";
+import { loadGroups } from "../../../store/groups";
+import { useModalNav } from "../../../../../utilities/hooks/useModalNav";
+import { ModalNavContext } from "../../../../../utilities/context/ModalNavContext";
 import {
   leaveTrackerModalNames,
   LEAVETRACKER_SECTION_NAMES,
@@ -23,36 +28,41 @@ import {
 import {
   ABSENTEES_COUNT_URL,
   ABSENTEES_URL,
+  ALL_GROUPS_REPORT_EXCEL_URL,
+  ALL_GROUPS_REPORT_URL,
   ALL_TEAM_URL,
 } from "../../../apiConstants";
-import AbsenteesGroupCountGraph from "./absentees-group-count-graph/AbsenteesGroupCountGraph";
-import { useModalNav } from "../../../../../utilities/hooks/useModalNav";
-import { ModalNavContext } from "../../../../../utilities/context/ModalNavContext";
-import AbsenteeCard from "../../../../../ui-kit/cards/apps/leavetracker/absentee-card/AbsenteeCard";
-import { loadGroups } from "../../../store/groups";
-import Pagination from "../../../../../ui-kit/pagination/Pagination";
-import { paginate } from "../../../../../utilities/paginate";
 import { ReactComponent as EngineeringTeamImg } from "../../../../../assets/images/engineering-team.svg";
 import {
-  overlayVariant,
+  listVariant,
   pageVariant,
 } from "../../../../../utilities/AnimateVariants";
-import { motion as m, AnimatePresence } from "framer-motion";
+import { checkArrayStartsWith } from "../../../../../utilities/helper";
+import { renderButton } from "../../../../../utilities/uiElements";
+import { AddQueryParamToUrl } from "../../../../../utilities/queryParamGenerator";
+import useFileDownload from "../../../../../utilities/hooks/useFileDownload";
+
+import "./absentees.scss";
 function Absentees(props) {
-  const currentDate = moment();
-  const [date, setDate] = useState(currentDate.format("YYYY-MM-DD"));
   const dispatch = useDispatch();
+  const id = useId();
+  const currentDate = moment();
+  const [downloadPdfLoading, setDownloadPdfLoading] = useState(false);
+  const [downloadExcelLoading, setDownloadExcelLoading] = useState(false);
+  const [date, setDate] = useState(currentDate.format("YYYY-MM-DD"));
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchValue, setSearchValue] = useState("");
+  const [pageSize, setPageSize] = useState(3);
   const absentees = useSelector(
     (state) => state.entities.leaveTracker.employeeAccountData.absentees
   );
-  const { list: absenteesList, cache } = absentees;
-  const { data, isLoading } = absenteesList;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(3);
-  const [{ openModal, moveToNextNav }] = useModalNav(ModalNavContext);
   const allGroups = useSelector(
     (state) => state.entities.leaveTracker.employeeAccountData.groups.allGroups
   );
+  const [{ handleDownloadFile, handleDownloadPdf }] = useFileDownload();
+  const [{ openModal, moveToNextNav }] = useModalNav(ModalNavContext);
+  const { list: absenteesList, cache } = absentees;
+  const { data, isLoading } = absenteesList;
   const isDataFetchedOrModified =
     allGroups.lastFetch != cache.allGroups.lastFetch ||
     allGroups.lastModified != cache.allGroups.lastModified;
@@ -60,7 +70,24 @@ function Absentees(props) {
   const subscribedGroups = allGroups.list.filter(
     (group) => group.subscribed == true
   );
+  const absenteesData = data[date] || [];
+  const filteredData = absenteesData.filter(({ name, team_list }) => {
+    return (
+      checkArrayStartsWith(name.split(" "), searchValue) ||
+      checkArrayStartsWith(team_list, searchValue)
+    );
+  });
+  const paginatedData = paginate(filteredData, currentPage, pageSize);
 
+  const absenteesPdfReportUrl = AddQueryParamToUrl(ALL_GROUPS_REPORT_URL, {
+    date: moment(date).format("DD-MM-YYYY"),
+  });
+  const absenteesExcelReportUrl = AddQueryParamToUrl(
+    ALL_GROUPS_REPORT_EXCEL_URL,
+    {
+      date: moment(date).format("DD-MM-YYYY"),
+    }
+  );
   const clearAbsenteesState = async () => {
     await dispatch(absenteesListCleared());
     await dispatch(absenteesCountByGroupCleared());
@@ -83,6 +110,20 @@ function Absentees(props) {
       );
     } catch (er) {}
   };
+  const handleAbsentDetailModal = (employeeId) => {
+    openModal();
+    moveToNextNav({ date, employeeId }, leaveTrackerModalNames.absenteeDetail);
+  };
+  const handleDateSelect = (date) => {
+    setDate(date);
+  };
+  const handleNextWeek = () => {
+    setDate(moment(date).add(7, "days").format("YYYY-MM-DD"));
+  };
+
+  const handlePrevWeek = () => {
+    setDate(moment(date).subtract(7, "days").format("YYYY-MM-DD"));
+  };
   useEffect(() => {
     dispatch(
       loadGroups({
@@ -102,33 +143,15 @@ function Absentees(props) {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [date]);
-
-  const handleAbsentDetailModal = (employeeId) => {
-    openModal();
-    moveToNextNav({ date, employeeId }, leaveTrackerModalNames.absenteeDetail);
-  };
-  const handleDateSelect = (date) => {
-    setDate(date);
-  };
-  const handleNextWeek = () => {
-    setDate(moment(date).add(7, "days").format("YYYY-MM-DD"));
-  };
-
-  const handlePrevWeek = () => {
-    setDate(moment(date).subtract(7, "days").format("YYYY-MM-DD"));
-  };
-  const absenteesData = data[date] || [];
-  const paginatedData = paginate(absenteesData, currentPage, pageSize);
-  console.log(isLoading, isDataFetchedOrModified);
+  }, [date, searchValue]);
   return (
     <>
       {subscribedGroups.length ? (
         <div className="absentees">
-          <h4 className="absentees__selected-date">
+          <p className="absentees__selected-date bold">
             Absentees as of {moment(date).format("Do MMMM")}
-          </h4>
-          <div className="flex flex--column gap--1rem">
+          </p>
+          <div className="flex flex--column gap--10px">
             <div className="flex flex--center">
               <CalenderPickerWeek
                 dateList={getWeekDates(date)}
@@ -141,7 +164,7 @@ function Absentees(props) {
             </div>
             {isLoading && <LoadingScreen />}
             {!isLoading &&
-              (data[date] && data[date].length <= 0 ? (
+              (absenteesData.length <= 0 ? (
                 <m.div
                   variants={pageVariant}
                   initial="hidden"
@@ -154,54 +177,98 @@ function Absentees(props) {
                   />
                 </m.div>
               ) : (
-                data[date] &&
-                data[date].length > 0 && (
-                  <m.div
-                    className="grid grid--1x2-6fr-4fr grid--tablet gap--1rem"
-                    variants={pageVariant}
-                    initial="hidden"
-                    animate="visible"
-                    exit="hidden"
-                  >
-                    <div className="absentees__list">
-                      <SearchBar placeholder="search by name or group" />
-                      <p className="absentees__count">
-                        {data[date].length} member(s)
-                      </p>
-                      <div className="flex flex--column gap--1rem">
-                        {paginatedData.map((absentee) => (
-                          <AbsenteeCard
-                            name={absentee.name}
-                            groups={absentee.team_list}
-                            handleClick={() =>
-                              handleAbsentDetailModal(absentee.employee)
-                            }
-                          />
-                        ))}
+                absenteesData.length > 0 && (
+                  <div>
+                    <m.div
+                      className="grid grid--1x2-6fr-4fr grid--tablet gap--20px"
+                      variants={pageVariant}
+                      initial="hidden"
+                      animate="visible"
+                      exit="hidden"
+                    >
+                      <div className="absentees__list">
+                        <SearchBar
+                          placeholder="search by name or group"
+                          value={searchValue}
+                          onChange={(e) => setSearchValue(e.target.value)}
+                        />
+                        {filteredData.length > 0 && (
+                          <p className="absentees__count">
+                            {filteredData.length} member(s)
+                          </p>
+                        )}
+                        <div className="flex flex--column gap--10px">
+                          {paginatedData.length ? (
+                            paginatedData.map((absentee) => (
+                              <m.div
+                                key={absentee.name + id}
+                                variants={listVariant}
+                                initial="hidden"
+                                animate="visible"
+                              >
+                                <AbsenteeCard
+                                  name={absentee.name}
+                                  groups={absentee.team_list}
+                                  handleClick={() =>
+                                    handleAbsentDetailModal(absentee.employee)
+                                  }
+                                />
+                              </m.div>
+                            ))
+                          ) : (
+                            <NoResult statement={"no members found"} />
+                          )}
+                        </div>
+                        <Pagination
+                          itemsCount={filteredData.length}
+                          currentPage={currentPage}
+                          pageSize={pageSize}
+                          onPageChange={(page) => setCurrentPage(page)}
+                          paginationType="bullets"
+                          displayButtonOnDisable={false}
+                        />
                       </div>
-                      <Pagination
-                        itemsCount={data[date].length}
-                        currentPage={currentPage}
-                        pageSize={pageSize}
-                        onPageChange={(page) => setCurrentPage(page)}
-                        paginationType="bullets"
-                        displayButtonOnDisable={false}
-                      />
+                      <div className="absentees-group-count-graph-container">
+                        <label
+                          style={{
+                            textAlign: "center",
+                            display: "block",
+                            fontSize: "1.6rem",
+                          }}
+                        >
+                          Absentees group by count
+                        </label>
+                        <AbsenteesGroupCountGraph date={date} />
+                      </div>
+                    </m.div>
+                    <div
+                      className="btn-container flex--center"
+                      style={{ marginTop: "1rem" }}
+                    >
+                      {renderButton({
+                        content: "PDF",
+                        className: "btn--sm btn--red",
+                        onClick: () =>
+                          handleDownloadPdf(
+                            absenteesPdfReportUrl,
+                            "absentees.pdf",
+                            setDownloadPdfLoading
+                          ),
+                        loading: downloadPdfLoading,
+                      })}
+                      {renderButton({
+                        content: "Excel",
+                        className: "btn--sm btn--green",
+                        onClick: () =>
+                          handleDownloadFile(
+                            absenteesExcelReportUrl,
+                            "absentees.xlsx",
+                            setDownloadExcelLoading
+                          ),
+                        loading: downloadExcelLoading,
+                      })}
                     </div>
-                    <div className="absentees-group-count-graph-container">
-                      <label
-                        style={{
-                          textAlign: "center",
-                          display: "block",
-                          fontSize: "1.6rem",
-                          // fontWeight: "bold",
-                        }}
-                      >
-                        Absentees group by count
-                      </label>
-                      <AbsenteesGroupCountGraph date={date} />
-                    </div>
-                  </m.div>
+                  </div>
                 )
               ))}
           </div>

@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+import React, { useId, useState } from "react";
+import { motion as m } from "framer-motion";
 import LeaveRequestCard from "../../../../ui-kit/cards/apps/leavetracker/leave-request-card/LeaveRequestCard";
 import NoResult from "../../../../ui-kit/no-result/NoResult";
 import Pagination from "../../../../ui-kit/pagination/Pagination";
@@ -10,7 +10,6 @@ import { useModalNav } from "../../../../utilities/hooks/useModalNav";
 import { paginate } from "../../../../utilities/paginate";
 import { leaveTrackerModalNames } from "../../leaveTracker.constants";
 import getLeaveTableColumns from "./tableColumns";
-import { motion as m } from "framer-motion";
 
 function LeaveTable({ data, ...others }) {
   const [{ openModal, moveToNextNav }] = useModalNav(ModalNavContext);
@@ -29,11 +28,12 @@ function LeaveTable({ data, ...others }) {
   if (data.length <= 0) return <NoResult statement="No Record Found" />;
   const paginatedData = paginate(data, currentPage, pageSize);
   return (
-    <div>
-      <div className="display-mobile-only">
-        <div className="grid grid-gap-10px grid--1x2 grid--tablet">
+    <div className="leave-table">
+      <div className="display--mobile-only">
+        <div className="grid gap--10px grid--1x2 grid--tablet">
           {paginatedData.map((leave) => (
             <m.div
+              key={leave.id}
               variants={listVariant}
               layout
               initial="hidden"
@@ -50,7 +50,7 @@ function LeaveTable({ data, ...others }) {
           ))}
         </div>
       </div>
-      <div className="display-tablet">
+      <div className="display--tablet">
         <Table
           data={paginatedData}
           columns={getLeaveTableColumns({
@@ -59,7 +59,7 @@ function LeaveTable({ data, ...others }) {
             prevItemIndex: (currentPage - 1) * pageSize,
             ...others,
           })}
-          className="leave table table--transparant table--header-purple"
+          className="leave table--transparant table--header-purple"
         />
       </div>
       <Pagination
@@ -67,6 +67,7 @@ function LeaveTable({ data, ...others }) {
         pageSize={pageSize}
         currentPage={currentPage}
         onPageChange={handleCurrentPage}
+        displayButtonOnDisable={false}
       />
     </div>
   );

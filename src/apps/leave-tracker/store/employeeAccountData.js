@@ -5,6 +5,7 @@ import groupsReducer from "./groups";
 import employeeProfileReducer from "./employeeProfile";
 import absenteesReducer from "./absentees";
 import coreReducer from "./core";
+import announcementsReducer from "./announcements";
 import { clearEmployeeData } from "./authActions";
 
 const employeeAccountReducer = combineReducers({
@@ -14,6 +15,7 @@ const employeeAccountReducer = combineReducers({
   approval: approvalsReducer,
   groups: groupsReducer,
   employeeProfile: employeeProfileReducer,
+  announcements: announcementsReducer,
 });
 
 export default (state, action) => {

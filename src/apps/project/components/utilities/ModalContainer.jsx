@@ -16,7 +16,6 @@ import RoleAccess from "../role/RoleAccess";
 import { ModalNavContext } from "../../../../utilities/context/ModalNavContext";
 import { useModalNav } from "../../../../utilities/hooks/useModalNav";
 import ConfirmationModalContent from "../../../../ui-kit/confirmation-modal-content/ConfirmationModalContent";
-import Index from "../createProject/Index";
 
 function ModalContainer(props) {
   const [{ closeModal, globalVal, globalNav, showModal }] =

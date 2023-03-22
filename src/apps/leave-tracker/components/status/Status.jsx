@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { deleteLeaveRequest, loadMyLeaves } from "../../store/status";
+import { motion as m } from "framer-motion";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import LeaveTable from "./LeaveTable";
-import { LEAVE_BALANCE_URL, REQUEST_URL } from "../../apiConstants";
-import { loadEmployeeAdditionalInfo } from "../../store/employeeProfile";
-import "./status.scss";
 import TabItems from "../../../../ui-kit/tab-items/TabItems";
 import LoadingScreen from "../../../../ui-kit/loading/loadingScreen/LoadingScreen";
+import AddButton from "../../../../ui-kit/button/add-button/AddButton";
+import { deleteLeaveRequest, loadMyLeaves } from "../../store/status";
+import { loadEmployeeAdditionalInfo } from "../../store/employeeProfile";
 import { useModalNav } from "../../../../utilities/hooks/useModalNav";
 import { ModalNavContext } from "../../../../utilities/context/ModalNavContext";
-import { leaveTrackerModalNames } from "../../leaveTracker.constants";
-import { toast } from "react-toastify";
-import AddButton from "../../../../ui-kit/button/add-button/AddButton";
-import { motion as m } from "framer-motion";
 import { pageVariant } from "../../../../utilities/AnimateVariants";
-
+import { leaveTrackerModalNames } from "../../leaveTracker.constants";
+import { LEAVE_BALANCE_URL, REQUEST_URL } from "../../apiConstants";
+import "./status.scss";
 function Status(props) {
   const dispatch = useDispatch();
   const tabItems = [
@@ -55,12 +54,7 @@ function Status(props) {
     } catch (err) {}
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const handleDeleteLeave = async (leave) => {
-    console.log(leave);
     const { id, request_number } = leave;
 
     try {
@@ -92,6 +86,9 @@ function Status(props) {
     );
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
   if (isLoading) return <LoadingScreen />;
 
   return (
@@ -101,8 +98,8 @@ function Status(props) {
       initial="hidden"
       animate="visible"
     >
-      <header className="page-layout__header flex flex--space-between-align-center">
-        <h3 className="mb-0">My Leaves</h3>
+      <header className="page-layout__header flex flex-justify--space-between flex-align--center">
+        <h3 className="margin-bottom--0">My Leaves</h3>
         <AddButton
           content="Apply Leave"
           iconOnMobileScreen

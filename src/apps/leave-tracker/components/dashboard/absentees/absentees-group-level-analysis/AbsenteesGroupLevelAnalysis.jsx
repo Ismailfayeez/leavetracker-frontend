@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { loadGroups } from "../../../../store/groups";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { loadGroups } from "../../../../store/groups";
 import AbsenteesGraph from "../absentees-graph/AbsenteesGraph";
 import { renderSelect } from "../../../../../../utilities/uiElements";
 import { LEAVETRACKER_SECTION_NAMES } from "../../../../leaveTracker.constants";
@@ -14,7 +13,6 @@ function AbsenteesGroupLevelAnalysis(props) {
     (state) => state.entities.leaveTracker.employeeAccountData.groups.myGroups
   );
   useEffect(() => {
-    console.log("load my groups!!!");
     dispatch(
       loadGroups({
         name: LEAVETRACKER_SECTION_NAMES.myGroups,
@@ -22,6 +20,7 @@ function AbsenteesGroupLevelAnalysis(props) {
       })
     );
   }, []);
+
   useEffect(() => {
     if (myGroups.list[0]) {
       setGroupId(myGroups.list[0].id);
@@ -29,22 +28,23 @@ function AbsenteesGroupLevelAnalysis(props) {
   }, [myGroups.list]);
 
   const handleChange = ({ target: input }) => setGroupId(input.value);
+
   return myGroups.list.length ? (
     <div className="absentees-group-level-analysis">
       <header>
         <h4>My Group analysis</h4>
       </header>
-      <div className="flex flex--column gap--1rem">
+      <div className="flex flex--column gap--10px">
         {renderSelect({
           name: "groupId",
-          label: "Group Name:",
+          label: "Group Name",
           data: { groupId },
           handleChange,
           style: { maxWidth: "300px" },
           options: myGroups.list,
           optionKeys: { name: "name", value: "id" },
         })}
-        <AbsenteesGraph groupId={groupId} />{" "}
+        <AbsenteesGraph groupId={groupId} />
       </div>
     </div>
   ) : null;

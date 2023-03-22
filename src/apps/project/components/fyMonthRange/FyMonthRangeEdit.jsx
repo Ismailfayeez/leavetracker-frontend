@@ -13,8 +13,9 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ModalNavContext } from "../../../../utilities/context/ModalNavContext";
 import { useModalNav } from "../../../../utilities/hooks/useModalNav";
-import { renderSelect } from "../../../../utilities/uiElements";
+import { renderButton, renderSelect } from "../../../../utilities/uiElements";
 function FyMonthRangeEdit(props) {
+  const [isLoading, setIsLoading] = useState(false);
   const { projectId } = useParams();
   const baseUrl =
     MY_PROJECTS_URL + projectId + "/" + PROJECT_SECTION_URL_PATHNAMES.fyMonth;
@@ -50,6 +51,7 @@ function FyMonthRangeEdit(props) {
   const optionKeys = { value: "value", name: "name" };
 
   const handleSubmit = async () => {
+    setIsLoading(true);
     try {
       dispatch(updateFyMonth({ baseUrl, data: { month_id: data.monthId } }));
       console.log(data);
@@ -60,11 +62,12 @@ function FyMonthRangeEdit(props) {
         </span>
       );
     } catch (er) {}
+    setIsLoading(false);
   };
 
   return (
-    <div className="flex flex--column height-100-percent">
-      <div className="flex-item-grow-1">
+    <div className="flex flex--column full-height">
+      <div className="flex-item-grow">
         {renderSelect({
           label: "select month",
           name: "monthId",
@@ -74,16 +77,18 @@ function FyMonthRangeEdit(props) {
           optionKeys,
         })}
       </div>
-      <div className="flex flex--center flex-wrap btn-container btn-items-grow">
-        <button className="btn btn--md btn--matte-black" onClick={handleSubmit}>
-          Submit
-        </button>
-        <button
-          className="btn btn--md btn--matte-black-outline"
-          onClick={moveToPrevPage}
-        >
-          back
-        </button>
+      <div className="btn-container-grow">
+        {renderButton({
+          content: "submit",
+          className: "btn--md btn--matte-black",
+          onClick: handleSubmit,
+          loading: isLoading,
+        })}
+        {renderButton({
+          content: "back",
+          className: "btn btn--md btn--matte-black-outline",
+          onClick: moveToPrevPage,
+        })}
       </div>
     </div>
   );

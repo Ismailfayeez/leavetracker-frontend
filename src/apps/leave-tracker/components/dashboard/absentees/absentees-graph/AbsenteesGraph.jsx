@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
+import _ from "lodash";
 import {
   createYearList,
   createDateList,
 } from "../../../../../../utilities/helper";
-import moment from "moment";
-import { useDispatch, useSelector } from "react-redux";
 import BarChartWithSelect from "../../../../../../ui-kit/charts/bar-chart/bar-chart-with-select/BarChartWithSelect";
 import { TEAM_ANALYSIS_URL } from "../../../../apiConstants";
 import { AddQueryParamToUrl } from "../../../../../../utilities/queryParamGenerator";
@@ -15,7 +15,6 @@ import {
   loadAbsenteesGroupLevelAnalysis,
 } from "../../../../store/absentees";
 import "./absenteesGraph.scss";
-import _ from "lodash";
 
 function AbsenteesGraph({ groupId }) {
   const dispatch = useDispatch();
@@ -181,7 +180,7 @@ function AbsenteesGraph({ groupId }) {
   );
   return (
     <div className="absentees-graph">
-      <div className="grid grid-1x2 grid-gap-20px grid-items--center grid--tablet-hr ">
+      <div className="grid grid--1x2 gap--20px grid--center grid--tablet-hr">
         <BarChartWithSelect
           className="bg--purple"
           barColor="#813a78"

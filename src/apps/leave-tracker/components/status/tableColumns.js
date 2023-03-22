@@ -59,6 +59,7 @@ const getLeaveTableColumns = ({
       ),
     },
     {
+      key: "leave-delete",
       className: "leave-status__delete cursor-pointer",
       content: (leave) => {
         if (enableDelete && leave.is_delete)

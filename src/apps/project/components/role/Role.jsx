@@ -28,7 +28,7 @@ function Role(props) {
   const columns = [
     {
       label: "info",
-      path: "code",
+      key: "info",
       content: (role) => (
         <>
           <div

@@ -37,10 +37,10 @@ function Approvers(props) {
     setLoadingId("");
   };
   return (
-    <div className="approvers page-layout gap--1rem">
+    <div className="approvers page-layout gap--10px">
       <header className="page-layout__header">
-        <div className="flex flex--space-between-align-center">
-          <h3 className="margin-zero">Approvers</h3>
+        <div className="flex flex-justify--space-between flex-align--center">
+          <h3 className="margin--0">Approvers</h3>
           {approvers.length > 0 && (
             <AddButton
               content="Add"
@@ -52,19 +52,21 @@ function Approvers(props) {
       </header>
       <main className="page-layout__main">
         {approvers.length <= 0 && (
-          <div className="flex flex--column flex--center gap--1rem">
+          <div className="flex flex--column flex--center gap--10px">
             <AddTasksImg className="illustration base-size" />
             <AddButton content="Add Approver" onClick={handleAddApprover} />
           </div>
         )}
-        <div className="grid grid--1x2 gap--1rem grid--tablet">
+        <div className="grid grid--1x2 gap--10px grid--tablet">
           {approvers.length > 0 &&
             approvers.map((approver) => (
               <m.div
+                key={approver.id}
                 variants={listVariant}
                 layout
                 initial="hidden"
                 animate="visible"
+                className="overflow--hidden"
               >
                 <ApproverCard
                   approver={approver}

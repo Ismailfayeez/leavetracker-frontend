@@ -26,7 +26,7 @@ function EditButton({ content, ...otherProps }) {
     <>
       {renderButton({
         content: (
-          <div className="add-button flex flex--center gap--0_5rem">
+          <div className="add-button flex flex--center gap--5px">
             <FontAwesomeIcon
               icon={faPencil}
               className="add-icon color--black"

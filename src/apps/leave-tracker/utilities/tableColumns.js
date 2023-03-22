@@ -28,7 +28,7 @@ const leaveInfo = [
     getBodyContent: ({ leave_dates }) => (
       <div className="leave-dates__body">
         {leave_dates.map((date) => (
-          <div className=" leave-dates__item badge badge--bluish-white sub-text text-overflow-ellipsis">
+          <div className=" leave-dates__item badge badge--primary sub-text text-overflow--ellipsis">
             {moment(date).format("DD-MM-YY")}
           </div>
         ))}

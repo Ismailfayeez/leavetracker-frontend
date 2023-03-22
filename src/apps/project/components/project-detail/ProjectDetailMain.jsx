@@ -18,6 +18,8 @@ import { ReactComponent as leaveTypeIcon } from "../../../../assets/images/fligh
 import { ReactComponent as fyMonthIcon } from "../../../../assets/images/clock-date-calendar-icon.svg";
 import { motion as m } from "framer-motion";
 import { pageVariant } from "../../../../utilities/AnimateVariants";
+import Modal from "../../../../ui-kit/modal/Modal";
+import Index from "../editProjectInfo/Index";
 function ProjectDetailMain(props) {
   const { edit, enableEdit } = props;
   const myProjects = useSelector((state) => state.entities.projects.myProjects);
@@ -88,8 +90,6 @@ function ProjectDetailMain(props) {
   ];
   const ownerPath = ["admin", "admin-role", "fy-month"];
 
-  if (edit) return <EditProjectInfo enableEdit={enableEdit} />;
-
   return (
     <m.main
       className="page-layout__main"
@@ -98,14 +98,26 @@ function ProjectDetailMain(props) {
       initial="hidden"
       animate="visible"
     >
+      {edit && (
+        <Modal
+          open={edit}
+          handleClose={() => enableEdit(false)}
+          height="md"
+          width="sm"
+          title="Edit Project"
+        >
+          <Index setDisplayModal={enableEdit} />
+        </Modal>
+      )}
       <h4>Categories</h4>
-      <div className="grid grid-1x2 grid--tablet gap--2rem">
+      <div className="grid grid--1x2 grid--tablet gap--20px">
         {pages.map(({ displayContent, ...otherProps }) => {
           return !projectMemberProfile.owner &&
             ownerPath.includes(otherProps.path) ? null : displayContent ? (
             displayContent({ ...otherProps })
           ) : (
             <ProjectSectionCard
+              key={otherProps.name}
               {...otherProps}
               totalRecordsCount={sectionCount[otherProps.name]}
             />

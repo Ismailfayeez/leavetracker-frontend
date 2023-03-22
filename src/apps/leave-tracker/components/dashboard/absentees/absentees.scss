@@ -1,36 +1,16 @@
 @import "../../../../../styles/scss/global.scss";
 .absentees {
+  &__selected-date {
+    margin-bottom: 0.5rem;
+  }
   &__list {
     width: 100%;
     justify-self: center;
     max-width: 500px;
     min-width: 0;
-    .searchBar {
-      margin-top: 0.5rem;
-    }
   }
   &__count {
     font-size: 1.5rem;
     padding: 0.5rem 1rem;
-  }
-  &-group-count-graph-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    overflow: hidden;
-  }
-  .piechart-label-container {
-    text-align: center;
-    font-size: 1.6rem;
-  }
-  &__group-count-graph {
-    font-size: 1.4rem;
-    height: 200px;
-    max-width: 500px;
-  }
-}
-.absentee-detail {
-  .info-group {
-    margin-bottom: 1rem;
   }
 }

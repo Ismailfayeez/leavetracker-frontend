@@ -29,11 +29,12 @@ function ApprovalTable({ data, ...others }) {
   const paginatedData = paginate(data, currentPage, pageSize);
   if (data.length <= 0) return <NoResult statement="no approvals found" />;
   return (
-    <div>
-      <div className="display-mobile-only">
-        <div className="grid grid-gap-10px grid--1x2 grid--tablet">
+    <div className="approval-table">
+      <div className="display--mobile-only">
+        <div className="grid gap--10px grid--1x2 grid--tablet">
           {paginatedData.map((leave) => (
             <m.div
+              key={leave.id}
               variants={listVariant}
               layout
               initial="hidden"
@@ -50,7 +51,7 @@ function ApprovalTable({ data, ...others }) {
           ))}
         </div>
       </div>
-      <div className="display-tablet">
+      <div className="display--tablet">
         <Table
           data={paginatedData}
           columns={getApprovalTableColumns({
@@ -58,7 +59,7 @@ function ApprovalTable({ data, ...others }) {
             handleApproverStatusModal,
             prevItemIndex: (currentPage - 1) * pageSize,
           })}
-          className="approval table table--transparant table--header-desert"
+          className="approval table--transparant table--header-desert"
         />
       </div>
       <Pagination
@@ -66,6 +67,7 @@ function ApprovalTable({ data, ...others }) {
         pageSize={pageSize}
         currentPage={currentPage}
         onPageChange={handleCurrentPage}
+        displayButtonOnDisable={false}
       />
     </div>
   );

@@ -15,7 +15,7 @@ function LeaveInfo(props) {
       <InfoDisplayList
         data={[data.leave]}
         columns={myLeaveInfo}
-        className="flex flex--column gap--1rem"
+        className="flex flex--column gap--10px"
       />
     </div>
   );

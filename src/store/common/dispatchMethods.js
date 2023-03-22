@@ -1,9 +1,9 @@
 import { apiCallBegan } from "../apiActions";
 
-export const loadData = (url) => (dispatch) => {
+export const loadData = (url, responseType) => (dispatch) => {
   return dispatch(
     apiCallBegan({
-      requestParams: { url },
+      requestParams: { url, responseType },
     })
   );
 };

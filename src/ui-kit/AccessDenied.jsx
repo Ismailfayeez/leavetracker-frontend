@@ -3,7 +3,7 @@ import { ReactComponent as AccessDeniedImg } from "../assets/images/access-denie
 function AccessDenied(props) {
   return (
     <div className="access-denied full-height flex flex--center app-content">
-      <div className="flex flex--column gap--1rem">
+      <div className="flex flex--column gap--10px">
         <AccessDeniedImg className="illustration base-size" />
         <p style={{ textAlign: "center" }}>
           Access Denied

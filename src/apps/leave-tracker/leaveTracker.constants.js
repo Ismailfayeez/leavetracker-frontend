@@ -27,12 +27,10 @@ export const LEAVETRACKER_PATH_NAMES = {
 export const upcomingLeaves = {
   name: "upcoming",
   label: "Upcoming",
-  queryParam: `?from_date__gte=${moment().format("YYYY-MM-DD")}`,
 };
 export const previousLeaves = {
   name: "previous",
   label: "History",
-  queryParam: `?from_date__lt=${moment().format("YYYY-MM-DD")}`,
 };
 
 // modal nav names
@@ -51,6 +49,8 @@ export const leaveTrackerModalNames = {
   leaveApproverStatus: "leaveApproverStatus",
   approvalLeaveInfo: "approvalLeaveInfo",
   approvalLeaveApproverStatus: "approvalLeaveApproverStatus",
+  announcementDetail: "announcementDetail",
+  createAnnouncement: "createAnnouncement",
 };
 
 // caching time
@@ -76,9 +76,6 @@ export const closed = {
   code: "C",
   name: "closed",
 };
-export const LEAVE_DELETE_ALLOWED_STATUS = ["P"];
-export const APPROVAL_ALLOWED_STATUS = ["P"];
-export const APPROVAL_ALLOWED_TAB = ["newApproval"];
 
 export const LEAVETRACKER_APP_PERMISSIONS = {
   LEAVETRACKER_MAIN: "LV_TRCKR",
@@ -101,4 +98,6 @@ export const LEAVETRACKER_APP_PERMISSIONS = {
   LEAVE_DURATION_DLT: "LV_DTN_DLT",
 };
 
+export const APPROVAL_ALLOWED_STATUS = ["P"];
+export const APPROVAL_ALLOWED_TAB = ["newApproval"];
 export const LEAVETRACKER_APP_PERMISSION_GRANT_ALL = "LTAL";

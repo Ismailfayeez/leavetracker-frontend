@@ -26,7 +26,7 @@ function MyProjects(props) {
       .includes(PROJECT_APP_PERMISSIONS.CREATE_PROJECT);
   return (
     <m.div
-      className="my-projects full-height page-layout gap--1rem"
+      className="my-projects full-height page-layout gap--10px"
       variants={pageVariant}
       initial="hidden"
       animate="visible"
@@ -42,8 +42,10 @@ function MyProjects(props) {
           <Index setDisplayModal={setDisplayCreateProjectModal} />
         </Modal>
       )}
-      <header className="flex flex--space-between-align-center page-layout__header">
-        <h3 className="mb-0">{PROJECT_SECTION_LABELS.myProjects}</h3>
+      <header className="flex flex-justify--space-between flex-align--center page-layout__header">
+        <h3 className="margin-bottom--0">
+          {PROJECT_SECTION_LABELS.myProjects}
+        </h3>
         {isCreateProjectAccessAvailable && myProjects.list.length > 0 && (
           <AddButton
             content="Add Project"

@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import "./appNav.scss";
 function AppNav({ appNavData }) {
   const location = useLocation();
-
   return (
     <div>
       <section className="app-nav">
@@ -18,6 +17,7 @@ function AppNav({ appNavData }) {
                   ? "app-nav__list-item--active"
                   : ""
               }`}
+              key={item.path}
             >
               {appNavData.displayContent
                 ? appNavData.displayContent(item)

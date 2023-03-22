@@ -1,5 +1,5 @@
 import React from "react";
-import GroupMemberCard from "../../../../../../ui-kit/cards/group-member-card/GroupMemberCard";
+import GroupMemberCard from "../../../../../../ui-kit/cards/apps/leavetracker/group-member-card/GroupMemberCard";
 import "./groupMembers.scss";
 function GroupMembers(props) {
   const {
@@ -14,7 +14,7 @@ function GroupMembers(props) {
   return (
     <div className={`group-members`}>
       <div className="group-members__title">{title}</div>
-      <ul className="group-member__list grid grid--1x2 grid--tablet grid-gap-10px grid-items-center">
+      <ul className="group-member__list grid grid--1x2 grid--tablet gap--10px grid--center">
         {groupMembers.map(
           ({
             id,

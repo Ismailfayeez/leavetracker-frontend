@@ -10,7 +10,7 @@ import {
 import GroupMembers from "./GroupMembers";
 import { filterAdmin, filterParticipant } from "./utils";
 import { LocationContext } from "../../common/context/LocationContext";
-import useValidator from "../../../../utilities/useValidator";
+import useValidator from "../../../../utilities/hooks/useValidator";
 import groupDetailsSchema from "./groupDetailsForm.schema";
 import { renderButton, renderInput } from "../../../../utilities/uiElements";
 import "./groups.scss";
@@ -25,6 +25,7 @@ function GroupEdit(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const pages = ["addGroupInfo", "addUser"];
+  const [isLoading, setIsLoading] = useState(false);
   const [currentLocation, setCurrentLocation] = useState(pages[0]);
   const [{ handleBack }] = useGlobalNavPages(LocationContext);
   const { groupsPathName, groupId } = useParams();
@@ -89,12 +90,14 @@ function GroupEdit(props) {
 
   const handleUpdateGroupInfo = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const error = validateForm();
     if (error) return;
     try {
       await dispatch(updateGroupInfo({ baseUrl, id: groupId, data }));
       handleBack();
     } catch (err) {}
+    setIsLoading(false);
   };
 
   const handleNext = () => {
@@ -121,12 +124,12 @@ function GroupEdit(props) {
             </h4>
           </header>
           <form onSubmit={handleUpdateGroupInfo}>
-            <div className="gr grid--1x2 grid--tablet grid-gap-10px-20px">
+            <div className="gr grid--1x2 grid--tablet gap--10px-20px">
               {renderInput({
                 name: "name",
                 label: "Name",
                 type: "text",
-                className: "mb-1",
+                className: "margin-bottom--1",
                 data,
                 handleChange: handleData,
                 onBlur: handleBlur,
@@ -137,7 +140,7 @@ function GroupEdit(props) {
                 name: "description",
                 label: "description",
                 type: "text",
-                className: "mb-1",
+                className: "margin-bottom--1",
                 data,
                 handleChange: handleData,
                 onBlur: handleBlur,
@@ -146,22 +149,23 @@ function GroupEdit(props) {
             </div>
             {groupId != "new" && (
               <>
-                <div className="flex flex--center flex-wrap btn-container btn-items-grow">
+                <div className="btn-container-grow">
                   {renderButton({
                     type: "submit",
                     content: "save",
                     className: " btn--md btn--matte-black",
+                    loading: isLoading,
                   })}
                 </div>
               </>
             )}
             {groupId == "new" && (
               <>
-                <div className="flex flex--center flex-wrap btn-container btn-items-grow">
+                <div className="btn-container-grow">
                   {renderButton({
                     type: "button",
                     onClick: handleNext,
-                    content: "Nexat",
+                    content: "Next",
                     className: " btn--md btn--matte-black",
                   })}
                 </div>

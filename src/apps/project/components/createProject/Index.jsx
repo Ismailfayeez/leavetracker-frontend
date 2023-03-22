@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { renderButton, renderInput } from "../../../../utilities/uiElements";
-import useValidator from "../../../../utilities/useValidator";
+import useValidator from "../../../../utilities/hooks/useValidator";
 import { MY_PROJECTS_URL } from "../../apiConstants";
 import { createMyProject } from "../../store/projects";
 import createProjectSchema from "./createProject.schema";
@@ -11,6 +11,7 @@ import "./createProject.scss";
 
 function Index({ setDisplayModal }) {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({ name: "", description: "" });
 
   const handleChange = ({ target: input }) =>
@@ -23,6 +24,7 @@ function Index({ setDisplayModal }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const error = validateForm();
     if (error) return;
     try {
@@ -31,6 +33,7 @@ function Index({ setDisplayModal }) {
         <span className="toast-msg">{`Project ${data.name} added successfully`}</span>
       );
     } catch (err) {}
+    setIsLoading(false);
     setDisplayModal(false);
   };
   const handleBlur = ({ target: input }) => {
@@ -41,7 +44,7 @@ function Index({ setDisplayModal }) {
       onSubmit={handleSubmit}
       className="create-project flex flex--column full-height"
     >
-      <div className="flex-grow flex flex--column gap--1rem">
+      <div className="flex-item-grow flex flex--column gap--10px">
         {renderInput({
           name: "name",
           data,
@@ -61,12 +64,12 @@ function Index({ setDisplayModal }) {
           autoComplete: "off",
         })}
       </div>
-      <div className="flex flex--center flex-wrap btn-container btn-items-grow">
+      <div className="btn-container-grow">
         {renderButton({
           content: "Submit",
-          onClick: handleSubmit,
           className: "btn--md btn--matte-black",
           type: "submit",
+          loading: isLoading,
         })}
         {renderButton({
           content: "Back",

@@ -22,7 +22,7 @@ function AddApprovers(props) {
       await dispatch(addApprovers({ baseUrl: APPROVER_URL, data: approvers }));
       closeModal();
       toast.success(
-        <span className="toast-msg">{`Approvers updated successfully"`}</span>
+        <span className="toast-msg">{`Approvers updated successfully`}</span>
       );
     } catch (err) {
       console.log(err);

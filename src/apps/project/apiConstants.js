@@ -16,6 +16,7 @@ export const PROJECT_SECTION_URL_PATHNAMES = {
 };
 export const PT_ACCESS_URL = BASE_URL + "pt-access/";
 export const LT_ACCESS_URL = BASE_URL + "lt-access/";
+
 export const getProjectRoleUrl = (projectId) => (queryVal) =>
   `${MY_PROJECTS_URL}${projectId}/role${queryVal ? `?search=${queryVal}` : ""}`;
 export const getProjectDomainUrl = (projectId) => (queryVal) =>

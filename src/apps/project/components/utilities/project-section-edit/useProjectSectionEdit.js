@@ -6,7 +6,7 @@ import { PageNavContext } from "../../../../../utilities/context/PageNavContext"
 import { storeDataToLocal } from "../../../../../utilities/helper";
 import { useModalNav } from "../../../../../utilities/hooks/useModalNav";
 import { usePageNav } from "../../../../../utilities/hooks/usePageNav";
-import useValidator from "../../../../../utilities/useValidator";
+import useValidator from "../../../../../utilities/hooks/useValidator";
 import {
   createSectionDetail,
   updateSectionDetail,

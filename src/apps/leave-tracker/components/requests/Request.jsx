@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import RequestForm from "./RequestForm";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import RequestSuccess from "./request-success/RequestSuccess";
 import requestFormSchema from "./requestForm.schema";
 import "./request.scss";
-import useValidator from "../../../../utilities/useValidator";
-import ApproverInfo from "./approver-info/ApproverInfo";
+import useValidator from "../../../../utilities/hooks/useValidator";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createLeaveRequest } from "../../store/status";
@@ -119,9 +117,9 @@ function Request(props) {
   };
   const getLeaveList = () => {
     return data.dateList.map((leave, index) => (
-      <span className="badge badge--bluish-white leave-dates__item flex">
+      <span className="badge badge--primary leave-dates__item flex">
         <span
-          className="flex-grow text-ellipsis"
+          className="flex-item-grow text-ellipsis"
           style={{ display: "inline-block" }}
         >
           {moment(leave).format("DD-MM-YY")}
@@ -143,7 +141,7 @@ function Request(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const error = validateForm();
-    // if (error) return;
+    if (error) return;
     try {
       setOnSubmitLoading(true);
       const postData = {
@@ -194,7 +192,7 @@ function Request(props) {
     clearSuggestions(input.name);
   };
   return (
-    <div className="leave-request leave-request-container grid--tablet-hr">
+    <div className="leave-request grid--tablet-hr">
       <Modal
         open={displayLeaveBalance}
         handleClose={() => setDisplayLeaveBalance(false)}

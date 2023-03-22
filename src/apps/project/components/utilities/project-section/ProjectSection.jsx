@@ -26,10 +26,10 @@ function ProjectSection({
   const handleCurrentPage = (pageNumber) => setCurrentPage(pageNumber);
   const paginatedData = paginate(data, currentPage, pageSize);
   return (
-    <div className="project-section page-layout gap--1rem">
+    <div className="project-section page-layout gap--5px">
       <div className="page-layout__header">
-        <div className="flex--space-between-align-center">
-          <div className="flex--center">
+        <div className="flex flex-justify--space-between flex-align--center">
+          <div className="flex flex--center">
             <div onClick={handleBack} className="back-arrow">
               <FontAwesomeIcon icon={faArrowLeft} />
             </div>
@@ -46,13 +46,13 @@ function ProjectSection({
             onKeyDown={handleSearch}
             placeholder="type name or code..."
           />
-          {data.length > 0 && (
-            <p className="project-section__search-results-count">
-              <span className="count">{data.length}</span> total results
-            </p>
-          )}
-        </div>{" "}
+        </div>
         {isLoading && <LoadingScreen />}
+        {data.length > 0 && (
+          <p className="project-section__search-results-count">
+            <span className="count">{data.length}</span> total results
+          </p>
+        )}
         {!isLoading && (
           <div className="project-section__data-list">
             {searchQuery && data.length <= 0 && <NoResult />}
@@ -70,6 +70,7 @@ function ProjectSection({
                   pageSize={pageSize}
                   currentPage={currentPage}
                   onPageChange={handleCurrentPage}
+                  displayButtonOnDisable={false}
                 />
               </>
             )}

@@ -4,8 +4,9 @@ import { loadAllData } from "../../../store/common/dispatchMethods";
 import { ltCurrentProjectReceived } from "../../auth/store/userProfile";
 import { ACCOUNT_PREFERENCE_URL } from "../apiConstants";
 import { loadCurrentEmployee } from "../store/employeeProfile";
-import "./leaveTracker.scss";
 import LeaveTrackerMain from "./LeaveTrackerMain";
+import "./leaveTracker.scss";
+
 function LeaveTracker(props) {
   const dispatch = useDispatch();
   const [isPageLoading, setIsPageLoading] = useState(true);
@@ -53,7 +54,6 @@ function LeaveTracker(props) {
     fetchEmployee();
   }, [currentUserLTData.currentProject]);
 
-  console.log(isPageLoading);
   return <LeaveTrackerMain isPageLoading={isPageLoading} />;
 }
 

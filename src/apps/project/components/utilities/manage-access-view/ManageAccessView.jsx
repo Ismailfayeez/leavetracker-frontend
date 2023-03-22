@@ -15,15 +15,15 @@ function ManageAccessView({ sectionConstants, handleBack }) {
   const accessList = sectionDataDetail.access;
   return (
     <div className="manage-access-view">
-      <div className="flex-item-grow-1">
+      <div className="flex-item-grow">
         <label className="">Current Access list:</label>
         <div className="flex flex-wrap">
           {accessList.map((item) => (
-            <span className="badge badge--bluish-white">{item.name}</span>
+            <span className="badge sub-text badge--primary">{item.name}</span>
           ))}
         </div>
       </div>
-      <div className="flex flex--center flex-wrap btn-container btn-items-grow">
+      <div className="btn-container-grow">
         {renderButton({
           content: "edit",
           className: "btn--md btn--matte-black",

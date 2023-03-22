@@ -34,7 +34,7 @@ function AllGroups(props) {
   if (groups.isLoading) return <LoadingScreen />;
   if (groups.list.length <= 0)
     return (
-      <div className="flex flex--column flex--center gap--1rem">
+      <div className="flex flex--column flex--center gap--10px">
         <EmptyImg className="illustration base-size" />
         <p>No groups found</p>
       </div>
@@ -42,17 +42,19 @@ function AllGroups(props) {
 
   return (
     <div>
-      <div className="all-groups">
-        <div className="flex--space-between-align-center mb-1">
+      <div className="all-groups flex flex--column gap--10px">
+        <div className="flex-justify--space-between flex-align--center margin-bottom--1">
           <p>{`Total group(s) :${groups.list.length}`}</p>
         </div>
-        <div className="grid group-items-container">
-          {groups.list.map((group, index) => (
+        <div className="group-items-container">
+          {groups.list.map((group) => (
             <m.div
+              key={group.id}
               variants={listVariant}
               layout
               initial="hidden"
               animate="visible"
+              className="overflow--hidden"
             >
               <GroupCard
                 className="card--orange"

@@ -1,13 +1,13 @@
 import React from "react";
 import { motion as m } from "framer-motion";
 import "./tabItems.scss";
-import { tabVariant } from "../../utilities/AnimateVariants";
 function TabItems({ items, currentTab, handleClick = () => {} }) {
   return (
     <div className="tab-container">
       <ul className="tab-items ">
         {items.map((item) => (
           <li
+            key={item.name}
             onClick={() => handleClick({ ...item })}
             className={`tab-items__item ${
               item.name == currentTab ? "active" : ""

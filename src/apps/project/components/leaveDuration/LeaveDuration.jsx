@@ -29,7 +29,7 @@ function LeaveDuration(props) {
   const columns = [
     {
       label: "info",
-      path: "code",
+      key: "info",
       content: (leaveDuration) => (
         <>
           <div

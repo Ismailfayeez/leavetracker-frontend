@@ -11,11 +11,11 @@ function FyMonthRangeView(props) {
   const [{ moveToNextPage }] = usePageNav(PageNavContext);
   const fyMonth = moment(fyMonthNumber, "M").format("MMMM");
   return (
-    <div className="flex flex--column height-100-percent">
-      <div className="flex-item-grow-1">
+    <div className="flex flex--column full-height">
+      <div className="flex-item-grow">
         <InfoDisplay item={{ fyMonth }} name="fyMonth" label="start month" />
       </div>
-      <div className="flex flex--center flex-wrap btn-container btn-items-grow">
+      <div className="btn-container-grow">
         <button
           className="btn btn--md btn--matte-black"
           onClick={() => moveToNextPage("edit")}

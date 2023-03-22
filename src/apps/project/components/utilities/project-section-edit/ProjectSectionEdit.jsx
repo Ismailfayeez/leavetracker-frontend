@@ -1,7 +1,8 @@
-import React from "react";
-import { renderInput } from "../../../../../utilities/uiElements";
+import React, { useState } from "react";
+import { renderButton, renderInput } from "../../../../../utilities/uiElements";
 import { useProjectSectionEdit } from "./useProjectSectionEdit";
 function ProjectSectionEdit({ sectionConstants, sectionId, fields, schema }) {
+  const [isLoading, setIsLoading] = useState(false);
   const [
     {
       sectionDetail,
@@ -19,45 +20,51 @@ function ProjectSectionEdit({ sectionConstants, sectionId, fields, schema }) {
       label: key,
     }));
   console.log(data);
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    await handleSubmit();
+    setIsLoading(false);
+  };
   return (
-    <div className="project-section-edit">
-      <div className="flex-item-grow-1 flex flex--column gap--1rem">
-        {fields.map(({ displayContent, ...otherProps }) => {
-          return (
-            <div>
-              {displayContent
-                ? displayContent({
-                    data,
-                    handleChange,
-                    handleBlur,
-                    errors,
-                    ...otherProps,
-                  })
-                : renderInput({
-                    data,
-                    handleChange,
-                    onBlur: handleBlur,
-                    errors,
-                    ...otherProps,
-                  })}
-            </div>
-          );
+    <form className="project-section-edit" onSubmit={onSubmit}>
+      <div className="flex-item-grow flex flex--column gap--10px">
+        {fields.map(({ displayContent, ...otherProps }) => (
+          <div>
+            {displayContent
+              ? displayContent({
+                  data,
+                  handleChange,
+                  handleBlur,
+                  errors,
+                  ...otherProps,
+                })
+              : renderInput({
+                  data,
+                  handleChange,
+                  onBlur: handleBlur,
+                  errors,
+                  ...otherProps,
+                })}
+          </div>
+        ))}
+      </div>
+      <div className="btn-container-grow">
+        {renderButton({
+          content: "Submit",
+          type: "submit",
+          className: "btn btn--md btn--matte-black",
+          loading: isLoading,
         })}
+        {sectionId != "new" &&
+          renderButton({
+            content: "Back",
+            className: "btn btn--md btn--matte-black-outline",
+            onClick: moveToPrevPage,
+            type: "button",
+          })}
       </div>
-      <div className="flex flex--center flex-wrap btn-container btn-items-grow">
-        <button className="btn btn--md btn--matte-black" onClick={handleSubmit}>
-          Submit
-        </button>
-        {sectionId != "new" && (
-          <button
-            className="btn btn--md btn--matte-black-outline"
-            onClick={moveToPrevPage}
-          >
-            Back
-          </button>
-        )}
-      </div>
-    </div>
+    </form>
   );
 }
 

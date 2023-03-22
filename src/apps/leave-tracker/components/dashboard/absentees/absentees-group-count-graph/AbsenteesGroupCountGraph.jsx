@@ -4,6 +4,7 @@ import { loadAbsenteesCountByGroup } from "../../../../store/absentees";
 import { useDispatch, useSelector } from "react-redux";
 import { ABSENTEES_COUNT_URL } from "../../../../apiConstants";
 import { Pie, PieChart, Cell, ResponsiveContainer } from "recharts";
+import "./absenteesGroupCountGraph.scss";
 function AbsenteesGroupCountGraph({ date }) {
   const absenteesCountByGroup = useSelector(
     (state) =>
@@ -50,9 +51,9 @@ function AbsenteesGroupCountGraph({ date }) {
   ];
 
   return (
-    <>
+    <div className="absentees-group-count-graph-container">
       <div
-        className="absentees__group-count-graph"
+        className="absentees-group-count-graph"
         style={{ fontSize: "1.6rem" }}
       >
         <ResponsiveContainer width="100%" height="100%">
@@ -79,7 +80,10 @@ function AbsenteesGroupCountGraph({ date }) {
       </div>
       <div className="piechart-label-container">
         {data.map(({ name }, index) => (
-          <span style={{ whiteSpace: "nowrap", display: "inline-block" }}>
+          <span
+            style={{ whiteSpace: "nowrap", display: "inline-block" }}
+            key={name}
+          >
             <span
               className="circle"
               style={{ background: COLORS[index] }}
@@ -89,7 +93,7 @@ function AbsenteesGroupCountGraph({ date }) {
           </span>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

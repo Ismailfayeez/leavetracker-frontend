@@ -22,7 +22,7 @@ function SelectedUsers({
           />
         </span>
       </div>
-      <div className="flex flex--column gap--1rem flex-grow overflow-auto">
+      <div className="flex flex--column gap--10px flex-item-grow overflow--auto">
         {selectedUsers.map(({ name, email }) => (
           <EmployeeCard
             employee={{ name, email }}
@@ -30,7 +30,7 @@ function SelectedUsers({
           />
         ))}
       </div>
-      <div className="flex flex--center flex-wrap btn-container btn-items-grow">
+      <div className="btn-container-grow">
         {renderButton({
           content: "Submit",
           className: "btn--md btn--matte-black",

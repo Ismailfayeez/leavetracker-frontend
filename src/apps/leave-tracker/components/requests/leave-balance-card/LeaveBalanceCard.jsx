@@ -12,7 +12,7 @@ function LeaveBalanceCard({ data }) {
       <header>
         <h4 style={{ margin: 0, fontSize: "2rem" }}>Leave Balance</h4>
       </header>
-      <section className="card__body overflow-auto">
+      <section className="card__body overflow--auto">
         <table style={{ width: "100%", fontSize: "1.8rem" }}>
           {data.map((record) => (
             <tr>

@@ -4,7 +4,7 @@ import "./noResult.scss";
 
 function NoResult({ statement, illustration: Illustration, noImage }) {
   return (
-    <div className="no-result flex flex--column flex--center gap--1rem full-height">
+    <div className="no-result flex flex--column flex--center gap--10px full-height">
       {noImage ? null : Illustration ? (
         <div>
           <Illustration className="illustration base-size" />

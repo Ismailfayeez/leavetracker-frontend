@@ -7,6 +7,7 @@ import {
   mdiPageNext,
   mdiCheckDecagramOutline,
   mdiOfficeBuildingOutline,
+  mdiBullhornVariant,
 } from "@mdi/js";
 
 <Icon path={mdiViewDashboard} size={1} />;
@@ -28,6 +29,11 @@ export const appNavData = [
       { name: "My Leaves", path: "lt/status", icon: mdiListStatus },
       { name: "approval", path: "lt/approval", icon: mdiCheckDecagramOutline },
       { name: "groups", path: "lt/groups", icon: mdiAccountGroup },
+      {
+        name: "announcements",
+        path: "lt/announcements",
+        icon: mdiBullhornVariant,
+      },
       { name: "others", path: "lt/others", icon: mdiPageNext },
     ],
     displayContent,

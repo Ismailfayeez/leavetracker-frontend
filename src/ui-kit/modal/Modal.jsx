@@ -39,8 +39,10 @@ function Modal({
             exit="hidden"
           >
             <header className="modal__header">
-              <div className=" flex-grow overflow-auto">
-                <h4 className="mb-0 text-overflow-ellipsis">{title}</h4>
+              <div className=" flex-item-grow overflow--auto">
+                <h4 className="margin-bottom--0 text-overflow--ellipsis">
+                  {title}
+                </h4>
               </div>
               {!disableClose && (
                 <span className="modal__close" onClick={handleClose}>

@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { login } from "../../store/userProfile";
 import { useDispatch, useSelector } from "react-redux";
 import { renderButton, renderInput } from "../../../../utilities/uiElements";
 import loginSchema from "./login.schema";
-import useValidator from "../../../../utilities/useValidator";
+import useValidator from "../../../../utilities/hooks/useValidator";
 import { Link } from "react-router-dom";
-function Index(props) {
+function Login(props) {
   const [data, setData] = useState({ email: "", password: "" });
   const [apiError, setApiError] = useState("");
   const [loading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const loginRef = useRef(null);
   const [errors, setErrors, validateForm, validateProperty] = useValidator(
     data,
     loginSchema
@@ -20,6 +23,22 @@ function Index(props) {
   };
   const handleChange = ({ target: input }) => {
     setData({ ...data, [input.name]: input.value });
+  };
+  const handleKeyDown = (e) => {
+    if (e.key == "Enter") {
+      console.log(
+        "keydown",
+        emailRef.current,
+        passwordRef.current,
+        loginRef.current
+      );
+      console.log("keydown", e.key);
+      if (e.target == emailRef.current) {
+        passwordRef.current.focus();
+      } else if (e.target == passwordRef.current) {
+        loginRef.current.click();
+      }
+    }
   };
   const handleLogin = async () => {
     const error = validateForm();
@@ -41,9 +60,12 @@ function Index(props) {
       ) {
         setApiError("Invalid email or password. Please check.");
       }
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
+  useEffect(() => {
+    emailRef.current.focus();
+  }, []);
   return (
     <div className="content-area login">
       <header>
@@ -58,7 +80,9 @@ function Index(props) {
           data,
           handleChange,
           onBlur: handleBlur,
+          onKeyDown: handleKeyDown,
           errors,
+          ref: emailRef,
         })}
         {renderInput({
           label: "Password",
@@ -67,7 +91,9 @@ function Index(props) {
           data,
           handleChange,
           onBlur: handleBlur,
+          onKeyDown: handleKeyDown,
           errors,
+          ref: passwordRef,
         })}
         <div className="flex--end" style={{ width: "100%" }}>
           <a>Forgot Password</a>
@@ -77,6 +103,7 @@ function Index(props) {
           className: "btn--lg btn--block btn--blue",
           onClick: () => handleLogin(data),
           loading,
+          ref: loginRef,
         })}
         <div>
           Need an account? <Link to="/auth/signup">Sign Up</Link>
@@ -86,4 +113,4 @@ function Index(props) {
   );
 }
 
-export default Index;
+export default Login;

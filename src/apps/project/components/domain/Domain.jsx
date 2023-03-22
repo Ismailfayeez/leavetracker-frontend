@@ -28,7 +28,7 @@ function Domain(props) {
   const columns = [
     {
       label: "info",
-      path: "code",
+      key: "info",
       content: (domain) => (
         <>
           <div

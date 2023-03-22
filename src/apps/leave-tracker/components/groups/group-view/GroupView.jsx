@@ -83,7 +83,7 @@ function GroupView(props) {
 
   return (
     <div className="group-view page-layout">
-      <header className="flex flex--align-item-center page-layout__header">
+      <header className="flex flex-align--center page-layout__header">
         <div className="back-arrow">
           <FontAwesomeIcon icon={faArrowLeft} onClick={() => navigate(-1)} />
         </div>
@@ -96,11 +96,11 @@ function GroupView(props) {
             { name: "name", label: "Name" },
             { name: "description", label: "Description" },
           ]}
-          className="grid grid--1x2 grid--tablet gap--1rem"
+          className="grid grid--1x2 grid--tablet gap--10px"
         />
 
         <div className="group-view__participants">
-          <div className="content gap--1rem">
+          <div className="content gap--10px">
             {data.team_members.length > 0 && (
               <GroupMembers
                 title="Admin(s)"
@@ -132,7 +132,7 @@ function GroupView(props) {
             { name: "lastModifiedOn", label: "Last Modified On" },
             { name: "lastModifiedBy", label: "Last Modified By" },
           ]}
-          className="grid grid--1x2 grid--tablet gap--1rem"
+          className="grid grid--1x2 grid--tablet gap--10px"
         />
 
         {isUserGroupAdmin && (

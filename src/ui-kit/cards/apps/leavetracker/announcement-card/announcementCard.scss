@@ -1,0 +1,11 @@
+.card {
+  &.announcement {
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(186, 182, 186, 1);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(186, 182, 186, 1);
+    box-shadow: 0px 0px 8px 0px rgba(186, 182, 186, 1);
+    .announcement__title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

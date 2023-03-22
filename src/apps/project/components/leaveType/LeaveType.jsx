@@ -28,7 +28,7 @@ function LeaveType(props) {
   const columns = [
     {
       label: "info",
-      path: "code",
+      key: "info",
       content: (leaveType) => (
         <>
           <div

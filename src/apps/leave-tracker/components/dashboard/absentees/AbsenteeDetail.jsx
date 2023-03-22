@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import LoadingScreen from "../../../../../ui-kit/loading/loadingScreen/LoadingScreen";
-import "./absentees.scss";
+import InfoDisplayList from "../../../../../ui-kit/info-display-list/InfoDisplayList";
 import { loadData } from "../../../../../store/common/dispatchMethods";
-import { ABSENTEES_URL } from "../../../apiConstants";
 import { useModalNav } from "../../../../../utilities/hooks/useModalNav";
 import { ModalNavContext } from "../../../../../utilities/context/ModalNavContext";
 import { leaveTrackerModalNames } from "../../../leaveTracker.constants";
-import InfoDisplayList from "../../../../../ui-kit/info-display-list/InfoDisplayList";
+import { ABSENTEES_URL } from "../../../apiConstants";
+import "./absentees.scss";
 function AbsenteeDetail(props) {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +34,10 @@ function AbsenteeDetail(props) {
         return upcoming_leaves.length > 0 ? (
           <div className="leave-dates__body">
             {upcoming_leaves.map((leave) => (
-              <span className="leave-dates__item badge badge--bluish-white sub-text text-overflow-ellipsis">
+              <span
+                key={leave}
+                className="leave-dates__item badge badge--primary sub-text text-overflow--ellipsis"
+              >
                 {leave}
               </span>
             ))}
@@ -64,7 +67,7 @@ function AbsenteeDetail(props) {
         <InfoDisplayList
           data={[data]}
           columns={columns}
-          className="flex flex--column gap--1rem"
+          className="flex flex--column gap--10px"
         />
       )}
     </>

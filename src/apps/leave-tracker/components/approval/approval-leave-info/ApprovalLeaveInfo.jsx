@@ -62,16 +62,16 @@ function ApprovalLeaveInfo(props) {
         width="sm"
       />
       <div className="approval-leave-info flex flex--column full-height">
-        <div className="flex-grow overflow-auto">
+        <div className="flex-item-grow overflow--auto">
           <InfoDisplayList
             data={[data.leave]}
             columns={approvalLeaveInfo}
-            className="flex flex--column gap--1rem"
+            className="flex flex--column gap--10px"
           />
         </div>
 
         {isApprovalAllowed && (
-          <div className="flex flex--center flex-wrap btn-container btn-items-grow">
+          <div className="btn-container-grow">
             {renderButton({
               content: "accept",
               className: "btn--md btn--brown",

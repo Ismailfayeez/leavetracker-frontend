@@ -4,7 +4,7 @@
   max-width: 100%;
   &__participants {
     padding: 1rem;
-    background-color: $bluish-white-1;
+    background-color: $color-secondary;
     border-radius: 1rem;
     margin: 1rem 0;
     max-height: 400px;
@@ -29,10 +29,6 @@
   .input {
     width: 100%;
   }
-  // max-width: 600px;
-  // background-color: $bluish-white-1;
-  // padding:1rem;
-  // border-radius: 1rem;
   .on-back-icon {
     margin-right: 1rem;
     cursor: pointer;

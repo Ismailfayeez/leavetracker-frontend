@@ -6,7 +6,7 @@ const initialState = {
   reload: false,
   currentEmployee: {
     isLoading: false,
-    employeeAdditionalInfoIsLoading: false,
+    employeeAdditionalInfoIsLoading: true,
     data: {
       id: "",
       email: "",
