@@ -12,10 +12,7 @@ const api = (store) => (next) => async (action) => {
   const { requestParams, onStart, onEnd, onSuccess, onError } = action.payload;
   let response = "";
   let responseData = "";
-  const baseURL = "http://127.0.0.1:8000/";
-
   const getRequestParams = (requestParam) => ({
-    baseURL,
     method: "get",
     ...requestParam,
   });

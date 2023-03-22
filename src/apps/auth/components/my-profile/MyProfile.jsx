@@ -47,8 +47,8 @@ function MyProfile({ handleLogoutUser }) {
 
   return (
     <section className="my-profile-content-layout">
-      <div className="app-content__display-area">
-        <main className="app-content__main">
+      <div className="app-main-display">
+        <main className="app-main">
           <Modal
             title="Edit Profile"
             open={displayEditProfileModal}

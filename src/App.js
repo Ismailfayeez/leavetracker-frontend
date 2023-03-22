@@ -6,6 +6,7 @@ import ParentComponent from "./components/parentComponent/ParentComponent";
 
 const store = configureStore();
 function App() {
+  console.log(process.env.NODE_ENV, process.env.REACT_APP_API_URL);
   return (
     <div className="App">
       <Provider store={store}>

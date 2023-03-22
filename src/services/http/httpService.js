@@ -8,6 +8,7 @@ const getAccessToken = () => {
 };
 export default function httpService() {
   const { request } = axios;
+  axios.defaults.baseURL = process.env.REACT_APP_API_URL;
   axios.defaults.headers.common["Authorization"] = getAccessToken()
     ? `JWT ${getAccessToken()}`
     : "";
