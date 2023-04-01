@@ -2,11 +2,11 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { addGroupMembers, createGroup } from '../../../store/groups';
-import AddUsers from '../../utilities/add-users/AddUsers';
 import { leaveTrackerModalNames, LEAVETRACKER_PATH_NAMES } from '../../../leaveTracker.constants';
 import { MY_TEAM_URL } from '../../../apiConstants';
 import useModalNav from '../../../../../utilities/hooks/useModalNav';
 import ModalNavContext from '../../../../../utilities/context/ModalNavContext';
+import AddUsers from '../../../utilities/components/add-users/AddUsers';
 
 function AddGroupMember() {
   const dispatch = useDispatch();

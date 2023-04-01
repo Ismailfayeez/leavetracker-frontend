@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import SearchList from '../../utilities/search-list/SearchList';
 import AnnouncementForm from '../announcement-form/AnnouncementForm';
 import Modal from '../../../../../ui-kit/modal/Modal';
 import { loadData } from '../../../../../store/common/dispatchMethods';
@@ -12,6 +11,7 @@ import createAnnouncementSchema from '../announcement-form/createAnnouncement.sc
 import { createAnnouncement } from '../../../store/announcements';
 import useModalNav from '../../../../../utilities/hooks/useModalNav';
 import ModalNavContext from '../../../../../utilities/context/ModalNavContext';
+import SearchList from '../../../utilities/components/search-list/SearchList';
 
 function CreateAnnouncement() {
   const initialState = {

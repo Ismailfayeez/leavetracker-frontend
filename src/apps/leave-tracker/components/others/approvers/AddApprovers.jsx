@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { addApprovers } from '../../../store/employeeProfile';
-import AddUsers from '../../utilities/add-users/AddUsers';
 import { APPROVER_URL } from '../../../apiConstants';
 import ModalNavContext from '../../../../../utilities/context/ModalNavContext';
 import useModalNav from '../../../../../utilities/hooks/useModalNav';
+import AddUsers from '../../../utilities/components/add-users/AddUsers';
 
 function AddApprovers() {
   const dispatch = useDispatch();
