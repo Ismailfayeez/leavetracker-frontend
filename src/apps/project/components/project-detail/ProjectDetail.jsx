@@ -10,8 +10,6 @@ import {
 } from '../../store/projects';
 import { loadAllData } from '../../../../store/common/dispatchMethods';
 import CreateProject from '../createProject/Index';
-import ModalContainer from '../utilities/ModalContainer';
-import { MY_PROJECTS_URL, PROJECT_SECTION_URL_PATHNAMES } from '../../apiConstants';
 import { PROJECT_SECTION_NAMES } from '../../project.constants';
 import { mapResponseToLocalKey } from '../../../../utilities/helper';
 import ProjectOwnerCheckRoute from '../../utilities/components/ProjectOwnerCheckRoute';
@@ -26,6 +24,8 @@ import Role from '../role/Role';
 import AdminRole from '../adminRole/AdminRole';
 import ModalNavContext from '../../../../utilities/context/ModalNavContext';
 import EditButton from '../../../../ui-kit/button/edit-button/EditButton';
+import { MY_PROJECTS_URL, PROJECT_SECTION_URL_PATHNAMES } from '../../apiConstants';
+import ProjectModalContent from '../project-modal-content/ProjectModalContent';
 import './projectDetail.scss';
 
 function ProjectDetail() {
@@ -116,7 +116,7 @@ function ProjectDetail() {
   if (projectId === 'new') return <CreateProject />;
   return (
     <ModalNavContext.Provider value={memoizedState}>
-      <ModalContainer />
+      <ProjectModalContent />
       <div className="project-detail page-layout">
         {!isLoading && (
           <header className="page-layout__header">

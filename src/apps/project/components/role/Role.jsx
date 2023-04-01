@@ -7,11 +7,11 @@ import {
   PROJECT_SECTION_NAMES
 } from '../../project.constants';
 import { MY_PROJECTS_URL, PROJECT_SECTION_URL_PATHNAMES } from '../../apiConstants';
-import './role.scss';
 import ProjectSection from '../utilities/project-section/ProjectSection';
 import ModalNavContext from '../../../../utilities/context/ModalNavContext';
 import useModalNav from '../../../../utilities/hooks/useModalNav';
 import useProjectMemberPermission from '../../utilities/hooks/useProjectMemberPermission';
+import './role.scss';
 
 function Role() {
   const { projectId } = useParams();

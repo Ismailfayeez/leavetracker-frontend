@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { motion as m } from 'framer-motion';
 import { projectGlobalModalNav, PROJECT_SECTION_NAMES } from '../../project.constants';
-import { useGlobalNavModal } from '../utilities/useGlobalNavModal';
 import ProjectSectionCard from '../project-section-card/ProjectSectionCard';
 import ModalNavContext from '../../../../utilities/context/ModalNavContext';
 import { ReactComponent as adminIcon } from '../../../../assets/images/administrator-developer-icon.svg';
@@ -16,13 +15,14 @@ import { ReactComponent as fyMonthIcon } from '../../../../assets/images/clock-d
 import { pageVariant } from '../../../../utilities/AnimateVariants';
 import Modal from '../../../../ui-kit/modal/Modal';
 import Index from '../editProjectInfo/Index';
+import useModalNav from '../../../../utilities/hooks/useModalNav';
 
 function ProjectDetailMain(props) {
   const { edit, enableEdit } = props;
   const myProjects = useSelector((state) => state.entities.projects.myProjects);
   const { projectMemberProfile } = myProjects;
   const { sectionCount } = myProjects;
-  const [{ openModal, moveToNextNav }] = useGlobalNavModal(ModalNavContext);
+  const [{ openModal, moveToNextNav }] = useModalNav(ModalNavContext);
 
   const { domain, leaveDuration, leaveType, role, employee, admin, adminRole } =
     PROJECT_SECTION_NAMES;

@@ -4,9 +4,9 @@ import { useParams } from 'react-router-dom';
 import { loadFyMonth } from '../../store/projects';
 import { MY_PROJECTS_URL } from '../../apiConstants';
 import LoadingScreen from '../../../../ui-kit/loading/loadingScreen/LoadingScreen';
-import PageNavigation from '../utilities/page-navigation/PageNavigation';
 import FyMonthRangeView from './FyMonthRangeView';
 import FyMonthRangeEdit from './FyMonthRangeEdit';
+import PageNavigation from '../../utilities/components/page-navigation/PageNavigation';
 
 function FyMonth() {
   const dispatch = useDispatch();

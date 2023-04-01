@@ -1,5 +1,5 @@
 import React from 'react';
-import useProjectDetail from '../../project-detail/useProjectDetail';
+import useProjectDetail from '../../../components/project-detail/useProjectDetail';
 import LoadingScreen from '../../../../../ui-kit/loading/loadingScreen/LoadingScreen';
 import './projectSectionDetail.scss';
 import PageNavigation from '../page-navigation/PageNavigation';

@@ -7,7 +7,7 @@ import useValidator from '../../../../utilities/hooks/useValidator';
 import { createLeaveRequest } from '../../store/status';
 import { loadEmployeeAdditionalInfo } from '../../store/employeeProfile';
 import { leaveTrackerModalNames } from '../../leaveTracker.constants';
-import { addLeaveBalance } from '../utilities/leaveBalanceCalculator';
+import { addLeaveBalance } from '../../utilities/leaveBalanceCalculator';
 import useModalNav from '../../../../utilities/hooks/useModalNav';
 import ModalNavContext from '../../../../utilities/context/ModalNavContext';
 import RequestForm from './RequestForm';

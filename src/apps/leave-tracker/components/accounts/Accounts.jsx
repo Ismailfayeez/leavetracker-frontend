@@ -8,6 +8,7 @@ import LoadingScreen from '../../../../ui-kit/loading/loadingScreen/LoadingScree
 import { ACCOUNT_PREFERENCE_URL } from '../../apiConstants';
 import { addCurrentProjectToSession, loadMyLtAccounts } from '../../../auth/store/userProfile';
 import { clearEmployeeData } from '../../store/authActions';
+import { clearError } from '../../../../store/error';
 
 function Accounts() {
   const dispatch = useDispatch();
@@ -51,15 +52,12 @@ function Accounts() {
   useEffect(() => {
     fetchMyLtAccounts();
   }, [fetchMyLtAccounts]);
-
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
   return (
     <div>
-      <Modal
-        open={displayModal}
-        handleClose={() => navigate('/my-profile', { replace: true })}
-        title="My Accounts"
-        height="md"
-        width="sm">
+      <Modal open={displayModal} title="My Accounts" height="md" width="sm" disableClose>
         {isLoading && (
           <div style={{ height: '100%' }}>
             <LoadingScreen />

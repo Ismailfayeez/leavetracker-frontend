@@ -6,12 +6,12 @@ import {
   PROJECT_SECTION_LABELS,
   PROJECT_SECTION_NAMES
 } from '../../project.constants';
-import { useGlobalNavModal } from '../utilities/useGlobalNavModal';
 import { MY_PROJECTS_URL, PROJECT_SECTION_URL_PATHNAMES } from '../../apiConstants';
 import './domain.scss';
 import ProjectSection from '../utilities/project-section/ProjectSection';
 import ModalNavContext from '../../../../utilities/context/ModalNavContext';
 import useProjectMemberPermission from '../../utilities/hooks/useProjectMemberPermission';
+import useModalNav from '../../../../utilities/hooks/useModalNav';
 
 function Domain() {
   const { projectId } = useParams();
@@ -19,7 +19,7 @@ function Domain() {
   const { domain: label } = PROJECT_SECTION_LABELS;
   const { domain: nestedUrlPathName } = PROJECT_SECTION_URL_PATHNAMES;
   const baseUrl = `${MY_PROJECTS_URL}${projectId}/`;
-  const [{ openModal, moveToNextNav }] = useGlobalNavModal(ModalNavContext);
+  const [{ openModal, moveToNextNav }] = useModalNav(ModalNavContext);
   const { isProjectOwner, isProjectAdminHasPermission } = useProjectMemberPermission(
     PROJECT_APP_PERMISSIONS.DOMAIN_NEW
   );

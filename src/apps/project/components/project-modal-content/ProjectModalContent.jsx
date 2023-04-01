@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Modal from '../../../../ui-kit/modal/Modal';
 import NotFound from '../../../../ui-kit/not-found/NotFound';
 import { projectGlobalModalNav } from '../../project.constants';
@@ -15,7 +14,7 @@ import ModalNavContext from '../../../../utilities/context/ModalNavContext';
 import useModalNav from '../../../../utilities/hooks/useModalNav';
 import ConfirmationModalContent from '../../../../ui-kit/confirmation-modal-content/ConfirmationModalContent';
 
-function ModalContainer() {
+function ProjectModalContent() {
   const [{ closeModal, globalVal, globalNav, showModal }] = useModalNav(ModalNavContext);
   let children = '';
   const className = '';
@@ -68,4 +67,4 @@ function ModalContainer() {
   );
 }
 
-export default ModalContainer;
+export default ProjectModalContent;

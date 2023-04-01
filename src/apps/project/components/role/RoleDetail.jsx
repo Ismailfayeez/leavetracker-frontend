@@ -6,14 +6,13 @@ import {
   PROJECT_SECTION_NAMES
 } from '../../project.constants';
 import roleSchema from './role.schema';
-
 import { MY_PROJECTS_URL, PROJECT_SECTION_URL_PATHNAMES } from '../../apiConstants';
-import ProjectSectionDetail from '../utilities/project-section-detail/ProjectSectionDetail';
-import ProjectSectionView from '../utilities/project-section-view/ProjectSectionView';
-import ProjectSectionEdit from '../utilities/project-section-edit/ProjectSectionEdit';
 import ModalNavContext from '../../../../utilities/context/ModalNavContext';
 import useModalNav from '../../../../utilities/hooks/useModalNav';
 import useProjectMemberPermission from '../../utilities/hooks/useProjectMemberPermission';
+import ProjectSectionDetail from '../../utilities/components/project-section-detail/ProjectSectionDetail';
+import ProjectSectionView from '../../utilities/components/project-section-view/ProjectSectionView';
+import ProjectSectionEdit from '../../utilities/components/project-section-edit/ProjectSectionEdit';
 import RoleAccess from './RoleAccess';
 
 function RoleDetail() {
