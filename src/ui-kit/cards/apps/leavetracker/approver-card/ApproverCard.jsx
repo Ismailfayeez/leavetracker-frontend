@@ -1,12 +1,12 @@
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-import { renderButton } from "../../../../../utilities/uiElements";
-import "./approverCard.scss";
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import { renderButton } from '../../../../../utilities/uiElements';
+import './approverCard.scss';
 
 function ApproverCard({ approver, enableRemoveBtn, handleRemove, loading }) {
   return (
-    <div className={`approver card approver--pista-green`}>
+    <div className="approver card approver--pista-green">
       <div className="card__body flex flex--center gap--5px">
         <div className="profile-img-container">
           <div className="profile-img">{approver.username.slice(0, 1)}</div>
@@ -27,9 +27,9 @@ function ApproverCard({ approver, enableRemoveBtn, handleRemove, loading }) {
                   <FontAwesomeIcon icon={faXmark} className="color--black" />
                 </div>
               ),
-              className: "btn--transparent",
+              className: 'btn--transparent',
               onClick: handleRemove,
-              loading,
+              loading
             })}
           </div>
         )}

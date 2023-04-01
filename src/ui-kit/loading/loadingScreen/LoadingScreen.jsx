@@ -1,13 +1,12 @@
-import React from "react";
-import LoadingSpinner from "../loading-spinner/LoadingSpinner";
-import "./loadingScreen.scss";
-function LoadingScreen(props) {
+import React from 'react';
+import './loadingScreen.scss';
+
+function LoadingScreen() {
   return (
     <div className="loading-screen flex flex--center">
       <div className="loading-spinner-container">
-        <LoadingSpinner />
+        <span className="loader" />
       </div>
-      Loading
     </div>
   );
 }

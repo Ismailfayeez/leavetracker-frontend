@@ -1,9 +1,9 @@
-import React from "react";
-import Approvers from "./approvers/Approvers";
-import { motion as m } from "framer-motion";
-import { pageVariant } from "../../../../utilities/AnimateVariants";
+import React from 'react';
+import { motion as m } from 'framer-motion';
+import Approvers from './approvers/Approvers';
+import { pageVariant } from '../../../../utilities/AnimateVariants';
 
-function Others(props) {
+function Others() {
   return (
     <m.div variants={pageVariant} initial="hidden" animate="visible">
       <Approvers />

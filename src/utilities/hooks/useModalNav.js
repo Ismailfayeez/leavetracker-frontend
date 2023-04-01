@@ -1,28 +1,21 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 
-export function useModalNav(ModalNavContext) {
-  const {
-    globalNav,
-    setGlobalNav,
-    globalVal,
-    setGlobalVal,
-    showModal,
-    setShowModal,
-  } = useContext(ModalNavContext);
+export default function useModalNav(ModalNavContext) {
+  const { globalNav, setGlobalNav, globalVal, setGlobalVal, showModal, setShowModal } =
+    useContext(ModalNavContext);
 
   const openModal = () => setShowModal(true);
 
   const closeModal = () => {
     setShowModal(false);
-    setGlobalNav({ prevNav: [], currentNav: "" });
+    setGlobalNav({ prevNav: [], currentNav: '' });
     setGlobalVal({});
   };
 
   const moveToNextNav = (data = {}, pathName) => {
     setGlobalVal({ ...globalVal, [pathName]: data });
     const globalNavData = { ...globalNav };
-    if (globalNavData.currentNav)
-      globalNavData.prevNav.push(globalNavData.currentNav);
+    if (globalNavData.currentNav) globalNavData.prevNav.push(globalNavData.currentNav);
     globalNavData.currentNav = pathName;
     setGlobalNav(globalNavData);
   };
@@ -47,7 +40,7 @@ export function useModalNav(ModalNavContext) {
       openModal,
       closeModal,
       moveToPrevNav,
-      moveToNextNav,
-    },
+      moveToNextNav
+    }
   ];
 }

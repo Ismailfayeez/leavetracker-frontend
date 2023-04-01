@@ -1,26 +1,26 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { removeApprover } from "../../../store/employeeProfile";
-import "./approver.scss";
-import { leaveTrackerModalNames } from "../../../leaveTracker.constants";
-import { APPROVER_URL } from "../../../apiConstants";
-import ApproverCard from "../../../../../ui-kit/cards/apps/leavetracker/approver-card/ApproverCard";
-import { ModalNavContext } from "../../../../../utilities/context/ModalNavContext";
-import { useModalNav } from "../../../../../utilities/hooks/useModalNav";
-import { useState } from "react";
-import AddButton from "../../../../../ui-kit/button/add-button/AddButton";
-import { ReactComponent as AddTasksImg } from "../../../../../assets/images/add-tasks.svg";
-import { motion as m } from "framer-motion";
-import { listVariant } from "../../../../../utilities/AnimateVariants";
-function Approvers(props) {
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { motion as m } from 'framer-motion';
+import { removeApprover } from '../../../store/employeeProfile';
+import './approver.scss';
+import { leaveTrackerModalNames } from '../../../leaveTracker.constants';
+import { APPROVER_URL } from '../../../apiConstants';
+import ApproverCard from '../../../../../ui-kit/cards/apps/leavetracker/approver-card/ApproverCard';
+import ModalNavContext from '../../../../../utilities/context/ModalNavContext';
+import useModalNav from '../../../../../utilities/hooks/useModalNav';
+
+import AddButton from '../../../../../ui-kit/button/add-button/AddButton';
+import { ReactComponent as AddTasksImg } from '../../../../../assets/images/add-tasks.svg';
+import { listVariant } from '../../../../../utilities/AnimateVariants';
+
+function Approvers() {
   const dispatch = useDispatch();
   const [{ openModal, moveToNextNav }] = useModalNav(ModalNavContext);
-  const [loadingId, setLoadingId] = useState("");
+  const [loadingId, setLoadingId] = useState('');
 
   const approvers = useSelector(
     (state) =>
-      state.entities.leaveTracker.employeeAccountData.employeeProfile
-        .currentEmployee.data.approvers
+      state.entities.leaveTracker.employeeAccountData.employeeProfile.currentEmployee.data.approvers
   );
 
   const handleAddApprover = () => {
@@ -31,10 +31,8 @@ function Approvers(props) {
     try {
       setLoadingId(id);
       await dispatch(removeApprover({ baseUrl: APPROVER_URL, id }));
-    } catch (err) {
-      console.log(err);
-    }
-    setLoadingId("");
+    } catch (err) {}
+    setLoadingId('');
   };
   return (
     <div className="approvers page-layout gap--10px">
@@ -42,11 +40,7 @@ function Approvers(props) {
         <div className="flex flex-justify--space-between flex-align--center">
           <h3 className="margin--0">Approvers</h3>
           {approvers.length > 0 && (
-            <AddButton
-              content="Add"
-              onClick={handleAddApprover}
-              iconOnMobileScreen
-            />
+            <AddButton content="Add" onClick={handleAddApprover} iconOnMobileScreen />
           )}
         </div>
       </header>
@@ -66,13 +60,12 @@ function Approvers(props) {
                 layout
                 initial="hidden"
                 animate="visible"
-                className="overflow--hidden"
-              >
+                className="overflow--hidden">
                 <ApproverCard
                   approver={approver}
-                  enableRemoveBtn={true}
+                  enableRemoveBtn
                   handleRemove={() => handleRemoveApprover(approver.id)}
-                  loading={loadingId == approver.id}
+                  loading={loadingId === approver.id}
                 />
               </m.div>
             ))}

@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-function Logout(props) {
+function Logout() {
   return (
     <div>
       You have been logged out successfully.click &nbsp;

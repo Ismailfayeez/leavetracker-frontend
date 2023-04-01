@@ -1,8 +1,8 @@
-import Joi from "joi";
+import Joi from 'joi';
 
 const schema = Joi.object({
   code: Joi.string().length(4),
-  name: Joi.string(),
+  name: Joi.string()
 }).options({ allowUnknown: true });
 
 export default schema;

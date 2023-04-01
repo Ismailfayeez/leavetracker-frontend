@@ -1,29 +1,27 @@
-import React from "react";
-import { renderButton } from "../../utilities/uiElements";
-import "./confirmationModalContent.scss";
+import React from 'react';
+import { renderButton } from '../../utilities/uiElements';
+import './confirmationModalContent.scss';
+
 function ConfirmationModalContent({
   confirmationText,
   handleConfirm = () => {},
-  handleCancel = () => {},
+  handleCancel = () => {}
 }) {
-  console.log(confirmationText, handleConfirm, handleCancel);
   return (
     <div className="confirmation-modal-content flex flex--column">
       <div className="flex-item-grow">
-        <p style={{ textAlign: "center" }}>
-          {confirmationText ? confirmationText : "Are you sure want to proceed"}
-        </p>
+        <p style={{ textAlign: 'center' }}>{confirmationText || 'Are you sure want to proceed'}</p>
       </div>
       <div className="btn-container flex flex--center">
         {renderButton({
-          content: "confirm",
+          content: 'confirm',
           onClick: handleConfirm,
-          className: " btn--md btn--matte-black",
+          className: ' btn--md btn--matte-black'
         })}
         {renderButton({
-          content: "cancel",
+          content: 'cancel',
           onClick: handleCancel,
-          className: " btn--md btn--matte-black-outline",
+          className: ' btn--md btn--matte-black-outline'
         })}
       </div>
     </div>

@@ -1,5 +1,5 @@
-import React from "react";
-import ProjectSectionInstanceCard from "../project-section-instance-card/ProjectSectionInstanceCard";
+import React from 'react';
+import ProjectSectionInstanceCard from '../project-section-instance-card/ProjectSectionInstanceCard';
 
 function ProjectSectionList({ data, rows }) {
   return (

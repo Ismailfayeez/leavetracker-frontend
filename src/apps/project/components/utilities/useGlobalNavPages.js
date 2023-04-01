@@ -1,8 +1,7 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 
 export function useGlobalNavPages(globalNavContext) {
-  const { pages, setPages, currentLocation, setCurrentLocation } =
-    useContext(globalNavContext);
+  const { pages, setPages, currentLocation, setCurrentLocation } = useContext(globalNavContext);
 
   const handleForward = (pathName) => {
     if (currentLocation) setPages([...pages, currentLocation]);

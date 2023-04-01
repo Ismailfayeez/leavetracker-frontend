@@ -1,7 +1,8 @@
-import React, { useRef, useState } from "react";
-import "./autoComplete.scss";
-import LoadingSpinner from "../loading/loading-spinner/LoadingSpinner";
-import Input from "../input/Input";
+import React, { useState } from 'react';
+import './autoComplete.scss';
+import LoadingSpinner from '../loading/loading-spinner/LoadingSpinner';
+import Input from '../input/Input';
+
 function AutoComplete({
   suggestions = [],
   isLoading,
@@ -15,7 +16,7 @@ function AutoComplete({
 }) {
   const [isFocused, setIsFocused] = useState(false);
   return (
-    <div className={`form-group ${className ? className : ""} auto-complete`}>
+    <div className={`form-group ${className || ''} auto-complete`}>
       <Input
         name={name}
         value={value}
@@ -30,7 +31,7 @@ function AutoComplete({
         {...others}
       />
 
-      {isFocused && !suggestions.some((item) => item.value == value) && (
+      {isFocused && !suggestions.some((item) => item.value === value) && (
         <div className="auto-complete-suggestions-container">
           {isLoading ? (
             <div className="flex flex--center">
@@ -40,14 +41,13 @@ function AutoComplete({
             <ul className="auto-complete__suggestions">
               {suggestions.map((item) => (
                 <li
+                  key={item.value}
                   className="auto-complete__suggestions-item label"
                   onMouseDown={(e) => {
                     e.preventDefault();
                   }}
-                  onClick={() =>
-                    onSelect({ currentTarget: { name, value: item.value } })
-                  }
-                >
+                  onClick={() => onSelect({ currentTarget: { name, value: item.value } })}
+                  role="presentation">
                   {item.value}
                 </li>
               ))}

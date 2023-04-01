@@ -1,20 +1,20 @@
-import axios from "axios";
-import { apiCallBegan, apiCallSuccess, apiCallFailure } from "../apiActions";
-import httpService from "../../services/http/httpService";
-import { apiErrorReceived } from "../error";
-// import { decrementLoader, incrementLoader } from "../loader";
+import { apiCallBegan, apiCallSuccess } from '../apiActions';
+import httpService from '../../services/http/httpService';
+import { apiErrorReceived } from '../error';
+
 const http = httpService();
+
 const api = (store) => (next) => async (action) => {
   const { dispatch } = store;
 
-  if (action.type != apiCallBegan.type) return next(action);
+  if (action.type !== apiCallBegan.type) return next(action);
 
   const { requestParams, onStart, onEnd, onSuccess, onError } = action.payload;
-  let response = "";
-  let responseData = "";
+  let response = '';
+  let responseData = '';
   const getRequestParams = (requestParam) => ({
-    method: "get",
-    ...requestParam,
+    method: 'get',
+    ...requestParam
   });
 
   try {
@@ -39,20 +39,19 @@ const api = (store) => (next) => async (action) => {
       const { payload } = onSuccess;
       dispatch({
         ...onSuccess,
-        payload: { ...payload, data: responseData },
+        payload: { ...payload, data: responseData }
       });
     }
     if (onEnd) dispatch(onEnd);
     return Promise.resolve(response);
   } catch (err) {
-    console.log("error||||", err.response);
     const { status, data = {} } = err.response;
     dispatch(apiErrorReceived({ status, data }));
 
     if (onError) {
       dispatch({
         type: onError.type,
-        payload: { ...onError.payload, status, data },
+        payload: { ...onError.payload, status, data }
       });
     }
 

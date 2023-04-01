@@ -1,25 +1,26 @@
-import React from "react";
-import { faArrowRight, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./leaveRequestCard.scss";
-import moment from "moment";
+import React from 'react';
+import { faArrowRight, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './leaveRequestCard.scss';
+import moment from 'moment';
+
 function LeaveRequestCard({
   leave = {},
   handleRequest,
   handleStatus,
   enableDelete,
   handleDelete,
-  className,
+  className
 }) {
   return (
-    <div className={`leave-request card ${className || ""}`}>
+    <div className={`leave-request card ${className || ''}`}>
       <div className="card__body">
         <div className="flex gap--10px">
           <div className="flex-item-grow overflow--auto">
             <div
               className="card__item leave-request__no bold cursor-pointer text-overflow--ellipsis"
               onClick={() => handleRequest(leave)}
-            >
+              role="presentation">
               {leave.request_number}
             </div>
             {leave.employee && (
@@ -29,11 +30,11 @@ function LeaveRequestCard({
             )}
             <div className="leave-request__range sub-text text-overflow--ellipsis">
               <span className="card__item leave-request__from ">
-                {moment(leave.from_date).format("DD MMM YY")}
+                {moment(leave.from_date).format('DD MMM YY')}
               </span>
               <FontAwesomeIcon icon={faArrowRight} className="range-arrow" />
               <span className="card__item leave-request__to ">
-                {moment(leave.to_date).format("DD MMM YY")}
+                {moment(leave.to_date).format('DD MMM YY')}
               </span>
             </div>
           </div>
@@ -41,7 +42,7 @@ function LeaveRequestCard({
             <div
               className="card__item leave-request__status bold cursor-pointer"
               onClick={() => handleStatus(leave)}
-            >
+              role="presentation">
               {leave.status}
             </div>
           </div>

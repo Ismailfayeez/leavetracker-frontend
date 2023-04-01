@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { loadGroups } from "../../../../store/groups";
-import AbsenteesGraph from "../absentees-graph/AbsenteesGraph";
-import { renderSelect } from "../../../../../../utilities/uiElements";
-import { LEAVETRACKER_SECTION_NAMES } from "../../../../leaveTracker.constants";
-import { MY_TEAM_URL } from "../../../../apiConstants";
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { loadGroups } from '../../../../store/groups';
+import AbsenteesGraph from '../absentees-graph/AbsenteesGraph';
+import { renderSelect } from '../../../../../../utilities/uiElements';
+import { LEAVETRACKER_SECTION_NAMES } from '../../../../leaveTracker.constants';
+import { MY_TEAM_URL } from '../../../../apiConstants';
 
-function AbsenteesGroupLevelAnalysis(props) {
+function AbsenteesGroupLevelAnalysis() {
   const dispatch = useDispatch();
-  const [groupId, setGroupId] = useState("");
+  const [groupId, setGroupId] = useState('');
   const myGroups = useSelector(
     (state) => state.entities.leaveTracker.employeeAccountData.groups.myGroups
   );
@@ -16,10 +16,10 @@ function AbsenteesGroupLevelAnalysis(props) {
     dispatch(
       loadGroups({
         name: LEAVETRACKER_SECTION_NAMES.myGroups,
-        url: MY_TEAM_URL,
+        url: MY_TEAM_URL
       })
     );
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (myGroups.list[0]) {
@@ -36,13 +36,13 @@ function AbsenteesGroupLevelAnalysis(props) {
       </header>
       <div className="flex flex--column gap--10px">
         {renderSelect({
-          name: "groupId",
-          label: "Group Name",
+          name: 'groupId',
+          label: 'Group Name',
           data: { groupId },
           handleChange,
-          style: { maxWidth: "300px" },
+          style: { maxWidth: '300px' },
           options: myGroups.list,
-          optionKeys: { name: "name", value: "id" },
+          optionKeys: { name: 'name', value: 'id' }
         })}
         <AbsenteesGraph groupId={groupId} />
       </div>

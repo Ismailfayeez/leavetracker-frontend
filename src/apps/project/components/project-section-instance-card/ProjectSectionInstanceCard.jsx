@@ -1,10 +1,10 @@
-import _ from "lodash";
-import React from "react";
+import _ from 'lodash';
+import React from 'react';
 
 function ProjectSectionInstanceCard({ item, rows }) {
-  const renderCell = (item, column, index) => {
-    if (column.content) return column.content(item, index);
-    return _.get(item, column.path, "-");
+  const renderCell = (i, column, index) => {
+    if (column.content) return column.content(i, index);
+    return _.get(i, column.path, '-');
   };
 
   return (

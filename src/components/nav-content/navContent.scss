@@ -1,4 +1,4 @@
-@import "../../styles/scss/global.scss";
+@import '../../styles/scss/global.scss';
 .nav-content {
   $self: &;
   display: flex;
@@ -84,6 +84,7 @@
       height: 100%;
       width: 100%;
       cursor: pointer;
+      color: $matte-black;
     }
     @media #{$desktop} {
       display: none;

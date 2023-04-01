@@ -1,24 +1,21 @@
-import React from "react";
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import {
   PROJECT_APP_PERMISSIONS,
   PROJECT_SECTION_LABELS,
-  PROJECT_SECTION_NAMES,
-} from "../../project.constants";
-import domainSchema from "./leavetype.schema";
-import { useContext } from "react";
-import {
-  MY_PROJECTS_URL,
-  PROJECT_SECTION_URL_PATHNAMES,
-} from "../../apiConstants";
-import { useParams } from "react-router-dom";
-import ProjectSectionDetail from "../utilities/project-section-detail/ProjectSectionDetail";
-import ProjectSectionView from "../utilities/project-section-view/ProjectSectionView";
-import ProjectSectionEdit from "../utilities/project-section-edit/ProjectSectionEdit";
-import { ModalNavContext } from "../../../../utilities/context/ModalNavContext";
-import { useModalNav } from "../../../../utilities/hooks/useModalNav";
-import useProjectMemberPermission from "../../utilities/hooks/useProjectMemberPermission";
+  PROJECT_SECTION_NAMES
+} from '../../project.constants';
+import domainSchema from './leavetype.schema';
 
-function LeaveTypeDetail(props) {
+import { MY_PROJECTS_URL, PROJECT_SECTION_URL_PATHNAMES } from '../../apiConstants';
+import ProjectSectionDetail from '../utilities/project-section-detail/ProjectSectionDetail';
+import ProjectSectionView from '../utilities/project-section-view/ProjectSectionView';
+import ProjectSectionEdit from '../utilities/project-section-edit/ProjectSectionEdit';
+import ModalNavContext from '../../../../utilities/context/ModalNavContext';
+import useModalNav from '../../../../utilities/hooks/useModalNav';
+import useProjectMemberPermission from '../../utilities/hooks/useProjectMemberPermission';
+
+function LeaveTypeDetail() {
   const { projectId } = useParams();
   const { leaveType: name } = PROJECT_SECTION_NAMES;
   const { leaveType: label } = PROJECT_SECTION_LABELS;
@@ -27,43 +24,39 @@ function LeaveTypeDetail(props) {
   const baseUrl = `${MY_PROJECTS_URL}${projectId}/`;
   const [{ globalVal, globalNav }] = useModalNav(ModalNavContext);
   const { id } = globalVal[globalNav.currentNav] || {};
-  const primaryField = "code";
-  const { isProjectOwner, isProjectAdminHasPermission } =
-    useProjectMemberPermission(LEAVE_TYPE_DLT, LEAVE_TYPE_EDIT);
-  console.log(isProjectOwner, isProjectAdminHasPermission);
+  const primaryField = 'code';
+  const { isProjectOwner, isProjectAdminHasPermission } = useProjectMemberPermission(
+    LEAVE_TYPE_DLT,
+    LEAVE_TYPE_EDIT
+  );
+
   const viewFields = [
-    { label: "code", name: "code" },
-    { label: "name", name: "name" },
-    { label: "hours", name: "hours" },
-    { label: "days", name: "days" },
+    { label: 'code', name: 'code' },
+    { label: 'name', name: 'name' },
+    { label: 'hours', name: 'hours' },
+    { label: 'days', name: 'days' }
   ];
   const editFields = [
-    { label: "code", name: "code" },
-    { label: "name", name: "name" },
-    { label: "hours", name: "hours" },
-    { label: "days", name: "days" },
+    { label: 'code', name: 'code' },
+    { label: 'name', name: 'name' },
+    { label: 'hours', name: 'hours' },
+    { label: 'days', name: 'days' }
   ];
   const pages = [
     {
-      name: "view",
+      name: 'view',
       component: (
         <ProjectSectionView
           fields={viewFields}
-          hasPermissionEdit={
-            isProjectOwner || isProjectAdminHasPermission[LEAVE_TYPE_EDIT]
-          }
-          hasPermissionDelete={
-            isProjectOwner || isProjectAdminHasPermission[LEAVE_TYPE_DLT]
-          }
+          hasPermissionEdit={isProjectOwner || isProjectAdminHasPermission[LEAVE_TYPE_EDIT]}
+          hasPermissionDelete={isProjectOwner || isProjectAdminHasPermission[LEAVE_TYPE_DLT]}
         />
-      ),
+      )
     },
     {
-      name: "edit",
-      component: (
-        <ProjectSectionEdit fields={editFields} schema={domainSchema} />
-      ),
-    },
+      name: 'edit',
+      component: <ProjectSectionEdit fields={editFields} schema={domainSchema} />
+    }
   ];
   return (
     <ProjectSectionDetail
@@ -75,15 +68,11 @@ function LeaveTypeDetail(props) {
         name,
         nestedUrlPathName,
         baseUrl,
-        queryParamKey: "search",
-        primaryField,
+        queryParamKey: 'search',
+        primaryField
       }}
       addNewComponent={
-        <ProjectSectionEdit
-          fields={editFields}
-          sectionId="new"
-          schema={domainSchema}
-        />
+        <ProjectSectionEdit fields={editFields} sectionId="new" schema={domainSchema} />
       }
     />
   );

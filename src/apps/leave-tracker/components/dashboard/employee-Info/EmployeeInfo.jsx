@@ -1,8 +1,9 @@
-import React from "react";
-import EmployeePrimaryInfo from "./EmployeePrimaryInfo";
-import LeaveBalanceGraph from "./LeaveBalanceGraph";
-import "./employeeInfo.scss";
-function EmployeeInfo(props) {
+import React from 'react';
+import EmployeePrimaryInfo from './EmployeePrimaryInfo';
+import LeaveBalanceGraph from './LeaveBalanceGraph';
+import './employeeInfo.scss';
+
+function EmployeeInfo() {
   return (
     <div className="employee-info employee-info--dark">
       <header>

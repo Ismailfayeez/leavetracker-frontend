@@ -1,4 +1,2 @@
-function projectErrorHandler(errorResponse, navigate) {
-  console.log("project errorl called");
-}
+function projectErrorHandler() {}
 export default projectErrorHandler;

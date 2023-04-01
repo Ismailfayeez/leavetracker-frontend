@@ -1,15 +1,13 @@
-import React from "react";
-import { useContext } from "react";
-import { PageNavContext } from "../../../../../utilities/context/PageNavContext";
+import React, { useContext } from 'react';
 
-function RenderPages({ pages, ...others }) {
+import { PageNavContext } from '../../../../../utilities/context/PageNavContext';
+
+function RenderPages({ pages, ...otherProps }) {
   const { currentPage } = useContext(PageNavContext);
   return (
     <>
       {pages.map(({ name, component }) =>
-        name == currentPage
-          ? React.cloneElement(component, { ...others })
-          : null
+        name === currentPage ? React.cloneElement(component, { ...otherProps, key: name }) : null
       )}
     </>
   );

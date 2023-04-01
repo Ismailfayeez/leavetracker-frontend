@@ -1,12 +1,7 @@
-import React, { useRef } from "react";
-import "./employeeCard.scss";
-function EmployeeCard({
-  employee,
-  enableCheckBox,
-  checked,
-  handleChecked,
-  disableCheckBoxInput,
-}) {
+import React, { useRef } from 'react';
+import './employeeCard.scss';
+
+function EmployeeCard({ employee, enableCheckBox, checked, handleChecked, disableCheckBoxInput }) {
   const inputRef = useRef(null);
   return (
     <div className="employee card">
@@ -29,12 +24,10 @@ function EmployeeCard({
           <div
             className="employee__name bold text-overflow--ellipsis"
             onClick={() => inputRef.current.click()}
-          >
+            role="presentation">
             {employee.name}
           </div>
-          <div className="employee__email sub-text text-overflow--ellipsis">
-            {employee.email}
-          </div>
+          <div className="employee__email sub-text text-overflow--ellipsis">{employee.email}</div>
         </div>
       </div>
     </div>

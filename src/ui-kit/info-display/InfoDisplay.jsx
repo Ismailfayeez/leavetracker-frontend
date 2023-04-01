@@ -1,6 +1,7 @@
-import _ from "lodash";
-import React from "react";
-import "./infoDisplay.scss";
+import _ from 'lodash';
+import React from 'react';
+import './infoDisplay.scss';
+
 function InfoDisplay({
   item,
   name,
@@ -9,19 +10,13 @@ function InfoDisplay({
   getLabelContent,
   getBodyContent,
   defaultVal,
-  className,
+  className
 }) {
-  const result = _.get(item, path || name);
+  const result = _.get(item, path || name, undefined);
   return (
-    <div className={`info-display-item form-group ${className || ""}`}>
-      {getLabelContent ? getLabelContent(item) : <label>{label}</label>}
-      {getBodyContent ? (
-        getBodyContent(item)
-      ) : result == undefined ? (
-        defaultVal || "-"
-      ) : (
-        <span>{result}</span>
-      )}
+    <div className={`info-display-item form-group ${className || ''}`}>
+      {getLabelContent ? getLabelContent(item) : <p className="info-label">{label}</p>}
+      {getBodyContent ? getBodyContent(item) : !result ? defaultVal || '-' : <span>{result}</span>}
     </div>
   );
 }

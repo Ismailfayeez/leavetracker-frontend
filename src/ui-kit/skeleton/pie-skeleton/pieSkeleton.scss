@@ -1,0 +1,17 @@
+@import '../skeleton.scss';
+.pie-skeleton {
+  .pie-circle {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    background: $skeleton-color;
+    animation: animate-skeleton 0.5s ease-in alternate infinite;
+  }
+  .pie-label {
+    height: 1.5rem;
+    width: 60%;
+    border-radius: 1rem;
+    background: $skeleton-color;
+    animation: animate-skeleton 0.5s ease-in alternate infinite;
+  }
+}

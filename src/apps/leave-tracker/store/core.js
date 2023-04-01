@@ -1,16 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
-import moment from "moment";
-import { apiCallBegan } from "../../../store/apiActions";
+import { createSlice } from '@reduxjs/toolkit';
+import { apiCallBegan } from '../../../store/apiActions';
 
 const initialState = {
   leaveType: [],
   leaveDuration: [],
-  currentFY: "",
+  currentFY: ''
 };
 const slice = createSlice({
-  name: "core",
+  name: 'core',
   initialState: {
-    ...initialState,
+    ...initialState
   },
   reducers: {
     coreDataReceived: (core, action) => {
@@ -18,16 +17,16 @@ const slice = createSlice({
       sectionNames.forEach((name, index) => {
         core[name] = data[index];
       });
-    },
-  },
+    }
+  }
 });
 export const { coreDataReceived } = slice.actions;
 export default slice.reducer;
 
-export const getEmployee = (config) => (dispatch, getState) => {
+export const getEmployee = (config) => (dispatch) => {
   return dispatch(
     apiCallBegan({
-      url: config.url,
+      url: config.url
     })
   );
 };
@@ -36,13 +35,13 @@ export const loadCoreData =
   ({ requestDetails }) =>
   (dispatch) => {
     const requestParams = requestDetails.map(({ name, ...others }) => ({
-      ...others,
+      ...others
     }));
     const sectionNames = requestDetails.map(({ name }) => name);
     return dispatch(
       apiCallBegan({
         requestParams,
-        onSuccess: coreDataReceived({ sectionNames }),
+        onSuccess: coreDataReceived({ sectionNames })
       })
     );
   };

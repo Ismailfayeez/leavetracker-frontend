@@ -1,6 +1,7 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
-import "./appNav.scss";
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import './appNav.scss';
+
 function AppNav({ appNavData }) {
   const location = useLocation();
   return (
@@ -11,17 +12,12 @@ function AppNav({ appNavData }) {
           {appNavData.navList.map((item) => (
             <li
               className={`app-nav__list-item ${
-                location.pathname.startsWith(
-                  "/" + (item.activePath || item.path)
-                )
-                  ? "app-nav__list-item--active"
-                  : ""
+                location.pathname.startsWith(`/${item.activePath || item.path}`)
+                  ? 'app-nav__list-item--active'
+                  : ''
               }`}
-              key={item.path}
-            >
-              {appNavData.displayContent
-                ? appNavData.displayContent(item)
-                : item.name}
+              key={item.path}>
+              {appNavData.displayContent ? appNavData.displayContent(item) : item.name}
             </li>
           ))}
         </ul>

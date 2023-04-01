@@ -1,12 +1,12 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import approvalsReducer from "./approval";
-import leavesReducer from "./status";
-import groupsReducer from "./groups";
-import employeeProfileReducer from "./employeeProfile";
-import absenteesReducer from "./absentees";
-import coreReducer from "./core";
-import announcementsReducer from "./announcements";
-import { clearEmployeeData } from "./authActions";
+import { combineReducers } from '@reduxjs/toolkit';
+import approvalsReducer from './approval';
+import leavesReducer from './status';
+import groupsReducer from './groups';
+import employeeProfileReducer from './employeeProfile';
+import absenteesReducer from './absentees';
+import coreReducer from './core';
+import announcementsReducer from './announcements';
+import { clearEmployeeData } from './authActions';
 
 const employeeAccountReducer = combineReducers({
   absentees: absenteesReducer,
@@ -15,7 +15,7 @@ const employeeAccountReducer = combineReducers({
   approval: approvalsReducer,
   groups: groupsReducer,
   employeeProfile: employeeProfileReducer,
-  announcements: announcementsReducer,
+  announcements: announcementsReducer
 });
 
 export default (state, action) => {

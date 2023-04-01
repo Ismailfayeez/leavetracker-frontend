@@ -1,35 +1,32 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { motion as m } from 'framer-motion';
 import {
   LEAVETRACKER_SECTION_NAMES,
-  LEAVETRACKER_PATH_NAMES,
-} from "../../../leaveTracker.constants";
-import { loadGroups, subscribeGroup } from "../../../store/groups";
-import { ALL_TEAM_URL } from "../../../apiConstants";
-import LoadingScreen from "../../../../../ui-kit/loading/loadingScreen/LoadingScreen";
-import GroupCard from "../../../../../ui-kit/cards/apps/leavetracker/group-card/GroupCard";
-import { ReactComponent as EmptyImg } from "../../../../../assets/images/empty.svg";
-import "../groups.scss";
-import { motion as m } from "framer-motion";
-import { listVariant } from "../../../../../utilities/AnimateVariants";
-function AllGroups(props) {
+  LEAVETRACKER_PATH_NAMES
+} from '../../../leaveTracker.constants';
+import { loadGroups, subscribeGroup } from '../../../store/groups';
+import { ALL_TEAM_URL } from '../../../apiConstants';
+import LoadingScreen from '../../../../../ui-kit/loading/loadingScreen/LoadingScreen';
+import GroupCard from '../../../../../ui-kit/cards/apps/leavetracker/group-card/GroupCard';
+import { ReactComponent as EmptyImg } from '../../../../../assets/images/empty.svg';
+import { listVariant } from '../../../../../utilities/AnimateVariants';
+import '../groups.scss';
+
+function AllGroups() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { allGroups: allGroupsSectionName } = LEAVETRACKER_SECTION_NAMES;
   const { allGroups: allGroupsPathName } = LEAVETRACKER_PATH_NAMES;
   const groups = useSelector(
-    (state) =>
-      state.entities.leaveTracker.employeeAccountData.groups[
-        allGroupsSectionName
-      ]
+    (state) => state.entities.leaveTracker.employeeAccountData.groups[allGroupsSectionName]
   );
 
-  const handleSubscribe = (id) =>
-    dispatch(subscribeGroup({ url: ALL_TEAM_URL, id }));
+  const handleSubscribe = (id) => dispatch(subscribeGroup({ url: ALL_TEAM_URL, id }));
   useEffect(() => {
     dispatch(loadGroups({ url: ALL_TEAM_URL, name: allGroupsSectionName }));
-  }, []);
+  }, [allGroupsSectionName, dispatch]);
 
   if (groups.isLoading) return <LoadingScreen />;
   if (groups.list.length <= 0)
@@ -54,14 +51,11 @@ function AllGroups(props) {
               layout
               initial="hidden"
               animate="visible"
-              className="overflow--hidden"
-            >
+              className="overflow--hidden">
               <GroupCard
                 className="card--orange"
                 group={group}
-                handleGroupName={() =>
-                  navigate(`${allGroupsPathName}/${group.id}`)
-                }
+                handleGroupName={() => navigate(`${allGroupsPathName}/${group.id}`)}
                 enableSubscribeBtn={group.enable_subscription}
                 handleSubscribe={() => handleSubscribe(group.id)}
                 handleUnSubscribe={() => handleSubscribe(group.id)}

@@ -1,35 +1,33 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { loadData } from "../../../../../store/common/dispatchMethods";
-import { ModalNavContext } from "../../../../../utilities/context/ModalNavContext";
-import { useModalNav } from "../../../../../utilities/hooks/useModalNav";
-import { APPROVAL_URL } from "../../../apiConstants";
-import { leaveTrackerModalNames } from "../../../leaveTracker.constants";
-import ApproverLeaveStatus from "../../../utilities/components/approver-leave-status/ApproverLeaveStatus";
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import ModalNavContext from '../../../../../utilities/context/ModalNavContext';
+import useModalNav from '../../../../../utilities/hooks/useModalNav';
+import { leaveTrackerModalNames } from '../../../leaveTracker.constants';
+import { loadApprovalApproverStatus } from '../../../store/approval';
+import ApproverLeaveStatus from '../../../utilities/components/approver-leave-status/ApproverLeaveStatus';
 
-function ApprovalLeaveApproverStatus(props) {
+function ApprovalLeaveApproverStatus() {
   const dispatch = useDispatch();
-  const [status, setStatus] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const approvalApproverStatus = useSelector(
+    (state) => state.entities.leaveTracker.employeeAccountData.approval.approvalApproverStatus
+  );
+  const { isLoading, data } = approvalApproverStatus;
   const [{ globalVal }] = useModalNav(ModalNavContext);
-  const data =
-    globalVal[leaveTrackerModalNames.approvalLeaveApproverStatus] || {};
-  const fetchData = async () => {
-    try {
-      setIsLoading(true);
-      const response = await dispatch(
-        loadData(APPROVAL_URL + `${data.id}/approval-status/`)
-      );
-      setStatus(response.data);
-    } catch (err) {}
-    setIsLoading(false);
-  };
+  const approvalApproverStatusProps = useMemo(
+    () => globalVal[leaveTrackerModalNames.approvalLeaveApproverStatus] || {},
+    [globalVal]
+  );
+  const fetchData = useCallback(async () => {
+    if (data[approvalApproverStatusProps.id]) return null;
+    dispatch(loadApprovalApproverStatus({ id: approvalApproverStatusProps.id }));
+  }, [dispatch, approvalApproverStatusProps.id, data]);
+
   useEffect(() => {
-    if (data.id) {
+    if (approvalApproverStatusProps.id) {
       fetchData();
     }
-  }, [data]);
-  return <ApproverLeaveStatus isLoading={isLoading} data={status} />;
+  }, [approvalApproverStatusProps.id, fetchData]);
+  return <ApproverLeaveStatus isLoading={isLoading} data={data[approvalApproverStatusProps.id]} />;
 }
 
 export default ApprovalLeaveApproverStatus;

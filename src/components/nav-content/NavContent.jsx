@@ -1,17 +1,16 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faCaretUp } from "@fortawesome/free-solid-svg-icons";
-import UserProfileImageHolder from "../../ui-kit/user-profile-image-holder/UserProfileImageHolder";
-import logo from "../../assets/images/logo3.png";
-import "./navContent.scss";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faCaretUp } from '@fortawesome/free-solid-svg-icons';
+import UserProfileImageHolder from '../../ui-kit/user-profile-image-holder/UserProfileImageHolder';
+import logo from '../../assets/images/logo3.png';
+import './navContent.scss';
 
 function NavContent(props) {
+  const { handleDisplayFloatingSideBar } = props;
   const navigate = useNavigate();
-  const currentUser = useSelector(
-    (state) => state.entities.auth.userProfile.currentUser.data
-  );
+  const currentUser = useSelector((state) => state.entities.auth.userProfile.currentUser.data);
   const userLtData = currentUser.leaveTracker;
   const [displayUserDropdown, setDisplayUserDropDown] = useState(false);
   const userInfoDropDownRef = useRef(null);
@@ -22,34 +21,30 @@ function NavContent(props) {
   };
 
   const handleClickOutside = useCallback((event) => {
-    if (
-      userInfoDropDownRef.current &&
-      !userInfoDropDownRef.current.contains(event.target)
-    ) {
+    if (userInfoDropDownRef.current && !userInfoDropDownRef.current.contains(event.target)) {
       setDisplayUserDropDown(false);
     }
   }, []);
 
   useEffect(() => {
     if (displayUserDropdown) {
-      document.addEventListener("click", handleClickOutside);
+      document.addEventListener('click', handleClickOutside);
     }
     if (!displayUserDropdown) {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     }
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
-  }, [displayUserDropdown]);
+  }, [displayUserDropdown, handleClickOutside]);
 
   return (
     <div
       className={`nav-content ${
-        currentUser.email ? "flex-justify--space-between" : "flex--center"
-      }`}
-    >
+        currentUser.email ? 'flex-justify--space-between' : 'flex--center'
+      }`}>
       <Link className="nav-content__brand link-style-disable" to="/">
-        <img src={logo} />
+        <img src={logo} alt="app logo" />
       </Link>
       {currentUser.email && (
         <section className="nav-user flex flex--center">
@@ -73,12 +68,10 @@ function NavContent(props) {
                       className="nav-user__info"
                       onClick={() => {
                         setDisplayUserDropDown(false);
-                        navigate("/my-profile");
+                        navigate('/my-profile');
                       }}
-                    >
-                      <div className="nav-user__name">
-                        {currentUser.username}
-                      </div>
+                      role="presentation">
+                      <div className="nav-user__name">{currentUser.username}</div>
                       <div className="nav-user__email">{currentUser.email}</div>
                     </div>
                   </li>
@@ -92,7 +85,7 @@ function NavContent(props) {
               className="bars"
               onClick={(e) => {
                 e.stopPropagation();
-                props.handleDisplayFloatingSideBar();
+                handleDisplayFloatingSideBar();
               }}
             />
           </div>

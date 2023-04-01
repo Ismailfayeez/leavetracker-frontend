@@ -1,11 +1,9 @@
-import React, { forwardRef } from "react";
-import "../../styles/scss/variable.scss";
-const Input = forwardRef(function Input(
-  { name, label, className, error, ...args },
-  ref
-) {
+import React, { forwardRef } from 'react';
+import '../../styles/scss/variable.scss';
+
+const Input = forwardRef(function Input({ name, label, className, error, ...args }, ref) {
   return (
-    <div className={`form-group ${className ? className : ""}`}>
+    <div className={`form-group ${className || ''}`}>
       <label htmlFor={name}>{label}</label>
       <input className="input" name={name} id={name} {...args} ref={ref} />
       {error && <p className="error-txt">{error}</p>}

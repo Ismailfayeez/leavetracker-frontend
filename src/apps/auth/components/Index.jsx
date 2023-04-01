@@ -1,10 +1,11 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import Login from "./login/Index";
-import Logout from "./logout/Index";
-import SignUp from "./sign-up/SignUp";
-import "./auth.scss";
-function Index(props) {
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Login from './login/Index';
+import Logout from './logout/Index';
+import SignUp from './sign-up/SignUp';
+import './auth.scss';
+
+function Index() {
   return (
     <div className="auth">
       <main className="auth__main">

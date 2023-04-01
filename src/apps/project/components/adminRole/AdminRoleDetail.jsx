@@ -1,24 +1,22 @@
-import React from "react";
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import {
   projectGlobalModalNav,
   PROJECT_SECTION_LABELS,
-  PROJECT_SECTION_NAMES,
-} from "../../project.constants";
-import adminRoleSchema from "./adminRole.schema";
-import { useContext } from "react";
-import {
-  MY_PROJECTS_URL,
-  PROJECT_SECTION_URL_PATHNAMES,
-} from "../../apiConstants";
-import { useParams } from "react-router-dom";
-import ProjectSectionDetail from "../utilities/project-section-detail/ProjectSectionDetail";
-import ProjectSectionView from "../utilities/project-section-view/ProjectSectionView";
-import ProjectSectionEdit from "../utilities/project-section-edit/ProjectSectionEdit";
-import { ModalNavContext } from "../../../../utilities/context/ModalNavContext";
-import { useModalNav } from "../../../../utilities/hooks/useModalNav";
-import useProjectMemberPermission from "../../utilities/hooks/useProjectMemberPermission";
-import AdminRoleAccess from "./AdminRoleAccess";
-function AdminRoleDetail(props) {
+  PROJECT_SECTION_NAMES
+} from '../../project.constants';
+import adminRoleSchema from './adminRole.schema';
+
+import { MY_PROJECTS_URL, PROJECT_SECTION_URL_PATHNAMES } from '../../apiConstants';
+import ProjectSectionDetail from '../utilities/project-section-detail/ProjectSectionDetail';
+import ProjectSectionView from '../utilities/project-section-view/ProjectSectionView';
+import ProjectSectionEdit from '../utilities/project-section-edit/ProjectSectionEdit';
+import ModalNavContext from '../../../../utilities/context/ModalNavContext';
+import useModalNav from '../../../../utilities/hooks/useModalNav';
+import useProjectMemberPermission from '../../utilities/hooks/useProjectMemberPermission';
+import AdminRoleAccess from './AdminRoleAccess';
+
+function AdminRoleDetail() {
   const { projectId } = useParams();
   const { adminRole: name } = PROJECT_SECTION_NAMES;
   const { adminRole: label } = PROJECT_SECTION_LABELS;
@@ -27,20 +25,20 @@ function AdminRoleDetail(props) {
   const baseUrl = `${MY_PROJECTS_URL}${projectId}/`;
   const [{ globalVal, globalNav }] = useModalNav(ModalNavContext);
   const { id } = globalVal[globalNav.currentNav] || {};
-  const primaryField = "code";
+  const primaryField = 'code';
 
   const viewFields = [
-    { label: "code", name: "code" },
-    { label: "name", name: "name" },
+    { label: 'code', name: 'code' },
+    { label: 'name', name: 'name' }
   ];
 
   const editFields = [
-    { label: "code", name: "code" },
-    { label: "name", name: "name" },
+    { label: 'code', name: 'code' },
+    { label: 'name', name: 'name' }
   ];
   const pages = [
     {
-      name: "view",
+      name: 'view',
       component: (
         <ProjectSectionView
           fields={viewFields}
@@ -49,18 +47,16 @@ function AdminRoleDetail(props) {
           manageAccessModalName={projectGlobalModalNav.ADMINROLE_ACCESS}
           manageAccessModalProps={{ id, name }}
         />
-      ),
+      )
     },
     {
-      name: "edit",
-      component: (
-        <ProjectSectionEdit fields={editFields} schema={adminRoleSchema} />
-      ),
+      name: 'edit',
+      component: <ProjectSectionEdit fields={editFields} schema={adminRoleSchema} />
     },
     {
-      name: "manageAccess",
-      component: <AdminRoleAccess id={id} />,
-    },
+      name: 'manageAccess',
+      component: <AdminRoleAccess id={id} />
+    }
   ];
   return (
     <ProjectSectionDetail
@@ -72,15 +68,11 @@ function AdminRoleDetail(props) {
         name,
         nestedUrlPathName,
         baseUrl,
-        queryParamKey: "search",
-        primaryField,
+        queryParamKey: 'search',
+        primaryField
       }}
       addNewComponent={
-        <ProjectSectionEdit
-          fields={editFields}
-          sectionId="new"
-          schema={adminRoleSchema}
-        />
+        <ProjectSectionEdit fields={editFields} sectionId="new" schema={adminRoleSchema} />
       }
     />
   );

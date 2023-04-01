@@ -1,21 +1,15 @@
-import React, { useContext } from "react";
-import { useParams } from "react-router-dom";
-import domainSchema from "./domain.schema";
-import SectionDetail from "../utilities/section/detail/Detail";
-import {
-  PROJECT_SECTION_LABELS,
-  PROJECT_SECTION_NAMES,
-} from "../../project.constants";
-import Edit from "../utilities/section/detail/edit/Edit";
-import View from "../utilities/section/detail/view/View";
-import {
-  MY_PROJECTS_URL,
-  PROJECT_SECTION_URL_PATHNAMES,
-} from "../../apiConstants";
-import { ModalNavContext } from "../../../../utilities/context/ModalNavContext";
-import { useModalNav } from "../../../../utilities/hooks/useModalNav";
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import domainSchema from './domain.schema';
+import SectionDetail from '../utilities/section/detail/Detail';
+import { PROJECT_SECTION_LABELS, PROJECT_SECTION_NAMES } from '../../project.constants';
+import Edit from '../utilities/section/detail/edit/Edit';
+import View from '../utilities/section/detail/view/View';
+import { MY_PROJECTS_URL, PROJECT_SECTION_URL_PATHNAMES } from '../../apiConstants';
+import ModalNavContext from '../../../../utilities/context/ModalNavContext';
+import useModalNav from '../../../../utilities/hooks/useModalNav';
 
-function DomainDetail(props) {
+function DomainDetail() {
   const { projectId } = useParams();
   const { domain: name } = PROJECT_SECTION_NAMES;
   const { domain: label } = PROJECT_SECTION_LABELS;
@@ -23,10 +17,10 @@ function DomainDetail(props) {
   const baseUrl = `${MY_PROJECTS_URL}${projectId}/`;
   const [{ globalVal, globalNav }] = useModalNav(ModalNavContext);
   const { id } = globalVal[globalNav.currentNav];
-  const primaryField = "code";
+  const primaryField = 'code';
   const viewFields = [
-    { name: "name", label: "name" },
-    { name: "code", label: "code" },
+    { name: 'name', label: 'name' },
+    { name: 'code', label: 'code' }
   ];
 
   const editFields = viewFields;
@@ -37,8 +31,8 @@ function DomainDetail(props) {
         label,
         nestedUrlPathName,
         baseUrl,
-        queryParamKey: "search",
-        primaryField,
+        queryParamKey: 'search',
+        primaryField
       }}
       sectionId={id}
       viewFields={viewFields}

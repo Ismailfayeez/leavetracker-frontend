@@ -1,5 +1,5 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import userProfileReducer from "./userProfile"
+import { combineReducers } from '@reduxjs/toolkit';
+import userProfileReducer from './userProfile';
 // import leavesReducer from "./leaves";
 // import employeeReducer from "./employee";
 
@@ -12,5 +12,5 @@ import userProfileReducer from "./userProfile"
 // import leaveBalanceReducer from "./leaveBalance";
 
 export default combineReducers({
-userProfile:userProfileReducer
-})
+  userProfile: userProfileReducer
+});

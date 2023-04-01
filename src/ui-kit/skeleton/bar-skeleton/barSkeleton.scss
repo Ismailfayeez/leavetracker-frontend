@@ -1,0 +1,34 @@
+@import '../skeleton.scss';
+.bar-skeleton {
+  height: 90%;
+  width: 100%;
+  min-height: 200px;
+  display: flex;
+  gap: 3rem;
+  padding: 0 1rem;
+  border-bottom: 3px solid rgba(218, 218, 218, 0.5);
+  border-left: 3px solid rgba(218, 218, 218, 0.5);
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+
+  .bar {
+    flex-grow: 1;
+    max-width: 4rem;
+    background: $skeleton-color;
+    height: 100%;
+    animation: animate-skeleton 0.5s ease-in alternate infinite;
+    &--1 {
+      height: 80%;
+    }
+    &--2 {
+      height: 60%;
+    }
+    &--3 {
+      height: 90%;
+    }
+    &--4 {
+      height: 40%;
+    }
+  }
+}

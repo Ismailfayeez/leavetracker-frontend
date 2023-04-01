@@ -1,12 +1,11 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import UserProfileImageHolder from "../user-profile-image-holder/UserProfileImageHolder";
-import "./userMedia.scss";
-function UserMedia({}) {
-  const userData = useSelector(
-    (state) => state.entities.auth.userProfile.currentUser.data
-  );
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import UserProfileImageHolder from '../user-profile-image-holder/UserProfileImageHolder';
+import './userMedia.scss';
+
+function UserMedia() {
+  const userData = useSelector((state) => state.entities.auth.userProfile.currentUser.data);
   return (
     userData.email && (
       <div className="media-container user-media user-media--bluish user">

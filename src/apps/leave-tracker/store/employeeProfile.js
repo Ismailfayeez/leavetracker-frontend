@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
-import { apiCallBegan } from "../../../store/apiActions";
+import { apiCallBegan } from '../../../store/apiActions';
 
 const initialState = {
   reload: false,
@@ -8,57 +8,53 @@ const initialState = {
     isLoading: false,
     employeeAdditionalInfoIsLoading: true,
     data: {
-      id: "",
-      email: "",
-      username: "",
+      id: '',
+      email: '',
+      username: '',
       role: {},
       domain: {},
       approvers: [],
       fyList: [],
-      leaveBalance: [],
-    },
-  },
+      leaveBalance: []
+    }
+  }
 };
 const slice = createSlice({
-  name: "employeeProfile",
+  name: 'employeeProfile',
   initialState: {
-    ...initialState,
+    ...initialState
   },
   reducers: {
-    employeeProfileReload: (employeeProfile, action) => {
-      employeeProfile["reload"] = true;
+    employeeProfileReload: (employeeProfile) => {
+      employeeProfile.reload = true;
     },
-    employeeProfileRequested: (employeeProfile, action) => {
-      employeeProfile["currentEmployee"]["isLoading"] = true;
+    employeeProfileRequested: (employeeProfile) => {
+      employeeProfile.currentEmployee.isLoading = true;
     },
-    employeeProfileRequestCompleted: (employeeProfile, action) => {
-      employeeProfile["currentEmployee"]["isLoading"] = false;
+    employeeProfileRequestCompleted: (employeeProfile) => {
+      employeeProfile.currentEmployee.isLoading = false;
     },
     employeeProfileReceived: (employeeProfile, action) => {
       const { data } = action.payload;
-      employeeProfile["currentEmployee"]["data"] = {
-        ...employeeProfile["currentEmployee"]["data"],
-        ...data,
+      employeeProfile.currentEmployee.data = {
+        ...employeeProfile.currentEmployee.data,
+        ...data
       };
     },
-    employeeAdditionalInfoRequested: (employeeProfile, action) => {
-      employeeProfile["currentEmployee"][
-        "employeeAdditionalInfoIsLoading"
-      ] = true;
+    employeeAdditionalInfoRequested: (employeeProfile) => {
+      employeeProfile.currentEmployee.employeeAdditionalInfoIsLoading = true;
     },
-    employeeAdditionalInfoCompleted: (employeeProfile, action) => {
-      employeeProfile["currentEmployee"][
-        "employeeAdditionalInfoIsLoading"
-      ] = false;
+    employeeAdditionalInfoCompleted: (employeeProfile) => {
+      employeeProfile.currentEmployee.employeeAdditionalInfoIsLoading = false;
     },
     employeeAdditionalInfoReceived: (employeeProfile, action) => {
       const { data, sectionNames } = action.payload;
 
       if (Array.isArray(sectionNames)) {
         sectionNames.forEach((name, index) => {
-          employeeProfile["currentEmployee"]["data"] = {
-            ...employeeProfile["currentEmployee"]["data"],
-            [name]: data[index],
+          employeeProfile.currentEmployee.data = {
+            ...employeeProfile.currentEmployee.data,
+            [name]: data[index]
           };
         });
       }
@@ -66,23 +62,21 @@ const slice = createSlice({
 
     newApproversReceived: (employeeProfile, action) => {
       const { data: newApprovers } = action.payload;
-      employeeProfile["currentEmployee"]["data"]["approvers"] = [
-        ...employeeProfile["currentEmployee"]["data"]["approvers"],
-        ...newApprovers,
+      employeeProfile.currentEmployee.data.approvers = [
+        ...employeeProfile.currentEmployee.data.approvers,
+        ...newApprovers
       ];
     },
     approverRemoved: (employeeProfile, action) => {
       const { id } = action.payload;
-      let employeeData = employeeProfile["currentEmployee"]["data"];
-      const approvers = employeeData["approvers"].filter(
-        (approver) => approver.id != id
-      );
-      employeeProfile["currentEmployee"]["data"] = {
+      const employeeData = employeeProfile.currentEmployee.data;
+      const approvers = employeeData.approvers.filter((approver) => approver.id !== id);
+      employeeProfile.currentEmployee.data = {
         ...employeeData,
-        approvers,
+        approvers
       };
-    },
-  },
+    }
+  }
 });
 export const {
   employeeProfileRequested,
@@ -93,17 +87,17 @@ export const {
   accountsReceived,
   employeeAdditionalInfoRequested,
   employeeAdditionalInfoReceived,
-  employeeAdditionalInfoCompleted,
+  employeeAdditionalInfoCompleted
 } = slice.actions;
 export default slice.reducer;
 
 export const loadCurrentEmployee = () => (dispatch) => {
   return dispatch(
     apiCallBegan({
-      requestParams: { url: "leavetracker/employee/me/" },
+      requestParams: { url: 'leavetracker/employee/me/' },
       onStart: employeeProfileRequested(),
       onSuccess: employeeProfileReceived(),
-      onEnd: employeeProfileRequestCompleted(),
+      onEnd: employeeProfileRequestCompleted()
     })
   );
 };
@@ -112,7 +106,7 @@ export const loadEmployeeAdditionalInfo =
   ({ requestDetails }) =>
   (dispatch) => {
     const requestParams = requestDetails.map(({ name, ...others }) => ({
-      ...others,
+      ...others
     }));
     const sectionNames = requestDetails.map(({ name }) => name);
     return dispatch(
@@ -120,7 +114,7 @@ export const loadEmployeeAdditionalInfo =
         requestParams,
         onStart: employeeAdditionalInfoRequested(),
         onSuccess: employeeAdditionalInfoReceived({ sectionNames }),
-        onEnd: employeeAdditionalInfoCompleted(),
+        onEnd: employeeAdditionalInfoCompleted()
       })
     );
   };
@@ -132,7 +126,7 @@ export const loadApprovers = (config) => (dispatch) => {
   return dispatch(
     apiCallBegan({
       requestParams: { url: config.url.common },
-      onSuccess: newApproversReceived(),
+      onSuccess: newApproversReceived()
     })
   );
 };
@@ -145,10 +139,10 @@ export const addApprovers =
       apiCallBegan({
         requestParams: {
           url,
-          method: "post",
-          data,
+          method: 'post',
+          data
         },
-        onSuccess: newApproversReceived(),
+        onSuccess: newApproversReceived()
       })
     );
   };
@@ -161,9 +155,9 @@ export const removeApprover =
       apiCallBegan({
         requestParams: {
           url,
-          method: "delete",
+          method: 'delete'
         },
-        onSuccess: approverRemoved({ id }),
+        onSuccess: approverRemoved({ id })
       })
     );
   };

@@ -1,34 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import {
-  loadCoreDataDetail,
-  resetCoreDetail,
-  resetCoreList,
-} from "../../store/projects";
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { loadCoreDataDetail, resetCoreDetail } from '../../store/projects';
+
 function useProjectDetail(sectionConstants, sectionId) {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const { baseUrl, name, nestedUrlPathName } = sectionConstants;
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
-      if (!isLoading) setIsLoading(true);
-      if (sectionId == "new") {
+      setIsLoading(true);
+      if (sectionId === 'new') {
         setIsLoading(false);
         return;
       }
-      await dispatch(
-        loadCoreDataDetail({ baseUrl, name, nestedUrlPathName, id: sectionId })
-      );
+      await dispatch(loadCoreDataDetail({ baseUrl, name, nestedUrlPathName, id: sectionId }));
     } catch (err) {}
-    if (isLoading) setIsLoading(false);
-  };
+    setIsLoading(false);
+  }, [dispatch, baseUrl, name, nestedUrlPathName, sectionId]);
   useEffect(() => {
     fetchData();
     return () => {
       dispatch(resetCoreDetail({ name }));
     };
-  }, []);
+  }, [dispatch, fetchData, name]);
   return [isLoading];
 }
 

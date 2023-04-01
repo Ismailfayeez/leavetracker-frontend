@@ -1,52 +1,36 @@
-import React, { useId, useState } from "react";
-import { useEffect } from "react";
-
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Legend,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
-import { paginate } from "../../../../utilities/paginate";
-import { renderSelect } from "../../../../utilities/uiElements";
-import LoadingSpinner from "../../../loading/loading-spinner/LoadingSpinner";
-import NoResult from "../../../no-result/NoResult";
-import Pagination from "../../../pagination/Pagination";
-import "./barChartWithSelect.scss";
+import React, { useState, useEffect } from 'react';
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import paginate from '../../../../utilities/paginate';
+import { renderSelect } from '../../../../utilities/uiElements';
+import NoResult from '../../../no-result/NoResult';
+import Pagination from '../../../pagination/Pagination';
+import BarSkeleton from '../../../skeleton/bar-skeleton/BarSkeleton';
+import './barChartWithSelect.scss';
 
 function BarChartWithSelect(props) {
-  const id = useId();
   const {
     className,
     barColor,
     label,
     select,
-    graph: { data, defaultMsg, isLoading },
+    graph: { data, isLoading },
     ...otherProps
   } = props;
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setCurrentPageSize] = useState(4);
+  const [pageSize] = useState(4);
   const handleCurrentPage = (pageNumber) => setCurrentPage(pageNumber);
   const paginatedData = paginate(data, currentPage, pageSize);
 
   useEffect(() => {
-    console.log("changeee");
     setCurrentPage(1);
   }, [data]);
   return (
-    <div className={`bar-chart-with-select ${className || ""}`} {...otherProps}>
-      <label
-        className="bold"
-        style={{ fontSize: "1.8rem", paddingBottom: "0.5rem" }}
-      >
+    <div className={`bar-chart-with-select ${className || ''}`} {...otherProps}>
+      <p className="bold" style={{ fontSize: '1.8rem', paddingBottom: '0.5rem' }}>
         {label}
-      </label>
+      </p>
       <div className="bar-chart-container">
-        {isLoading && <LoadingSpinner />}
+        {isLoading && <BarSkeleton />}
         {!isLoading &&
           (data.length > 0 ? (
             <>
@@ -59,19 +43,12 @@ function BarChartWithSelect(props) {
                 paginationType="bullets"
               />
               <ResponsiveContainer width="100%" height="90%">
-                <BarChart
-                  data={paginatedData}
-                  margin={{ top: 0, right: 0, left: -40, bottom: -5 }}
-                >
+                <BarChart data={paginatedData} margin={{ top: 0, right: 0, left: -40, bottom: -5 }}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Bar
-                    dataKey="leave_count"
-                    fill={barColor || "#000000"}
-                    barSize={50}
-                  />
+                  <Bar dataKey="leave_count" fill={barColor || '#000000'} barSize={50} />
                 </BarChart>
               </ResponsiveContainer>
             </>
@@ -81,7 +58,7 @@ function BarChartWithSelect(props) {
       </div>
       <div className="bar-chart-input flex flex-wrap flex--center gap--20px">
         {select.map((item) => (
-          <div key={item.name + id}>{renderSelect({ ...item })}</div>
+          <div key={item.name}>{renderSelect({ ...item })}</div>
         ))}
       </div>
     </div>

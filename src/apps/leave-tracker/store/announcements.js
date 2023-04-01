@@ -1,36 +1,38 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { apiCallBegan } from "../../../store/apiActions";
-import { ANNOUNCEMENT_URL } from "../apiConstants";
+import { createSlice } from '@reduxjs/toolkit';
+import { apiCallBegan } from '../../../store/apiActions';
+import { cachingTimeExpired } from '../../../utilities/helper';
+import { ANNOUNCEMENT_URL, ANNOUNCEMENT_VIEWED_URL } from '../apiConstants';
+
 const initialState = {
   list: {
     isLoading: false,
-    lastFetch: "",
-    data: [],
+    lastFetch: '',
+    data: []
   },
-  detail: { isLoading: true, lastFetch: "", data: {} },
+  detail: { isLoading: true, lastFetch: '', data: {} }
 };
 const slice = createSlice({
-  name: "announcements",
+  name: 'announcements',
   initialState: { ...initialState },
   reducers: {
     announcementListReceived: (announcements, action) => {
       const { data } = action.payload;
-      announcements["list"] = {
-        ...announcements["list"],
+      announcements.list = {
+        ...announcements.list,
         data,
-        lastFetch: Date.now(),
+        lastFetch: Date.now()
       };
     },
     announcementDetailReceived: (announcements, action) => {
       const { data } = action.payload;
-      announcements["detail"] = {
-        ...announcements["detail"],
+      announcements.detail = {
+        ...announcements.detail,
         data,
-        lastFetch: Date.now(),
+        lastFetch: Date.now()
       };
     },
-    announcementDetailCleared: (announcements, action) => {
-      announcements["detail"] = initialState.detail;
+    announcementDetailCleared: (announcements) => {
+      announcements.detail = initialState.detail;
     },
     announcementsListLoaderUpdated: (absentees, action) => {
       absentees.list.isLoading = action.payload.loading;
@@ -40,9 +42,9 @@ const slice = createSlice({
     },
     announcementCreated: (announcements, action) => {
       const { data } = action.payload;
-      announcements["list"]["data"].push(data);
-    },
-  },
+      announcements.list.data.push(data);
+    }
+  }
 });
 
 export const {
@@ -51,21 +53,24 @@ export const {
   announcementsListLoaderUpdated,
   announcementsDetailLoaderUpdated,
   announcementCreated,
-  announcementDetailCleared,
+  announcementDetailCleared
 } = slice.actions;
 
 export default slice.reducer;
 
 // dispatch
 
-export const loadAnnouncements = () => (dispatch) => {
+export const loadAnnouncements = () => (dispatch, getState) => {
   const url = ANNOUNCEMENT_URL;
+  const state = getState();
+  const { lastFetch } = state.entities.leaveTracker.employeeAccountData.announcements.list;
+  if (!cachingTimeExpired(lastFetch)) return null;
   return dispatch(
     apiCallBegan({
       requestParams: { url },
       onStart: announcementsListLoaderUpdated({ loading: true }),
       onSuccess: announcementListReceived(),
-      onEnd: announcementsListLoaderUpdated({ loading: false }),
+      onEnd: announcementsListLoaderUpdated({ loading: false })
     })
   );
 };
@@ -73,8 +78,8 @@ export const createAnnouncement = (data) => (dispatch) => {
   const url = ANNOUNCEMENT_URL;
   return dispatch(
     apiCallBegan({
-      requestParams: { url, data, method: "post" },
-      onSuccess: announcementCreated(),
+      requestParams: { url, data, method: 'post' },
+      onSuccess: announcementCreated()
     })
   );
 };
@@ -86,7 +91,16 @@ export const loadAnnouncementDetail = (id) => (dispatch) => {
       requestParams: { url },
       onStart: announcementsDetailLoaderUpdated({ loading: true }),
       onSuccess: announcementDetailReceived(),
-      onEnd: announcementsDetailLoaderUpdated({ loading: false }),
+      onEnd: announcementsDetailLoaderUpdated({ loading: false })
+    })
+  );
+};
+export const updateAnnouncementViewedStatus = (data) => (dispatch) => {
+  const url = ANNOUNCEMENT_VIEWED_URL;
+  return dispatch(
+    apiCallBegan({
+      requestParams: { url, data, method: 'post' },
+      onSuccess: announcementListReceived()
     })
   );
 };

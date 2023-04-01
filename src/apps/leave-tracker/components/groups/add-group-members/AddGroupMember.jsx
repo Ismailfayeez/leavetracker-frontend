@@ -1,50 +1,42 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { addGroupMembers, createGroup } from "../../../store/groups";
-import AddUsers from "../../utilities/add-users/AddUsers";
-import {
-  leaveTrackerModalNames,
-  LEAVETRACKER_PATH_NAMES,
-} from "../../../leaveTracker.constants";
-import { MY_TEAM_URL } from "../../../apiConstants";
-import { toast } from "react-toastify";
-import { useModalNav } from "../../../../../utilities/hooks/useModalNav";
-import { ModalNavContext } from "../../../../../utilities/context/ModalNavContext";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { addGroupMembers, createGroup } from '../../../store/groups';
+import AddUsers from '../../utilities/add-users/AddUsers';
+import { leaveTrackerModalNames, LEAVETRACKER_PATH_NAMES } from '../../../leaveTracker.constants';
+import { MY_TEAM_URL } from '../../../apiConstants';
+import useModalNav from '../../../../../utilities/hooks/useModalNav';
+import ModalNavContext from '../../../../../utilities/context/ModalNavContext';
 
-function AddGroupMember(props) {
+function AddGroupMember() {
   const dispatch = useDispatch();
   const [{ globalVal, closeModal }] = useModalNav(ModalNavContext);
   const {
     groupsPathName,
     groupId,
-    groupInfoData = {},
+    groupInfoData = {}
   } = globalVal[leaveTrackerModalNames.addGroupMembers] || {};
   const { myGroups: myGroupsPathName } = LEAVETRACKER_PATH_NAMES;
   let baseUrl;
-  if (groupsPathName == myGroupsPathName) baseUrl = MY_TEAM_URL;
+  if (groupsPathName === myGroupsPathName) baseUrl = MY_TEAM_URL;
 
   const groupDetail = useSelector(
-    (state) =>
-      state.entities.leaveTracker.employeeAccountData.groups.detail.data
+    (state) => state.entities.leaveTracker.employeeAccountData.groups.detail.data
   );
   const handleAddGroupMembers = async (teamMembers) => {
     try {
       if (groupId) {
-        if (groupId == "new") {
+        if (groupId === 'new') {
           const data = { ...groupInfoData, team_members: teamMembers };
-          console.log(baseUrl);
           await dispatch(createGroup({ url: baseUrl, data }));
         } else {
-          const url = baseUrl + groupId + "/member/";
+          const url = `${baseUrl + groupId}/member/`;
           await dispatch(addGroupMembers({ url, data: teamMembers }));
         }
         closeModal();
         toast.success(
           <span className="toast-msg">
-            {groupId == "new"
-              ? `new group added successfully`
-              : `members added successfully`}
+            {groupId === 'new' ? `new group added successfully` : `members added successfully`}
           </span>
         );
       }

@@ -1,12 +1,12 @@
-import "normalize.css";
-import "./App.scss";
-import { Provider } from "react-redux";
-import configureStore from "./store/configureStore";
-import ParentComponent from "./components/parentComponent/ParentComponent";
+import React from 'react';
+import { Provider } from 'react-redux';
+import configureStore from './store/configureStore';
+import ParentComponent from './components/parentComponent/ParentComponent';
+import 'normalize.css';
+import './App.scss';
 
 const store = configureStore();
 function App() {
-  console.log(process.env.NODE_ENV, process.env.REACT_APP_API_URL);
   return (
     <div className="App">
       <Provider store={store}>

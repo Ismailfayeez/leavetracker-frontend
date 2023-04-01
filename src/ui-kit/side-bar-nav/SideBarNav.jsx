@@ -1,6 +1,7 @@
-import React from "react";
-import AppNav from "../app-navigation/AppNav";
-import "./sideBarNav.scss";
+import React from 'react';
+import AppNav from '../app-navigation/AppNav';
+import './sideBarNav.scss';
+
 function SideBarNav({ appNavData = [] }) {
   return (
     <div className="side-bar-container">

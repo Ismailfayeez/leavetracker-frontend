@@ -1,30 +1,27 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import EditProjectInfo from "../editProjectInfo/Index";
-import {
-  projectGlobalModalNav,
-  PROJECT_SECTION_NAMES,
-} from "../../project.constants";
-import { useGlobalNavModal } from "../utilities/useGlobalNavModal";
-import ProjectSectionCard from "../project-section-card/ProjectSectionCard";
-import { ModalNavContext } from "../../../../utilities/context/ModalNavContext";
-import { ReactComponent as adminIcon } from "../../../../assets/images/administrator-developer-icon.svg";
-import { ReactComponent as roleIcon } from "../../../../assets/images/business-card-icon.svg";
-import { ReactComponent as durationIcon } from "../../../../assets/images/clock-rotate-right-icon.svg";
-import { ReactComponent as adminRoleIcon } from "../../../../assets/images/repair-service-icon.svg";
-import { ReactComponent as employeeIcon } from "../../../../assets/images/user-profile-icon.svg";
-import { ReactComponent as DomainIcon } from "../../../../assets/images/working-on-laptop-icon.svg";
-import { ReactComponent as leaveTypeIcon } from "../../../../assets/images/flight-ticket-icon.svg";
-import { ReactComponent as fyMonthIcon } from "../../../../assets/images/clock-date-calendar-icon.svg";
-import { motion as m } from "framer-motion";
-import { pageVariant } from "../../../../utilities/AnimateVariants";
-import Modal from "../../../../ui-kit/modal/Modal";
-import Index from "../editProjectInfo/Index";
+import React, { useCallback } from 'react';
+import { useSelector } from 'react-redux';
+import { motion as m } from 'framer-motion';
+import { projectGlobalModalNav, PROJECT_SECTION_NAMES } from '../../project.constants';
+import { useGlobalNavModal } from '../utilities/useGlobalNavModal';
+import ProjectSectionCard from '../project-section-card/ProjectSectionCard';
+import ModalNavContext from '../../../../utilities/context/ModalNavContext';
+import { ReactComponent as adminIcon } from '../../../../assets/images/administrator-developer-icon.svg';
+import { ReactComponent as roleIcon } from '../../../../assets/images/business-card-icon.svg';
+import { ReactComponent as durationIcon } from '../../../../assets/images/clock-rotate-right-icon.svg';
+import { ReactComponent as adminRoleIcon } from '../../../../assets/images/repair-service-icon.svg';
+import { ReactComponent as employeeIcon } from '../../../../assets/images/user-profile-icon.svg';
+import { ReactComponent as DomainIcon } from '../../../../assets/images/working-on-laptop-icon.svg';
+import { ReactComponent as leaveTypeIcon } from '../../../../assets/images/flight-ticket-icon.svg';
+import { ReactComponent as fyMonthIcon } from '../../../../assets/images/clock-date-calendar-icon.svg';
+import { pageVariant } from '../../../../utilities/AnimateVariants';
+import Modal from '../../../../ui-kit/modal/Modal';
+import Index from '../editProjectInfo/Index';
+
 function ProjectDetailMain(props) {
   const { edit, enableEdit } = props;
   const myProjects = useSelector((state) => state.entities.projects.myProjects);
   const { projectMemberProfile } = myProjects;
-  const sectionCount = myProjects["sectionCount"];
+  const { sectionCount } = myProjects;
   const [{ openModal, moveToNextNav }] = useGlobalNavModal(ModalNavContext);
 
   const { domain, leaveDuration, leaveType, role, employee, admin, adminRole } =
@@ -32,80 +29,82 @@ function ProjectDetailMain(props) {
 
   const pages = [
     {
-      label: "Employee",
-      path: "employee",
+      label: 'Employee',
+      path: 'employee',
       name: employee,
-      icon: employeeIcon,
+      icon: employeeIcon
     },
     {
-      label: "Role",
-      path: "role",
+      label: 'Role',
+      path: 'role',
       name: role,
-      icon: roleIcon,
+      icon: roleIcon
     },
     {
-      label: "Domain",
-      path: "domain",
+      label: 'Domain',
+      path: 'domain',
       name: domain,
-      icon: DomainIcon,
+      icon: DomainIcon
     },
     {
-      label: "Leave Type",
-      path: "leave-type",
+      label: 'Leave Type',
+      path: 'leave-type',
       name: leaveType,
-      icon: leaveTypeIcon,
+      icon: leaveTypeIcon
     },
     {
-      label: "Leave Duration",
-      path: "leave-duration",
+      label: 'Leave Duration',
+      path: 'leave-duration',
       name: leaveDuration,
-      icon: durationIcon,
+      icon: durationIcon
     },
     {
-      label: "Admin",
-      path: "admin",
+      label: 'Admin',
+      path: 'admin',
       name: admin,
-      icon: adminIcon,
+      icon: adminIcon
     },
     {
-      label: "Admin Role",
-      path: "admin-role",
+      label: 'Admin Role',
+      path: 'admin-role',
       name: adminRole,
-      icon: adminRoleIcon,
+      icon: adminRoleIcon
     },
     {
-      label: "Fy Month",
-      path: "fy-month",
+      label: 'Fy Month',
+      path: 'fy-month',
       icon: fyMonthIcon,
-      displayContent: (props) => (
-        <ProjectSectionCard
-          {...props}
-          handleClickLabel={() => {
-            openModal();
-            moveToNextNav({}, projectGlobalModalNav.FYMONTH);
-          }}
-        />
-      ),
-    },
+      displayContent: useCallback(
+        (displayProps) => (
+          <ProjectSectionCard
+            key={displayProps.path}
+            {...displayProps}
+            handleClickLabel={() => {
+              openModal();
+              moveToNextNav({}, projectGlobalModalNav.FYMONTH);
+            }}
+          />
+        ),
+        [moveToNextNav, openModal]
+      )
+    }
   ];
-  const ownerPath = ["admin", "admin-role", "fy-month"];
+  const ownerPath = ['admin', 'admin-role', 'fy-month'];
 
   return (
     <m.main
       className="page-layout__main"
-      style={{ padding: "0 0.5rem" }}
+      style={{ padding: '0 0.5rem' }}
       variants={pageVariant}
       initial="hidden"
-      animate="visible"
-    >
+      animate="visible">
       {edit && (
         <Modal
           open={edit}
           handleClose={() => enableEdit(false)}
           height="md"
           width="sm"
-          title="Edit Project"
-        >
+          title="Edit Project">
           <Index setDisplayModal={enableEdit} />
         </Modal>
       )}
@@ -117,7 +116,7 @@ function ProjectDetailMain(props) {
             displayContent({ ...otherProps })
           ) : (
             <ProjectSectionCard
-              key={otherProps.name}
+              key={otherProps.path}
               {...otherProps}
               totalRecordsCount={sectionCount[otherProps.name]}
             />

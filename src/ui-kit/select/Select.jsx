@@ -1,5 +1,5 @@
-import React, { useId, useState } from "react";
-import { forwardRef } from "react";
+// eslint-disable-file jsx-a11y/control-has-associated-label
+import React, { forwardRef } from 'react';
 
 const Select = forwardRef(function Select(
   {
@@ -16,10 +16,9 @@ const Select = forwardRef(function Select(
   },
   ref
 ) {
-  const id = useId();
   return (
-    <div className={`form-group ${className ? className : ""}`}>
-      {label && <label htmlFor={name}>{label}</label>}
+    <div className={`form-group ${className || ''}`}>
+      <label htmlFor={name}>{label}</label>
       <select
         className="select"
         name={name}
@@ -27,16 +26,16 @@ const Select = forwardRef(function Select(
         value={value}
         {...rest}
         ref={ref}
-      >
-        <option value="" disabled></option>
+        aria-label={label}>
+        {/* eslint-disable-next-line */}
+        <option value="" disabled />
         {options &&
           options.length &&
           options.map((option) => (
             <option
-              value={optionKeys ? option[optionKeys["value"]] : option}
-              key={optionKeys ? option[optionKeys["value"]] : option + id}
-            >
-              {optionKeys ? option[optionKeys["name"]] : option}
+              value={optionKeys ? option[optionKeys.value] : option}
+              key={optionKeys ? option[optionKeys.value] : option}>
+              {optionKeys ? option[optionKeys.name] : option}
             </option>
           ))}
       </select>

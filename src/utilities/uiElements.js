@@ -1,13 +1,15 @@
-import _ from "lodash";
-import Input from "../ui-kit/input/Input";
-import AutoComplete from "../ui-kit/auto-complete/AutoComplete";
-import LoadingSpinner from "../ui-kit/loading/loading-spinner/LoadingSpinner";
-import Select from "../ui-kit/select/Select";
-import TextArea from "../ui-kit/text-area/TextArea";
-import { motion as m } from "framer-motion";
-import { buttonBasicVariant } from "./AnimateVariants";
+/* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
+import { motion as m } from 'framer-motion';
+import Input from '../ui-kit/input/Input';
+import AutoComplete from '../ui-kit/auto-complete/AutoComplete';
+import LoadingSpinner from '../ui-kit/loading/loading-spinner/LoadingSpinner';
+import Select from '../ui-kit/select/Select';
+import TextArea from '../ui-kit/text-area/TextArea';
+import { buttonBasicVariant } from './AnimateVariants';
+
 export const renderInput = ({
-  type = "text",
+  type = 'text',
   name,
   data,
   handleChange,
@@ -25,14 +27,7 @@ export const renderInput = ({
     />
   );
 };
-export const renderTextArea = ({
-  type = "text",
-  name,
-  data,
-  handleChange,
-  errors,
-  ...others
-}) => {
+export const renderTextArea = ({ type = 'text', name, data, handleChange, errors, ...others }) => {
   return (
     <TextArea
       type={type}
@@ -44,13 +39,7 @@ export const renderTextArea = ({
     />
   );
 };
-export const renderSelect = ({
-  name,
-  data,
-  handleChange,
-  errors = {},
-  ...others
-}) => {
+export const renderSelect = ({ name, data, handleChange, errors = {}, ...others }) => {
   return (
     <Select
       name={name}
@@ -67,15 +56,14 @@ export const renderButton = ({ content, className, ...others }) => (
     {...others}
     disabled={others.loading}
     variants={buttonBasicVariant}
-    whileTap="whileTap"
-  >
+    whileTap="whileTap">
     <div className="flex flex--center">
       {content}
-      {others.loading && (
-        <div style={{ marginLeft: "0.5rem", display: "inline-block" }}>
+      {others.loading ? (
+        <div style={{ marginLeft: '0.5rem', display: 'inline-block' }}>
           <LoadingSpinner />
         </div>
-      )}
+      ) : null}
     </div>
   </m.button>
 );
@@ -103,7 +91,7 @@ export const renderAutoComplete = ({
       onBlur={handleBlur}
       onFocus={handleFocus}
       onSelect={handleSelect}
-      autocomplete="off"
+      autoComplete="off"
       {...otherProps}
     />
   );

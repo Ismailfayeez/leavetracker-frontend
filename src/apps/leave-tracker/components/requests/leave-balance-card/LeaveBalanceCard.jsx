@@ -1,5 +1,6 @@
-import React from "react";
-import "./leaveBalanceCard.scss";
+import React from 'react';
+import './leaveBalanceCard.scss';
+
 function LeaveBalanceCard({ data }) {
   if (data.length <= 0)
     return (
@@ -10,12 +11,12 @@ function LeaveBalanceCard({ data }) {
   return (
     <div className="card leaveBalance">
       <header>
-        <h4 style={{ margin: 0, fontSize: "2rem" }}>Leave Balance</h4>
+        <h4 style={{ margin: 0, fontSize: '2rem' }}>Leave Balance</h4>
       </header>
       <section className="card__body overflow--auto">
-        <table style={{ width: "100%", fontSize: "1.8rem" }}>
+        <table style={{ width: '100%', fontSize: '1.8rem' }}>
           {data.map((record) => (
-            <tr>
+            <tr key={record.name}>
               <td className="leaveBalance__name">{record.name}</td>
               <td className="leaveBalance__days">{record.balance} days</td>
             </tr>

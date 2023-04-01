@@ -1,23 +1,21 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import LoadingScreen from "../../../../../ui-kit/loading/loadingScreen/LoadingScreen";
-import { LEAVETRACKER_PATH_NAMES } from "../../../leaveTracker.constants";
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import LoadingScreen from '../../../../../ui-kit/loading/loadingScreen/LoadingScreen';
+import { LEAVETRACKER_PATH_NAMES } from '../../../leaveTracker.constants';
 import {
   groupDetailReceived,
   loadGroupDetail,
   loadGroupMembers,
   removeGroupMember,
-  updateGroupMember,
-} from "../../../store/groups";
-import { ALL_TEAM_URL, MY_TEAM_URL } from "../../../apiConstants";
-import "./groupDetail.scss";
-import GroupView from "../group-view/GroupView";
+  updateGroupMember
+} from '../../../store/groups';
+import { ALL_TEAM_URL, MY_TEAM_URL } from '../../../apiConstants';
+import './groupDetail.scss';
+import GroupView from '../group-view/GroupView';
 
-function GroupDetail(props) {
-  const { myGroups: myGroupsPathName, allGroups: allGroupsPathName } =
-    LEAVETRACKER_PATH_NAMES;
+function GroupDetail() {
+  const { myGroups: myGroupsPathName, allGroups: allGroupsPathName } = LEAVETRACKER_PATH_NAMES;
   const allowedPathNames = [myGroupsPathName, allGroupsPathName];
   const { groupsPathName, groupId } = useParams();
   const navigate = useNavigate();
@@ -27,17 +25,17 @@ function GroupDetail(props) {
   );
   const { isLoading } = groupDetail;
   let baseUrl;
-  if (groupsPathName == myGroupsPathName) baseUrl = MY_TEAM_URL;
-  else if (groupsPathName == allGroupsPathName) baseUrl = ALL_TEAM_URL;
+  if (groupsPathName === myGroupsPathName) baseUrl = MY_TEAM_URL;
+  else if (groupsPathName === allGroupsPathName) baseUrl = ALL_TEAM_URL;
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       await dispatch(loadGroupDetail({ baseUrl, id: groupId }));
       return;
     } catch (err) {
-      navigate("/lt/not-found");
+      navigate('/lt/not-found');
     }
-  };
+  }, [baseUrl, dispatch, groupId, navigate]);
 
   const handleRemoveMember = async (memberId) => {
     try {
@@ -48,18 +46,14 @@ function GroupDetail(props) {
 
   const handleDismissAsAdmin = async (memberId) => {
     try {
-      await dispatch(
-        updateGroupMember({ baseUrl, memberId, groupId, data: { role: "P" } })
-      );
+      await dispatch(updateGroupMember({ baseUrl, memberId, groupId, data: { role: 'P' } }));
       await dispatch(loadGroupMembers({ baseUrl, groupId }));
     } catch (err) {}
   };
 
   const handleMakeAsAdmin = async (memberId) => {
     try {
-      await dispatch(
-        updateGroupMember({ baseUrl, memberId, groupId, data: { role: "A" } })
-      );
+      await dispatch(updateGroupMember({ baseUrl, memberId, groupId, data: { role: 'A' } }));
       await dispatch(loadGroupMembers({ baseUrl, groupId }));
     } catch (err) {}
   };
@@ -69,13 +63,13 @@ function GroupDetail(props) {
     return () => {
       dispatch(
         groupDetailReceived({
-          data: { name: "", description: "", team_members: [] },
+          data: { name: '', description: '', team_members: [] }
         })
       );
     };
-  }, []);
+  }, [dispatch, fetchData]);
 
-  if (!allowedPathNames.includes(groupsPathName)) navigate("/lt/not-found");
+  if (!allowedPathNames.includes(groupsPathName)) navigate('/lt/not-found');
 
   if (isLoading) return <LoadingScreen />;
 
@@ -83,8 +77,8 @@ function GroupDetail(props) {
     <div className="group-detail">
       <GroupView
         access={{
-          edit: groupsPathName == myGroupsPathName ? true : false,
-          delete: groupsPathName == myGroupsPathName ? true : false,
+          edit: groupsPathName === myGroupsPathName,
+          delete: groupsPathName === myGroupsPathName
         }}
         handleRemoveMember={handleRemoveMember}
         handleMakeAsAdmin={handleMakeAsAdmin}

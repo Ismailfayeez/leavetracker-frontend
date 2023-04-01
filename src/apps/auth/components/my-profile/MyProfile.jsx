@@ -1,48 +1,44 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import InfoDisplayList from "../../../../ui-kit/info-display-list/InfoDisplayList";
-import InfoDisplay from "../../../../ui-kit/info-display/InfoDisplay";
-import Modal from "../../../../ui-kit/modal/Modal";
-import { renderButton } from "../../../../utilities/uiElements";
-import { COUNTRY_URL, TIMEZONE_URL } from "../../apiConstants";
-import { loadUtils } from "../../store/userProfile";
-import EditProfile from "../edit-profile/EditProfile";
-import "./myProfile.scss";
-import { toast } from "react-toastify";
+import React, { useEffect, useState } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import InfoDisplayList from '../../../../ui-kit/info-display-list/InfoDisplayList';
+import InfoDisplay from '../../../../ui-kit/info-display/InfoDisplay';
+import Modal from '../../../../ui-kit/modal/Modal';
+import { renderButton } from '../../../../utilities/uiElements';
+import { COUNTRY_URL, TIMEZONE_URL } from '../../apiConstants';
+import { loadUtils } from '../../store/userProfile';
+import EditProfile from '../edit-profile/EditProfile';
+import './myProfile.scss';
+
 function MyProfile({ handleLogoutUser }) {
   const [displayEditProfileModal, setdisplayEditProfileModal] = useState(false);
   const dispatch = useDispatch();
-  const user = useSelector(
-    (state) => state.entities.auth.userProfile.currentUser.data
-  );
+  const user = useSelector((state) => state.entities.auth.userProfile.currentUser.data);
   const userLtData = useSelector(
     (state) => state.entities.auth.userProfile.currentUser.data.leaveTracker
   );
   const utils = useSelector((state) => state.entities.auth.userProfile.utils);
 
   const columns = [
-    { name: "username", label: "Name" },
-    { name: "email", label: "Email" },
+    { name: 'username', label: 'Name' },
+    { name: 'email', label: 'Email' }
   ];
 
   useEffect(() => {
-    if (!utils["countries"]["lastFetch"]) {
-      dispatch(loadUtils({ url: COUNTRY_URL, name: "countries" }));
+    if (!utils.countries.lastFetch) {
+      dispatch(loadUtils({ url: COUNTRY_URL, name: 'countries' }));
     }
-  }, []);
+  }, [utils.countries.lastFetch, dispatch]);
   useEffect(() => {
-    if (!utils["timeZone"]["lastFetch"]) {
-      dispatch(loadUtils({ url: TIMEZONE_URL, name: "timeZone" }));
+    if (!utils.timeZone.lastFetch) {
+      dispatch(loadUtils({ url: TIMEZONE_URL, name: 'timeZone' }));
     }
-  }, []);
+  }, [utils.timeZone.lastFetch, dispatch]);
   const handleEditSuccess = () => {
     setdisplayEditProfileModal(false);
-    toast.success(
-      <span className="toast-msg">{"your profile edited successfully"}</span>
-    );
+    toast.success(<span className="toast-msg">your profile edited successfully</span>);
   };
 
   return (
@@ -54,12 +50,11 @@ function MyProfile({ handleLogoutUser }) {
             open={displayEditProfileModal}
             handleClose={() => setdisplayEditProfileModal(false)}
             height="md"
-            width="sm"
-          >
+            width="sm">
             <EditProfile handleEditSuccess={handleEditSuccess} />
           </Modal>
           <header>
-            <h3>My Profile</h3>{" "}
+            <h3>My Profile</h3>{' '}
           </header>
           <div className="flex flex--column gap--10px">
             <InfoDisplayList
@@ -78,14 +73,14 @@ function MyProfile({ handleLogoutUser }) {
             <Link to="/switch-accounts">switch accounts</Link>
             <div className="flex gap--10px">
               {renderButton({
-                content: "edit profile",
-                className: "btn--md btn--brown",
-                onClick: () => setdisplayEditProfileModal(true),
+                content: 'edit profile',
+                className: 'btn--md btn--brown',
+                onClick: () => setdisplayEditProfileModal(true)
               })}
               {renderButton({
-                content: "logout",
-                className: "btn--md btn--matte-black",
-                onClick: handleLogoutUser,
+                content: 'logout',
+                className: 'btn--md btn--matte-black',
+                onClick: handleLogoutUser
               })}
             </div>
           </div>

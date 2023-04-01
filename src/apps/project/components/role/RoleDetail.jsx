@@ -1,26 +1,22 @@
-import React from "react";
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import {
-  projectGlobalModalNav,
   PROJECT_APP_PERMISSIONS,
   PROJECT_SECTION_LABELS,
-  PROJECT_SECTION_NAMES,
-} from "../../project.constants";
-import roleSchema from "./role.schema";
-import { useContext } from "react";
-import {
-  MY_PROJECTS_URL,
-  PROJECT_SECTION_URL_PATHNAMES,
-} from "../../apiConstants";
-import { useParams } from "react-router-dom";
-import ProjectSectionDetail from "../utilities/project-section-detail/ProjectSectionDetail";
-import ProjectSectionView from "../utilities/project-section-view/ProjectSectionView";
-import ProjectSectionEdit from "../utilities/project-section-edit/ProjectSectionEdit";
-import { ModalNavContext } from "../../../../utilities/context/ModalNavContext";
-import { useModalNav } from "../../../../utilities/hooks/useModalNav";
-import useProjectMemberPermission from "../../utilities/hooks/useProjectMemberPermission";
-import RoleAccess from "./RoleAccess";
+  PROJECT_SECTION_NAMES
+} from '../../project.constants';
+import roleSchema from './role.schema';
 
-function RoleDetail(props) {
+import { MY_PROJECTS_URL, PROJECT_SECTION_URL_PATHNAMES } from '../../apiConstants';
+import ProjectSectionDetail from '../utilities/project-section-detail/ProjectSectionDetail';
+import ProjectSectionView from '../utilities/project-section-view/ProjectSectionView';
+import ProjectSectionEdit from '../utilities/project-section-edit/ProjectSectionEdit';
+import ModalNavContext from '../../../../utilities/context/ModalNavContext';
+import useModalNav from '../../../../utilities/hooks/useModalNav';
+import useProjectMemberPermission from '../../utilities/hooks/useProjectMemberPermission';
+import RoleAccess from './RoleAccess';
+
+function RoleDetail() {
   const { projectId } = useParams();
   const { role: name } = PROJECT_SECTION_NAMES;
   const { role: label } = PROJECT_SECTION_LABELS;
@@ -29,42 +25,40 @@ function RoleDetail(props) {
   const baseUrl = `${MY_PROJECTS_URL}${projectId}/`;
   const [{ globalVal, globalNav }] = useModalNav(ModalNavContext);
   const { id } = globalVal[globalNav.currentNav] || {};
-  const primaryField = "code";
-  const { isProjectOwner, isProjectAdminHasPermission } =
-    useProjectMemberPermission(ROLE_EDIT, ROLE_DLT);
+  const primaryField = 'code';
+  const { isProjectOwner, isProjectAdminHasPermission } = useProjectMemberPermission(
+    ROLE_EDIT,
+    ROLE_DLT
+  );
 
   const viewFields = [
-    { label: "code", name: "code" },
-    { label: "name", name: "name" },
+    { label: 'code', name: 'code' },
+    { label: 'name', name: 'name' }
   ];
 
   const editFields = [
-    { label: "code", name: "code" },
-    { label: "name", name: "name" },
+    { label: 'code', name: 'code' },
+    { label: 'name', name: 'name' }
   ];
   const pages = [
     {
-      name: "view",
+      name: 'view',
       component: (
         <ProjectSectionView
           fields={viewFields}
-          hasPermissionEdit={
-            isProjectOwner || isProjectAdminHasPermission[ROLE_EDIT]
-          }
-          hasPermissionDelete={
-            isProjectOwner || isProjectAdminHasPermission[ROLE_DLT]
-          }
+          hasPermissionEdit={isProjectOwner || isProjectAdminHasPermission[ROLE_EDIT]}
+          hasPermissionDelete={isProjectOwner || isProjectAdminHasPermission[ROLE_DLT]}
         />
-      ),
+      )
     },
     {
-      name: "edit",
-      component: <ProjectSectionEdit fields={editFields} schema={roleSchema} />,
+      name: 'edit',
+      component: <ProjectSectionEdit fields={editFields} schema={roleSchema} />
     },
     {
-      name: "manageAccess",
-      component: <RoleAccess id={id} />,
-    },
+      name: 'manageAccess',
+      component: <RoleAccess id={id} />
+    }
   ];
   return (
     <ProjectSectionDetail
@@ -76,15 +70,11 @@ function RoleDetail(props) {
         name,
         nestedUrlPathName,
         baseUrl,
-        queryParamKey: "search",
-        primaryField,
+        queryParamKey: 'search',
+        primaryField
       }}
       addNewComponent={
-        <ProjectSectionEdit
-          fields={editFields}
-          sectionId="new"
-          schema={roleSchema}
-        />
+        <ProjectSectionEdit fields={editFields} sectionId="new" schema={roleSchema} />
       }
     />
   );

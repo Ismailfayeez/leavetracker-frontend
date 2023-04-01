@@ -1,5 +1,5 @@
-@import "./colors.scss";
-@import "./variable.scss";
+@import './colors.scss';
+@import './variable.scss';
 
 // list
 .list {
@@ -97,13 +97,21 @@ $margin-sizes: 2;
     display: block;
     text-transform: lowercase;
     color: $color-label;
-  }
-  label::first-letter {
-    text-transform: uppercase;
+    &::first-letter {
+      text-transform: uppercase;
+    }
   }
 }
 .label {
   color: $color-label;
+}
+.info-label {
+  color: $color-label;
+  display: block;
+  text-transform: lowercase;
+  &::first-letter {
+    text-transform: uppercase;
+  }
 }
 .form-group {
   @extend %form-group-parent;
@@ -236,7 +244,7 @@ $margin-sizes: 2;
   min-width: 0;
   .card__item {
     &:after {
-      content: ".";
+      content: '.';
       visibility: hidden;
     }
   }
@@ -314,7 +322,7 @@ $margin-sizes: 2;
 }
 .occupy-empty-space {
   &:after {
-    content: ".";
+    content: '.';
     visibility: hidden;
   }
 }
@@ -372,7 +380,7 @@ ul {
 }
 .seperate-by-comma {
   & :nth-child(1n):not(:last-child)::after {
-    content: ",";
+    content: ',';
   }
 }
 .flex {
@@ -607,7 +615,10 @@ ul {
 .full-height {
   height: 100%;
 }
-
+//
+.full-width {
+  width: 100%;
+}
 // toast
 .toast-msg {
   font-size: 1.5rem;
@@ -767,7 +778,7 @@ ul {
 }
 .allocate-space {
   &::after {
-    content: "0";
+    content: '0';
     visibility: hidden;
   }
 }
@@ -775,6 +786,7 @@ ul {
 .back-arrow {
   margin-right: 0.5rem;
   cursor: pointer;
+  color: $matte-black;
 }
 
 .leave-dates {
@@ -790,4 +802,31 @@ ul {
     justify-self: self-start;
     align-items: center;
   }
+}
+
+.new-indicator {
+  display: inline-block;
+  background-color: red;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
+.new-badge {
+  display: inline-block;
+  background-color: rgb(247, 72, 72);
+  padding: 2px 3px;
+  font-size: 1.4rem;
+  border-radius: 5px;
+  margin: 0 5px;
+  &::after {
+    content: 'new';
+    color: white;
+  }
+}
+
+// color
+.color--title {
+  color: $matte-black;
 }

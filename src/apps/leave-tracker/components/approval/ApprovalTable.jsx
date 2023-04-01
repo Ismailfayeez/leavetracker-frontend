@@ -1,23 +1,22 @@
-import React, { useState } from "react";
-import getApprovalTableColumns from "./tableColumns";
-import NoResult from "../../../../ui-kit/no-result/NoResult";
-import { useModalNav } from "../../../../utilities/hooks/useModalNav";
-import { ModalNavContext } from "../../../../utilities/context/ModalNavContext";
-import { leaveTrackerModalNames } from "../../leaveTracker.constants";
-import LeaveRequestCard from "../../../../ui-kit/cards/apps/leavetracker/leave-request-card/LeaveRequestCard";
-import Table from "../../../../ui-kit/Table/Table";
-import Pagination from "../../../../ui-kit/pagination/Pagination";
-import { paginate } from "../../../../utilities/paginate";
-import { motion as m } from "framer-motion";
-import { listVariant } from "../../../../utilities/AnimateVariants";
+import React, { useState } from 'react';
+import { motion as m } from 'framer-motion';
+import getApprovalTableColumns from './tableColumns';
+import NoResult from '../../../../ui-kit/no-result/NoResult';
+import useModalNav from '../../../../utilities/hooks/useModalNav';
+import ModalNavContext from '../../../../utilities/context/ModalNavContext';
+import { leaveTrackerModalNames } from '../../leaveTracker.constants';
+import LeaveRequestCard from '../../../../ui-kit/cards/apps/leavetracker/leave-request-card/LeaveRequestCard';
+import Table from '../../../../ui-kit/Table/Table';
+import Pagination from '../../../../ui-kit/pagination/Pagination';
+import paginate from '../../../../utilities/paginate';
+import { listVariant } from '../../../../utilities/AnimateVariants';
 
 function ApprovalTable({ data, ...others }) {
   const [{ openModal, moveToNextNav }] = useModalNav(ModalNavContext);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setCurrentPageSize] = useState(5);
+  const [pageSize] = useState(5);
   const handleCurrentPage = (pageNumber) => setCurrentPage(pageNumber);
-  const { approvalLeaveInfo, approvalLeaveApproverStatus } =
-    leaveTrackerModalNames;
+  const { approvalLeaveInfo, approvalLeaveApproverStatus } = leaveTrackerModalNames;
   const handleInfoModal = (leave) => {
     openModal();
     moveToNextNav({ leave, name: others.name }, approvalLeaveInfo);
@@ -33,13 +32,7 @@ function ApprovalTable({ data, ...others }) {
       <div className="display--mobile-only">
         <div className="grid gap--10px grid--1x2 grid--tablet">
           {paginatedData.map((leave) => (
-            <m.div
-              key={leave.id}
-              variants={listVariant}
-              layout
-              initial="hidden"
-              animate="visible"
-            >
+            <m.div key={leave.id} variants={listVariant} layout initial="hidden" animate="visible">
               <LeaveRequestCard
                 leave={leave}
                 handleRequest={handleInfoModal}
@@ -57,7 +50,7 @@ function ApprovalTable({ data, ...others }) {
           columns={getApprovalTableColumns({
             handleInfoModal,
             handleApproverStatusModal,
-            prevItemIndex: (currentPage - 1) * pageSize,
+            prevItemIndex: (currentPage - 1) * pageSize
           })}
           className="approval table--transparant table--header-desert"
         />

@@ -1,6 +1,6 @@
-import React from "react";
-import { ReactComponent as EmptyImg } from "../../assets/images/empty.svg";
-import "./noResult.scss";
+import React from 'react';
+import { ReactComponent as EmptyImg } from '../../assets/images/empty.svg';
+import './noResult.scss';
 
 function NoResult({ statement, illustration: Illustration, noImage }) {
   return (
@@ -14,10 +14,7 @@ function NoResult({ statement, illustration: Illustration, noImage }) {
           <EmptyImg className="illustration base-size" />
         </div>
       )}
-      <p style={{ textAlign: "center" }}>
-        {" "}
-        {statement ? statement : "No Result found"}
-      </p>
+      <p style={{ textAlign: 'center' }}> {statement || 'No Result found'}</p>
     </div>
   );
 }

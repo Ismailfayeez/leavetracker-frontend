@@ -1,37 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
-import NoResult from "../../../../../ui-kit/no-result/NoResult";
-import Pagination from "../../../../../ui-kit/pagination/Pagination";
-import { paginate } from "../../../../../utilities/paginate";
-import { ReactComponent as NoDataImg } from "../../../../../assets/images/no-data.svg";
-import LoadingScreen from "../../../../../ui-kit/loading/loadingScreen/LoadingScreen";
-import "./employeeInfo.scss";
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import NoResult from '../../../../../ui-kit/no-result/NoResult';
+import Pagination from '../../../../../ui-kit/pagination/Pagination';
+import paginate from '../../../../../utilities/paginate';
+import { ReactComponent as NoDataImg } from '../../../../../assets/images/no-data.svg';
+import BarSkeleton from '../../../../../ui-kit/skeleton/bar-skeleton/BarSkeleton';
+import './employeeInfo.scss';
 
-function LeaveBalanceGraph(props) {
+function LeaveBalanceGraph() {
   const currentEmployee = useSelector(
-    (state) =>
-      state.entities.leaveTracker.employeeAccountData.employeeProfile
-        .currentEmployee
+    (state) => state.entities.leaveTracker.employeeAccountData.employeeProfile.currentEmployee
   );
   const currentEmployeeData = currentEmployee.data;
-  const employeeAdditionalInfoIsLoading =
-    currentEmployee.employeeAdditionalInfoIsLoading;
+  const { employeeAdditionalInfoIsLoading } = currentEmployee;
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setCurrentPageSize] = useState(4);
+  const [pageSize] = useState(4);
   const handleCurrentPage = (pageNumber) => setCurrentPage(pageNumber);
   const { leaveBalance } = currentEmployeeData;
   const paginatedData = paginate(leaveBalance, currentPage, pageSize);
   return employeeAdditionalInfoIsLoading ? (
-    <LoadingScreen />
+    <BarSkeleton />
   ) : leaveBalance.length ? (
     <div className="leave-balance-graph-container">
       <div className="leave-balance-graph">
@@ -44,10 +33,7 @@ function LeaveBalanceGraph(props) {
           paginationType="bullets"
         />
         <ResponsiveContainer width="100%" height="95%">
-          <BarChart
-            data={paginatedData}
-            margin={{ top: 0, right: 0, left: -40, bottom: -5 }}
-          >
+          <BarChart data={paginatedData} margin={{ top: 0, right: 0, left: -40, bottom: -5 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="code" />
             <YAxis />
@@ -59,11 +45,10 @@ function LeaveBalanceGraph(props) {
       </div>
       <div
         style={{
-          textAlign: "center",
-          fontSize: "1.5rem",
-          fontWeight: "bold",
-        }}
-      >
+          textAlign: 'center',
+          fontSize: '1.5rem',
+          fontWeight: 'bold'
+        }}>
         leave balance graph
       </div>
     </div>

@@ -1,34 +1,32 @@
-import React, { useContext } from "react";
-import Modal from "../../../ui-kit/modal/Modal";
-import NotFound from "../../../ui-kit/not-found/NotFound";
-import { leaveTrackerModalNames } from "../leaveTracker.constants";
-import AddGroupMember from "./groups/add-group-members/AddGroupMember";
-import AddNewGroup from "./groups/add-new-group/AddNewGroup";
-import AddApprovers from "../components/others/approvers/AddApprovers";
-import EditGroupInfo from "./groups/edit-group-info/EditGroupInfo";
-import { useModalNav } from "../../../utilities/hooks/useModalNav";
-import { ModalNavContext } from "../../../utilities/context/ModalNavContext";
-import LeaveInfo from "./status/leave-info/LeaveInfo";
-import LeaveApproverStatus from "./status/leave-approver-status/LeaveApproverStatus";
-import ApprovalLeaveInfo from "./approval/approval-leave-info/ApprovalLeaveInfo";
-import ApprovalLeaveApproverStatus from "./approval/approval-leave-approver-status/ApprovalLeaveApproverStatus";
-import Request from "./requests/Request";
-import RequestSuccess from "./requests/request-success/RequestSuccess";
-import AbsenteeDetail from "./dashboard/absentees/AbsenteeDetail";
-import ConfirmationModalContent from "../../../ui-kit/confirmation-modal-content/ConfirmationModalContent";
-import AnnouncementDetail from "./announcements/announcement-detail/AnnouncementDetail";
-import CreateAnnouncement from "./announcements/create-announcement/CreateAnnouncement";
+import React from 'react';
+import Modal from '../../../ui-kit/modal/Modal';
+import NotFound from '../../../ui-kit/not-found/NotFound';
+import { leaveTrackerModalNames } from '../leaveTracker.constants';
+import AddGroupMember from './groups/add-group-members/AddGroupMember';
+import AddNewGroup from './groups/add-new-group/AddNewGroup';
+import AddApprovers from './others/approvers/AddApprovers';
+import EditGroupInfo from './groups/edit-group-info/EditGroupInfo';
+import useModalNav from '../../../utilities/hooks/useModalNav';
+import ModalNavContext from '../../../utilities/context/ModalNavContext';
+import LeaveInfo from './status/leave-info/LeaveInfo';
+import LeaveApproverStatus from './status/leave-approver-status/LeaveApproverStatus';
+import ApprovalLeaveInfo from './approval/approval-leave-info/ApprovalLeaveInfo';
+import ApprovalLeaveApproverStatus from './approval/approval-leave-approver-status/ApprovalLeaveApproverStatus';
+import Request from './requests/Request';
+import RequestSuccess from './requests/request-success/RequestSuccess';
+import AbsenteeDetail from './dashboard/absentees/AbsenteeDetail';
+import ConfirmationModalContent from '../../../ui-kit/confirmation-modal-content/ConfirmationModalContent';
+import AnnouncementDetail from './announcements/announcement-detail/AnnouncementDetail';
+import CreateAnnouncement from './announcements/create-announcement/CreateAnnouncement';
 
-function LeaveTrackerModalContent(props) {
-  const [{ globalNav, globalVal, showModal, closeModal }] =
-    useModalNav(ModalNavContext);
+function LeaveTrackerModalContent() {
+  const [{ globalNav, globalVal, showModal, closeModal }] = useModalNav(ModalNavContext);
   const {
     addNewGroup,
     editGroupInfo,
     addGroupMembers,
     addApprovers,
     confirmation,
-    leaveBalance,
     leaveInfo,
     leaveApproverStatus,
     approvalLeaveInfo,
@@ -37,85 +35,81 @@ function LeaveTrackerModalContent(props) {
     requestSuccess,
     absenteeDetail,
     announcementDetail,
-    createAnnouncement,
+    createAnnouncement
   } = leaveTrackerModalNames;
-  let children = "";
+  let children = '';
   let otherProps = {};
   switch (globalNav.currentNav) {
-    //absentees
+    // absentees
     case absenteeDetail:
       children = <AbsenteeDetail />;
-      otherProps = { height: "md", width: "sm", title: "Absentee Info" };
+      otherProps = { height: 'md', width: 'sm', title: 'Absentee Info' };
       break;
     // leave request
     case applyLeaveForm:
       children = <Request />;
-      otherProps = { height: "auto", width: "md", title: "Leave Request" };
+      otherProps = { height: 'auto', width: 'md', title: 'Leave Request' };
       break;
     case requestSuccess:
       children = <RequestSuccess />;
-      otherProps = { height: "sm", width: "md" };
+      otherProps = { height: 'sm', width: 'md' };
       break;
     // leave status
     case leaveInfo:
       children = <LeaveInfo />;
-      otherProps = { height: "md", width: "sm", title: "Leave Info" };
+      otherProps = { height: 'md', width: 'sm', title: 'Leave Info' };
       break;
     case leaveApproverStatus:
       children = <LeaveApproverStatus />;
-      otherProps = { height: "md", width: "sm", title: "Status" };
+      otherProps = { height: 'md', width: 'sm', title: 'Status' };
       break;
-    //approval
+    // approval
     case approvalLeaveInfo:
       children = <ApprovalLeaveInfo />;
-      otherProps = { height: "md", width: "sm", title: "Approval Info" };
+      otherProps = { height: 'md', width: 'sm', title: 'Approval Info' };
       break;
     case approvalLeaveApproverStatus:
       children = <ApprovalLeaveApproverStatus />;
-      otherProps = { height: "md", width: "sm", title: "Status" };
+      otherProps = { height: 'md', width: 'sm', title: 'Status' };
       break;
     // groups
     case addNewGroup:
       children = <AddNewGroup />;
-      otherProps = { height: "md", width: "sm", title: "New Group" };
+      otherProps = { height: 'md', width: 'sm', title: 'New Group' };
       break;
     case editGroupInfo:
       children = <EditGroupInfo />;
-      otherProps = { height: "md", width: "sm", title: "Edit Group" };
+      otherProps = { height: 'md', width: 'sm', title: 'Edit Group' };
       break;
     case addGroupMembers:
       children = <AddGroupMember />;
-      otherProps = { height: "lg", width: "sm", title: "Add Members" };
+      otherProps = { height: 'lg', width: 'sm', title: 'Add Members' };
       break;
     case addApprovers:
       children = <AddApprovers />;
-      otherProps = { height: "lg", width: "sm", title: "Add Approvers" };
+      otherProps = { height: 'lg', width: 'sm', title: 'Add Approvers' };
       break;
     case announcementDetail:
       children = <AnnouncementDetail />;
-      otherProps = { height: "md", width: "sm", title: "Announcement" };
+      otherProps = { height: 'md', width: 'sm', title: 'Announcement' };
       break;
     case createAnnouncement:
       children = <CreateAnnouncement />;
-      otherProps = { height: "lg", width: "sm", title: "Announcement" };
+      otherProps = { height: 'lg', width: 'sm', title: 'Announcement' };
       break;
     case confirmation:
       children = <ConfirmationModalContent {...globalVal[confirmation]} />;
-      otherProps = { height: "sm", width: "sm" };
+      otherProps = { height: 'sm', width: 'sm' };
       break;
     default:
       children = <NotFound />;
       break;
   }
+
   return (
-    <>
-      <Modal
-        children={children}
-        open={showModal}
-        handleClose={() => closeModal()}
-        {...otherProps}
-      />
-    </>
+    <Modal open={showModal} handleClose={() => closeModal()} {...otherProps}>
+      {children}
+    </Modal>
   );
 }
 

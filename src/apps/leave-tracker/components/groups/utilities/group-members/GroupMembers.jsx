@@ -1,18 +1,13 @@
-import React from "react";
-import GroupMemberCard from "../../../../../../ui-kit/cards/apps/leavetracker/group-member-card/GroupMemberCard";
-import "./groupMembers.scss";
+import React from 'react';
+import GroupMemberCard from '../../../../../../ui-kit/cards/apps/leavetracker/group-member-card/GroupMemberCard';
+import './groupMembers.scss';
+
 function GroupMembers(props) {
-  const {
-    title,
-    groupMembers,
-    handleMakeAsAdmin,
-    handleRemoveMember,
-    handleDismissAsAdmin,
-  } = props;
-  console.log(groupMembers);
+  const { title, groupMembers, handleMakeAsAdmin, handleRemoveMember, handleDismissAsAdmin } =
+    props;
   if (groupMembers.length <= 0) return null;
   return (
-    <div className={`group-members`}>
+    <div className="group-members">
       <div className="group-members__title">{title}</div>
       <ul className="group-member__list grid grid--1x2 grid--tablet gap--10px grid--center">
         {groupMembers.map(
@@ -21,16 +16,17 @@ function GroupMembers(props) {
             username: name,
             email,
             role,
-            allow_make_as_admin,
-            allow_remove,
-            allow_dismiss_as_admin,
+            allow_make_as_admin: allowMakeAsAdmin,
+            allow_remove: allowRemove,
+            allow_dismiss_as_admin: allowDismissAsAdmin
           }) => (
             <GroupMemberCard
+              key={id}
               className=""
               data={{ name, email, role }}
-              makeAsAdmin={allow_make_as_admin}
-              removeMember={allow_remove}
-              dismissAsAdmin={allow_dismiss_as_admin}
+              makeAsAdmin={allowMakeAsAdmin}
+              removeMember={allowRemove}
+              dismissAsAdmin={allowDismissAsAdmin}
               handleMakeAsAdmin={() => handleMakeAsAdmin(id)}
               handleRemoveMember={() => handleRemoveMember(id)}
               handleDismissAsAdmin={() => handleDismissAsAdmin(id)}

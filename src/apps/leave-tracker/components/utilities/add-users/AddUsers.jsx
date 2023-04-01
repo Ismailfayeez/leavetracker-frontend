@@ -1,42 +1,24 @@
-import React, { useState } from "react";
-import SearchUsers from "./SearchUsers";
-import SelectedUsers from "./SelectedUsers";
-import "./addUsers.scss";
-import { loadData } from "../../../../../store/common/dispatchMethods";
-import { AddQueryParamToUrl } from "../../../../../utilities/queryParamGenerator";
-import { EMPLOYEE_URL } from "../../../apiConstants";
-import _ from "lodash";
-import { useDispatch } from "react-redux";
-function AddUsers({ title, handleSubmit, existingMembers }) {
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import SelectedUsers from './SelectedUsers';
+import { loadData } from '../../../../../store/common/dispatchMethods';
+import { AddQueryParamToUrl } from '../../../../../utilities/queryParamGenerator';
+import { EMPLOYEE_URL } from '../../../apiConstants';
+import SearchList from '../search-list/SearchList';
+import './addUsers.scss';
+
+function AddUsers({ handleSubmit, existingMembers }) {
   const [displaySelectedPage, setDisplaySelectedPage] = useState(false);
-  const [searchedResult, setSearchedResult] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
 
-  const handleSearchQuery = _.debounce(async ({ target: input }) => {
-    if (!input.value) return setSearchedResult([]);
-    try {
-      setIsLoading(true);
-      const response = await dispatch(
-        loadData(AddQueryParamToUrl(EMPLOYEE_URL, { search: input.value }))
-      );
-      setSearchedResult(response.data);
-    } catch (err) {}
-    setIsLoading(false);
-  }, 1000);
+  const onSearch = (input) =>
+    dispatch(loadData(AddQueryParamToUrl(EMPLOYEE_URL, { search: input.value })));
 
-  const handleChecked = ({ currentTarget: input }, user) => {
-    if (input.checked) {
-      setData([...data, user]);
-    } else {
-      let index = data.findIndex((member) => member.email == user.email);
-      let newData = [...data];
-      newData.splice(index, 1);
-      setData(newData);
-    }
+  const handleSelected = (selectedData) => {
+    setData(selectedData);
+    setDisplaySelectedPage(!displaySelectedPage);
   };
-
   return (
     <div className="add-users full-height">
       {displaySelectedPage && (
@@ -48,14 +30,14 @@ function AddUsers({ title, handleSubmit, existingMembers }) {
       )}
 
       {!displaySelectedPage && (
-        <SearchUsers
-          data={data}
-          existingMembers={existingMembers}
-          setDisplaySelectedPage={setDisplaySelectedPage}
-          handleChecked={handleChecked}
-          searchedResult={searchedResult}
-          handleSearchQuery={handleSearchQuery}
-          isLoading={isLoading}
+        <SearchList
+          onSearch={onSearch}
+          handleSelected={handleSelected}
+          existingList={existingMembers}
+          existingListMatchField="email"
+          idField="id"
+          titleField="name"
+          subTitleField="email"
         />
       )}
     </div>

@@ -1,51 +1,35 @@
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-import ReactDOM from "react-dom";
-import { motion as m, AnimatePresence } from "framer-motion";
-import "./modal.scss";
-import { modalVariant, overlayVariant } from "../../utilities/AnimateVariants";
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { motion as m, AnimatePresence } from 'framer-motion';
+import './modal.scss';
+import { modalVariant, overlayVariant } from '../../utilities/AnimateVariants';
 
-function Modal({
-  children,
-  open,
-  handleClose,
-  height,
-  width,
-  disableClose = false,
-  title,
-}) {
-  const modalRoot = document.getElementById("modal-root");
+function Modal({ children, open, handleClose, height, width, disableClose = false, title }) {
+  const modalRoot = document.getElementById('modal-root');
   if (!open) return null;
   return ReactDOM.createPortal(
-    <div
-      className={`modal modal-height--${height || "md"} modal-width--${
-        width || "md"
-      }`}
-    >
+    <div className={`modal modal-height--${height || 'md'} modal-width--${width || 'md'}`}>
       <AnimatePresence onExitComplete={handleClose}>
         <m.div
-          className={`modal__overlay`}
+          className="modal__overlay"
           variants={overlayVariant}
           initial="hidden"
           animate="visible"
-          exit="hidden"
-        >
+          exit="hidden">
           <m.div
             className="modal__container"
             variants={modalVariant}
             initial="hidden"
             animate="visible"
-            exit="hidden"
-          >
+            exit="hidden">
             <header className="modal__header">
               <div className=" flex-item-grow overflow--auto">
-                <h4 className="margin-bottom--0 text-overflow--ellipsis">
-                  {title}
-                </h4>
+                <h4 className="margin-bottom--0 text-overflow--ellipsis">{title}</h4>
               </div>
               {!disableClose && (
-                <span className="modal__close" onClick={handleClose}>
+                <span className="modal__close" onClick={handleClose} role="presentation">
                   <FontAwesomeIcon icon={faXmark} />
                 </span>
               )}

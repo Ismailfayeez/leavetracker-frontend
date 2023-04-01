@@ -1,7 +1,7 @@
-import React from "react";
-import TableBody from "./TableBody";
-import TableHeader from "./TableHeader";
-import "./table.scss";
+import React from 'react';
+import TableBody from './TableBody';
+import TableHeader from './TableHeader';
+import './table.scss';
 
 function Table({ data, columns, className }) {
   return (

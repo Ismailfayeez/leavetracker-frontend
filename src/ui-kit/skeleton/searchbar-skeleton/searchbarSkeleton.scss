@@ -1,0 +1,9 @@
+@import '../skeleton.scss';
+.searchbar-skeleton {
+  background: $skeleton-color;
+  border-radius: 3rem;
+  width: 100%;
+  max-width: 400px;
+  height: 4rem;
+  animation: animate-skeleton 0.5s ease-in alternate infinite;
+}

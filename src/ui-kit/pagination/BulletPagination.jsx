@@ -1,9 +1,9 @@
-import React from "react";
-import _ from "lodash";
-import "./pagination.scss";
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGreaterThan } from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from 'react';
+import _ from 'lodash';
+import './pagination.scss';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGreaterThan } from '@fortawesome/free-solid-svg-icons';
 
 function BulletPagination({ itemsCount, pageSize, currentPage, onPageChange }) {
   const [currentPageNumberChunk, setCurrentPageNumberChunk] = useState(1);
@@ -15,10 +15,8 @@ function BulletPagination({ itemsCount, pageSize, currentPage, onPageChange }) {
   const firstItem = lastItem - pageNumberChunkCount;
   const currentPages = pages.slice(firstItem, lastItem);
 
-  const handleNext = () =>
-    setCurrentPageNumberChunk(currentPageNumberChunk + 1);
-  const handlePrev = () =>
-    setCurrentPageNumberChunk(currentPageNumberChunk - 1);
+  const handleNext = () => setCurrentPageNumberChunk(currentPageNumberChunk + 1);
+  const handlePrev = () => setCurrentPageNumberChunk(currentPageNumberChunk - 1);
 
   const isNext = currentPageNumberChunk * pageNumberChunkCount < pages.length;
   const isPrev = currentPageNumberChunk > 1;
@@ -27,8 +25,8 @@ function BulletPagination({ itemsCount, pageSize, currentPage, onPageChange }) {
       <ul className="bullet-pagination">
         <li
           onClick={isPrev ? handlePrev : null}
-          className={`page-btn ${isPrev ? "" : "disabled"}`}
-        >
+          className={`page-btn ${isPrev ? '' : 'disabled'}`}
+          role="presentation">
           <FontAwesomeIcon icon={faGreaterThan} className="arrow-btn prev" />
           Prev
         </li>
@@ -36,16 +34,17 @@ function BulletPagination({ itemsCount, pageSize, currentPage, onPageChange }) {
         {currentPages.map((page) => (
           <li
             key={page}
-            className={page === currentPage ? "page-item active" : "page-item"}
+            className={page === currentPage ? 'page-item active' : 'page-item'}
             onClick={() => onPageChange(page)}
-          ></li>
+            role="presentation"
+          />
         ))}
 
         <li
           onClick={isNext ? handleNext : null}
-          className={`page-btn ${isNext ? "" : "disabled"}`}
+          className={`page-btn ${isNext ? '' : 'disabled'}`}
           disabled
-        >
+          role="presentation">
           Next
           <FontAwesomeIcon icon={faGreaterThan} className="arrow-btn" />
         </li>

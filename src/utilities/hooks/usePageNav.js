@@ -1,8 +1,7 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 
-export function usePageNav(PageNavContext) {
-  const { pageList, setPageList, currentPage, setCurrentPage } =
-    useContext(PageNavContext);
+export default function usePageNav(PageNavContext) {
+  const { pageList, setPageList, currentPage, setCurrentPage } = useContext(PageNavContext);
 
   const moveToNextPage = (pathName) => {
     if (currentPage) setPageList([...pageList, currentPage]);
@@ -19,7 +18,7 @@ export function usePageNav(PageNavContext) {
   return [
     {
       moveToNextPage,
-      moveToPrevPage,
-    },
+      moveToPrevPage
+    }
   ];
 }

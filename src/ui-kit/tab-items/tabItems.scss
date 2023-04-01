@@ -1,4 +1,4 @@
-@import "../../styles/scss/global.scss";
+@import '../../styles/scss/global.scss';
 .tab-container {
   background: #fdfdfd;
   border-bottom: 1px solid #e2e1e1;
@@ -10,6 +10,7 @@
       width: 100%;
       padding: 0.5rem;
       background: white;
+      color: $matte-black;
       cursor: pointer;
       position: relative;
       user-select: none;

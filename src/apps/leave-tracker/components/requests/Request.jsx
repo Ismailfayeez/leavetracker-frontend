@@ -1,130 +1,98 @@
-import React, { useState, useEffect } from "react";
-import RequestForm from "./RequestForm";
-import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
-import requestFormSchema from "./requestForm.schema";
-import "./request.scss";
-import useValidator from "../../../../utilities/hooks/useValidator";
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { createLeaveRequest } from "../../store/status";
-import { loadEmployeeAdditionalInfo } from "../../store/employeeProfile";
-import {
-  leaveTrackerModalNames,
-  LEAVETRACKER_SECTION_NAMES,
-} from "../../leaveTracker.constants";
-import { addLeaveBalance } from "../utilities/leaveBalanceCalculator";
-import { useModalNav } from "../../../../utilities/hooks/useModalNav";
-import { ModalNavContext } from "../../../../utilities/context/ModalNavContext";
-import "./request.scss";
-import {
-  EMPLOYEE_URL,
-  LEAVE_BALANCE_URL,
-  REQUEST_URL,
-} from "../../apiConstants";
-import useAutoCompleteSuggestions from "../../../../utilities/hooks/useAutoCompleteSuggestions";
-import LeaveBalanceTable from "./leave-balance-table/LeaveBalanceTable";
-import Modal from "../../../../ui-kit/modal/Modal";
-function Request(props) {
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import useValidator from '../../../../utilities/hooks/useValidator';
+import { createLeaveRequest } from '../../store/status';
+import { loadEmployeeAdditionalInfo } from '../../store/employeeProfile';
+import { leaveTrackerModalNames } from '../../leaveTracker.constants';
+import { addLeaveBalance } from '../utilities/leaveBalanceCalculator';
+import useModalNav from '../../../../utilities/hooks/useModalNav';
+import ModalNavContext from '../../../../utilities/context/ModalNavContext';
+import RequestForm from './RequestForm';
+import { EMPLOYEE_URL, LEAVE_BALANCE_URL, REQUEST_URL } from '../../apiConstants';
+import useAutoCompleteSuggestions from '../../../../utilities/hooks/useAutoCompleteSuggestions';
+import LeaveBalanceTable from './leave-balance-table/LeaveBalanceTable';
+import Modal from '../../../../ui-kit/modal/Modal';
+import requestFormSchema from './requestForm.schema';
+import './request.scss';
+
+function Request() {
   const dispatch = useDispatch();
   const initialStateData = {
-    from: "",
-    to: "",
-    leaveType: "",
-    leaveDuration: "",
-    reachoutPerson: "",
-    leaveReason: "",
-    dateList: [],
+    from: '',
+    to: '',
+    leaveType: '',
+    leaveDuration: '',
+    reachoutPerson: '',
+    leaveReason: '',
+    dateList: []
   };
   const [onSubmitLoading, setOnSubmitLoading] = useState(false);
   const [displayLeaveBalance, setDisplayLeaveBalance] = useState(false);
-  const autoCompleteFields = ["reachoutPerson"];
+  const autoCompleteFields = ['reachoutPerson'];
   const autoCompleteFieldDetails = {
-    reachoutPerson: { url: EMPLOYEE_URL, valueField: "email" },
+    reachoutPerson: { url: EMPLOYEE_URL, valueField: 'email' }
   };
 
   const currentEmployee = useSelector(
-    (state) =>
-      state.entities.leaveTracker.employeeAccountData.employeeProfile
-        .currentEmployee
+    (state) => state.entities.leaveTracker.employeeAccountData.employeeProfile.currentEmployee
   );
-  const coreData = useSelector(
-    (state) => state.entities.leaveTracker.employeeAccountData.core
-  );
+  const coreData = useSelector((state) => state.entities.leaveTracker.employeeAccountData.core);
   const dropDownOptions = {
     leaveType: coreData.leaveType,
-    leaveDuration: coreData.leaveDuration,
+    leaveDuration: coreData.leaveDuration
   };
-  const approvers = useSelector(
-    (state) =>
-      state.entities.leaveTracker.employeeAccountData.employeeProfile
-        .currentEmployee.data.approvers
-  );
   const { leaveBalance } = currentEmployee.data;
 
   const [data, setData] = useState({ ...initialStateData });
   const [leaveBalanceCopy, setLeaveBalanceCopy] = useState([]);
 
-  const [errors, setErrors, validateForm, validateProperty] = useValidator(
-    data,
-    requestFormSchema
-  );
-  const {
-    clearSuggestions,
-    fetchSuggestions,
-    suggestions,
-    isSuggestionsLoading,
-  } = useAutoCompleteSuggestions(autoCompleteFields, autoCompleteFieldDetails);
+  const [errors, validateForm, validateProperty, setErrors] = useValidator(data, requestFormSchema);
+  const { clearSuggestions, fetchSuggestions, suggestions, isSuggestionsLoading } =
+    useAutoCompleteSuggestions(autoCompleteFields, autoCompleteFieldDetails);
   const [{ openModal, moveToNextNav }] = useModalNav(ModalNavContext);
 
-  const optionKeys = { name: "name", value: "code" };
+  const optionKeys = { name: 'name', value: 'code' };
 
+  const updateLeaveList = (startDate, endDate) => {
+    const sdt = moment(startDate, 'YYYY-MM-DD');
+    const edt = moment(endDate, 'YYYY-MM-DD');
+    const result = [];
+    while (sdt <= edt) {
+      result.push(sdt.format('YYYY-MM-DD'));
+      sdt.add(1, 'days');
+    }
+    return result;
+  };
   useEffect(() => {
     setLeaveBalanceCopy([...leaveBalance]);
   }, [leaveBalance]);
 
   useEffect(() => {
     const newDateList = updateLeaveList(data.from, data.to);
-    setData({ ...data, dateList: [...newDateList] });
+    setData((prevData) => ({ ...prevData, dateList: [...newDateList] }));
   }, [data.from, data.to]);
 
   useEffect(() => {
-    const { dateList, leaveType } = data;
-    if (dateList.length && leaveType) {
-      const newLeaveBalance = addLeaveBalance(
-        leaveBalance,
-        leaveType,
-        dateList.length
-      );
+    if (data.dateList.length && data.leaveType) {
+      const newLeaveBalance = addLeaveBalance(leaveBalance, data.leaveType, data.dateList.length);
       setLeaveBalanceCopy(newLeaveBalance);
     }
-  }, [data.dateList, data.leaveType]);
-
-  const updateLeaveList = (startDate, endDate) => {
-    let sdt = moment(startDate, "YYYY-MM-DD");
-    let edt = moment(endDate, "YYYY-MM-DD");
-    let result = [];
-    while (sdt <= edt) {
-      result.push(sdt.format("YYYY-MM-DD"));
-      sdt.add(1, "days");
-    }
-    return result;
-  };
+  }, [leaveBalance, data.dateList, data.leaveType]);
 
   const handleRemoveDate = (leave) => {
-    const newDateList = data.dateList.filter((date) => date != leave);
+    const newDateList = data.dateList.filter((date) => date !== leave);
     setData({ ...data, dateList: [...newDateList] });
   };
   const getLeaveList = () => {
     return data.dateList.map((leave, index) => (
-      <span className="badge badge--primary leave-dates__item flex">
-        <span
-          className="flex-item-grow text-ellipsis"
-          style={{ display: "inline-block" }}
-        >
-          {moment(leave).format("DD-MM-YY")}
+      <span className="badge badge--primary leave-dates__item flex" key={leave}>
+        <span className="flex-item-grow text-ellipsis" style={{ display: 'inline-block' }}>
+          {moment(leave).format('DD-MM-YY')}
         </span>
-        {!(index == 0 || index == data.dateList.length - 1) && (
+        {!(index === 0 || index === data.dateList.length - 1) && (
           <FontAwesomeIcon
             icon={faCircleXmark}
             className="remove cursor-pointer"
@@ -138,6 +106,10 @@ function Request(props) {
     openModal();
     moveToNextNav(leaveBalanceCopy, leaveTrackerModalNames.leaveBalance);
   };
+  const handleReset = () => {
+    setData({ ...initialStateData });
+    setErrors({});
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const error = validateForm();
@@ -145,21 +117,19 @@ function Request(props) {
     try {
       setOnSubmitLoading(true);
       const postData = {
-        from_date: data["from"],
-        to_date: data["to"],
-        type: data["leaveType"],
-        reachout_person: data["reachoutPerson"],
-        duration: data["leaveDuration"],
-        reason: data["leaveReason"],
-        leave_date_list: data["dateList"],
+        from_date: data.from,
+        to_date: data.to,
+        type: data.leaveType,
+        reachout_person: data.reachoutPerson,
+        duration: data.leaveDuration,
+        reason: data.leaveReason,
+        leave_date_list: data.dateList
       };
-      const response = await dispatch(
-        createLeaveRequest({ url: REQUEST_URL, data: postData })
-      );
+      const response = await dispatch(createLeaveRequest({ url: REQUEST_URL, data: postData }));
       handleReset();
       dispatch(
         loadEmployeeAdditionalInfo({
-          requestDetails: [{ url: LEAVE_BALANCE_URL, name: "leaveBalance" }],
+          requestDetails: [{ url: LEAVE_BALANCE_URL, name: 'leaveBalance' }]
         })
       );
       openModal();
@@ -183,10 +153,7 @@ function Request(props) {
       fetchSuggestions(input);
     }
   };
-  const handleReset = (e) => {
-    setData({ ...initialStateData });
-    setErrors({});
-  };
+
   const handleSelect = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
     clearSuggestions(input.name);
@@ -198,8 +165,7 @@ function Request(props) {
         handleClose={() => setDisplayLeaveBalance(false)}
         height="md"
         width="sm"
-        title="Leave Balance"
-      >
+        title="Leave Balance">
         <LeaveBalanceTable leaveBalance={leaveBalanceCopy} />
       </Modal>
       <div className="leave-request__form-container">

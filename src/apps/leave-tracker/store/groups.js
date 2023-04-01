@@ -1,33 +1,29 @@
-import { createSlice } from "@reduxjs/toolkit";
-
-import { createSelector } from "reselect";
-import { apiCallBegan } from "../../../store/apiActions";
-import {
-  cachingTimeExpired,
-  updateExistingObjWithNewObj,
-} from "../../../utilities/helper";
+import { createSlice } from '@reduxjs/toolkit';
+import { createSelector } from 'reselect';
+import { apiCallBegan } from '../../../store/apiActions';
+import { cachingTimeExpired, updateExistingObjWithNewObj } from '../../../utilities/helper';
 
 const initialState = {
   myGroups: {
     isLoading: false,
-    lastFetch: "",
-    lastModified: "",
-    list: [],
+    lastFetch: '',
+    lastModified: '',
+    list: []
   },
   allGroups: {
     isLoading: false,
-    lastFetch: "",
-    lastModified: "",
-    list: [],
+    lastFetch: '',
+    lastModified: '',
+    list: []
   },
   detail: {
     isLoading: false,
-    data: { name: "", description: "", team_members: [] },
-  },
+    data: { name: '', description: '', team_members: [] }
+  }
 };
 
 const slice = createSlice({
-  name: "groups",
+  name: 'groups',
   initialState: { ...initialState },
   reducers: {
     groupsLoaderUpdated: (groups, action) => {
@@ -36,10 +32,10 @@ const slice = createSlice({
     },
     groupsReceived: (groups, action) => {
       const { data, name } = action.payload;
-      groups[name]["list"] = data;
-      groups[name]["lastFetch"] = Date.now();
-      groups[name]["lastModified"] = "";
-      groups["detail"] = { ...initialState["detail"] };
+      groups[name].list = data;
+      groups[name].lastFetch = Date.now();
+      groups[name].lastModified = '';
+      groups.detail = { ...initialState.detail };
     },
     groupCreated: (groups, action) => {
       const { data } = action.payload;
@@ -48,71 +44,63 @@ const slice = createSlice({
     },
     groupUpdated: (groups, action) => {
       const {
-        data: { id, ...otherProps },
+        data: { id, ...otherProps }
       } = action.payload;
-      groups["myGroups"]["list"].forEach((group, index, arr) => {
-        if (group.id == id) {
-          const updatedListData = updateExistingObjWithNewObj(
-            group,
-            otherProps
-          );
-          console.log(updatedListData);
+      groups.myGroups.list.forEach((group, index, arr) => {
+        if (group.id === id) {
+          const updatedListData = updateExistingObjWithNewObj(group, otherProps);
           arr[index] = {
-            ...updatedListData,
+            ...updatedListData
           };
         }
       });
-      const updateDetailData = updateExistingObjWithNewObj(
-        groups["detail"]["data"],
-        otherProps
-      );
-      groups["detail"]["data"] = { ...updateDetailData };
+      const updateDetailData = updateExistingObjWithNewObj(groups.detail.data, otherProps);
+      groups.detail.data = { ...updateDetailData };
       groups.myGroups.lastModified = Date.now();
     },
     groupDestroyed: (groups, action) => {
       const { id } = action.payload;
-      groups["myGroups"]["list"] = groups["myGroups"]["list"].filter(
-        (group) => group.id != id
-      );
+      const filteredData = groups.myGroups.list.filter((group) => `${group.id}` !== `${id}`);
+      groups.myGroups.list = filteredData;
       groups.myGroups.lastModified = Date.now();
     },
     groupDetailReceived: (groups, action) => {
       const { data } = action.payload;
-      groups["detail"]["data"] = data;
+      groups.detail.data = data;
     },
     groupMemberReceived: (groups, action) => {
       const { data } = action.payload;
-      groups["detail"]["data"]["team_members"] = data;
+      groups.detail.data.team_members = data;
     },
     groupMemberRemoved: (groups, action) => {
       const { groupId } = action.payload;
-      groups["myGroups"]["list"].forEach((group, index, arr) => {
-        if (group.id == groupId) {
+      groups.myGroups.list.forEach((group, index, arr) => {
+        if (group.id === groupId) {
           arr[index] = { ...group, member_count: group.member_count - 1 };
         }
       });
       groups.myGroups.lastModified = Date.now();
     },
     subscribeGroupRequested: (groups, action) => {
-      const { team_id } = action.payload;
-      groups["allGroups"]["list"].forEach((group, index, arr) => {
-        if (group.id == team_id) {
+      const { team_id: teamId } = action.payload;
+      groups.allGroups.list.forEach((group, index, arr) => {
+        if (group.id === teamId) {
           arr[index] = { ...group, subscribed: !group.subscribed };
         }
       });
     },
     subscribeGroupRequestFailed: (groups, action) => {
-      const { team_id } = action.payload;
-      groups["allGroups"]["list"].forEach((group, index, arr) => {
-        if (group.id == team_id) {
+      const { team_id: teamId } = action.payload;
+      groups.allGroups.list.forEach((group, index, arr) => {
+        if (group.id === teamId) {
           arr[index] = { ...group, subscribed: !group.subscribed };
         }
       });
     },
-    subscribeGroupListModified: (groups, action) => {
-      groups["allGroups"]["lastModified"] = Date.now();
-    },
-  },
+    subscribeGroupListModified: (groups) => {
+      groups.allGroups.lastModified = Date.now();
+    }
+  }
 });
 
 export const {
@@ -127,7 +115,7 @@ export const {
   subscribeGroupRequested,
   subscribeGroupRequestFailed,
   subscribeGroupListModified,
-  cacheStateResetted,
+  cacheStateResetted
 } = slice.actions;
 export default slice.reducer;
 
@@ -135,116 +123,115 @@ export default slice.reducer;
 export const loadGroups =
   ({ name, url }) =>
   (dispatch, getState) => {
-    const { lastFetch } =
-      getState().entities.leaveTracker.employeeAccountData.groups[name];
+    const { lastFetch } = getState().entities.leaveTracker.employeeAccountData.groups[name];
     if (!cachingTimeExpired(lastFetch)) return;
     return dispatch(
       apiCallBegan({
         requestParams: { url },
         onStart: groupsLoaderUpdated({ loading: true, name }),
         onSuccess: groupsReceived({ name }),
-        onEnd: groupsLoaderUpdated({ loading: false, name }),
+        onEnd: groupsLoaderUpdated({ loading: false, name })
       })
     );
   };
 
 export const loadGroupDetail =
   ({ baseUrl, id }) =>
-  (dispatch, geState) => {
+  (dispatch) => {
     const url = baseUrl + id;
     return dispatch(
       apiCallBegan({
         requestParams: { url },
-        onStart: groupsLoaderUpdated({ loading: true, name: "detail" }),
-        onEnd: groupsLoaderUpdated({ loading: false, name: "detail" }),
-        onSuccess: groupDetailReceived(),
+        onStart: groupsLoaderUpdated({ loading: true, name: 'detail' }),
+        onEnd: groupsLoaderUpdated({ loading: false, name: 'detail' }),
+        onSuccess: groupDetailReceived()
       })
     );
   };
 
 export const createGroup =
   ({ url, data }) =>
-  (dispatch, getstate) => {
+  (dispatch) => {
     return dispatch(
       apiCallBegan({
-        requestParams: { url, data, method: "post" },
-        onStart: groupsLoaderUpdated({ loading: true, name: "myGroups" }),
-        onEnd: groupsLoaderUpdated({ loading: false, name: "myGroups" }),
-        onSuccess: groupCreated(),
+        requestParams: { url, data, method: 'post' },
+        onStart: groupsLoaderUpdated({ loading: true, name: 'myGroups' }),
+        onEnd: groupsLoaderUpdated({ loading: false, name: 'myGroups' }),
+        onSuccess: groupCreated()
       })
     );
   };
 export const updateGroupInfo =
   ({ baseUrl, id, data }) =>
-  (dispatch, getstate) => {
-    const url = baseUrl + id + "/";
+  (dispatch) => {
+    const url = `${baseUrl + id}/`;
     return dispatch(
       apiCallBegan({
-        requestParams: { url, data, method: "patch" },
-        onStart: groupsLoaderUpdated({ loading: true, name: "myGroups" }),
-        onEnd: groupsLoaderUpdated({ loading: false, name: "myGroups" }),
-        onSuccess: groupUpdated(),
+        requestParams: { url, data, method: 'patch' },
+        onStart: groupsLoaderUpdated({ loading: true, name: 'myGroups' }),
+        onEnd: groupsLoaderUpdated({ loading: false, name: 'myGroups' }),
+        onSuccess: groupUpdated()
       })
     );
   };
 export const deleteGroup =
   ({ baseUrl, id }) =>
-  (dispatch, getstate) => {
+  (dispatch) => {
     const url = baseUrl + id;
     return dispatch(
       apiCallBegan({
-        requestParams: { url, method: "delete" },
-        onStart: groupsLoaderUpdated({ loading: true, name: "myGroups" }),
-        onEnd: groupsLoaderUpdated({ loading: false, name: "myGroups" }),
-        onSuccess: groupDestroyed({ id }),
+        requestParams: { url, method: 'delete' },
+        onStart: groupsLoaderUpdated({ loading: true, name: 'myGroups' }),
+        onEnd: groupsLoaderUpdated({ loading: false, name: 'myGroups' }),
+        onSuccess: groupDestroyed({ id })
       })
     );
   };
 export const loadGroupMembers =
   ({ baseUrl, groupId }) =>
   (dispatch) => {
-    const url = baseUrl + groupId + "/" + "member/";
+    const url = `${baseUrl + groupId}/member/`;
     return dispatch(
       apiCallBegan({
         requestParams: { url },
-        onSuccess: groupMemberReceived(),
+        onSuccess: groupMemberReceived()
       })
     );
   };
 export const addGroupMembers =
   ({ url, data }) =>
-  (dispatch, getstate) => {
+  (dispatch) => {
     return dispatch(
       apiCallBegan({
-        requestParams: { url, data, method: "post" },
-        onStart: groupsLoaderUpdated({ loading: true, name: "myGroups" }),
-        onEnd: groupsLoaderUpdated({ loading: false, name: "myGroups" }),
-        onSuccess: groupUpdated(),
+        requestParams: { url, data, method: 'post' },
+        onStart: groupsLoaderUpdated({ loading: true, name: 'myGroups' }),
+        onEnd: groupsLoaderUpdated({ loading: false, name: 'myGroups' }),
+        onSuccess: groupUpdated()
       })
     );
   };
 export const updateGroupMember =
   ({ baseUrl, memberId, groupId, data }) =>
   (dispatch) => {
-    const url = baseUrl + groupId + "/" + "member/" + memberId + "/";
+    const url = `${baseUrl + groupId}/member/${memberId}/`;
     return dispatch(
       apiCallBegan({
-        requestParams: { url, method: "patch", data },
-        onStart: groupsLoaderUpdated({ loading: true, name: "myGroups" }),
-        onEnd: groupsLoaderUpdated({ loading: false, name: "myGroups" }),
+        requestParams: { url, method: 'patch', data },
+        onStart: groupsLoaderUpdated({ loading: true, name: 'myGroups' }),
+        onEnd: groupsLoaderUpdated({ loading: false, name: 'myGroups' })
       })
     );
   };
 export const removeGroupMember =
   ({ baseUrl, memberId, groupId }) =>
   (dispatch) => {
-    const url = baseUrl + groupId + "/" + "member/" + memberId + "/";
+    const url = `${baseUrl + groupId}/member/${memberId}/`;
     return dispatch(
       apiCallBegan({
-        requestParams: { url, method: "delete" },
-        onStart: groupsLoaderUpdated({ loading: true, name: "myGroups" }),
+        requestParams: { url, method: 'delete' },
+        onStart: groupsLoaderUpdated({ loading: true, name: 'myGroups' }),
         onSuccess: groupMemberRemoved({ groupId }),
-        onEnd: groupsLoaderUpdated({ loading: false, name: "myGroups" }),
+        onEnd: groupsLoaderUpdated({ loading: false, name: 'myGroups' })
       })
     );
   };
@@ -252,20 +239,16 @@ export const removeGroupMember =
 export const subscribeGroup =
   ({ url, id, data }) =>
   (dispatch, getState) => {
-    const allGroupList =
-      getState().entities.leaveTracker.employeeAccountData.groups.allGroups
-        .list;
-    const selectedGroup = allGroupList.filter((group) => group.id == id)[0];
-    if (!selectedGroup) return;
-    const requestUrl = `${url}${id}/${
-      selectedGroup.subscribed ? "unsubscribe" : "subscribe"
-    }/`;
+    const allGroupList = getState().entities.leaveTracker.employeeAccountData.groups.allGroups.list;
+    const selectedGroup = allGroupList.filter((group) => group.id === id)[0];
+    if (!selectedGroup) return null;
+    const requestUrl = `${url}${id}/${selectedGroup.subscribed ? 'unsubscribe' : 'subscribe'}/`;
     return dispatch(
       apiCallBegan({
-        requestParams: { url: requestUrl, method: "post", data },
+        requestParams: { url: requestUrl, method: 'post', data },
         onStart: subscribeGroupRequested({ team_id: id }),
         onSuccess: subscribeGroupListModified(),
-        onError: subscribeGroupRequestFailed({ team_id: id }),
+        onError: subscribeGroupRequestFailed({ team_id: id })
       })
     );
   };

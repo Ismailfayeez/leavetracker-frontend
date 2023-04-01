@@ -1,15 +1,14 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { loadData } from "../../store/common/dispatchMethods";
+import { useDispatch } from 'react-redux';
+import { loadData } from '../../store/common/dispatchMethods';
 
-function useFileDownload(props) {
+function useFileDownload() {
   const dispatch = useDispatch();
 
   const downloadFileFromLink = (data, fileName) => {
     const href = window.URL.createObjectURL(new Blob([data]));
-    const link = document.createElement("a");
+    const link = document.createElement('a');
     link.href = href;
-    link.setAttribute("download", fileName);
+    link.setAttribute('download', fileName);
     document.body.appendChild(link);
     link.click();
     // clean up "a" element & remove ObjectURL
@@ -22,11 +21,9 @@ function useFileDownload(props) {
       if (setLoading) {
         setLoading(true);
       }
-      const response = await dispatch(loadData(url, "blob"));
+      const response = await dispatch(loadData(url, 'blob'));
       downloadFileFromLink(response.data, fileName);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
     if (setLoading) {
       setLoading(false);
     }
@@ -39,9 +36,7 @@ function useFileDownload(props) {
       }
       const response = await dispatch(loadData(url));
       downloadFileFromLink(response.data, fileName);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
     if (setLoading) {
       setLoading(false);
     }

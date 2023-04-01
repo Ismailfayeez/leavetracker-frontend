@@ -1,8 +1,9 @@
-import { useState } from "react";
-import Joi from "joi";
+import { useCallback, useState } from 'react';
+import Joi from 'joi';
+
 export default function useValidator(data, schema) {
   const [errors, setErrors] = useState({});
-  const validateForm = () => {
+  const validateForm = useCallback(() => {
     const { error } = schema.validate(data, { abortEarly: false });
     if (error) {
       const errorData = {};
@@ -12,17 +13,23 @@ export default function useValidator(data, schema) {
       setErrors({ ...errorData });
       return error;
     }
-  };
-  const validateProperty = (name) => {
-    const propertySchema = Joi.object({ [name]: schema.extract(name) });
-    const { error, value } = propertySchema.validate({ [name]: data[name] });
-    if (!error) {
-      const errorData = { ...errors };
-      delete errorData[name];
-      setErrors(errorData);
-      return;
-    }
-    setErrors({ ...errors, [name]: error.details[0].message });
-  };
-  return [errors, setErrors, validateForm, validateProperty];
+  }, [data, schema]);
+
+  const validateProperty = useCallback(
+    (name) => {
+      const propertySchema = Joi.object({ [name]: schema.extract(name) });
+      const { error } = propertySchema.validate({ [name]: data[name] });
+      if (!error) {
+        setErrors((prevErrors) => {
+          const errorData = { ...prevErrors };
+          delete errorData[name];
+          return errorData;
+        });
+        return;
+      }
+      setErrors((prevErrors) => ({ ...prevErrors, [name]: error.details[0].message }));
+    },
+    [data, schema]
+  );
+  return [errors, validateForm, validateProperty, setErrors];
 }

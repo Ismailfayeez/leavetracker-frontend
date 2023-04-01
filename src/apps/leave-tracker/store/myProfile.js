@@ -1,24 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
-import moment from "moment";
-import { apiCallBegan } from "../../../store/apiActions";
+import { createSlice } from '@reduxjs/toolkit';
 
-const slice=createSlice({
-    name:'myProfile',
-    initialState:{
-        approvers:[],
-        accounts:[]
-    },
-    reducers:{
-        accountsReceived:(myProfile,action)=>{
-            const {data}=action.payload
-            myProfile['accounts']=data
-        },
-       
-}})
-    export const {approversReceived,approverRemoved,accountsReceived}=slice.actions
-    export default slice.reducer
-
-
+const slice = createSlice({
+  name: 'myProfile',
+  initialState: {
+    approvers: [],
+    accounts: []
+  },
+  reducers: {
+    accountsReceived: (myProfile, action) => {
+      const { data } = action.payload;
+      myProfile.accounts = data;
+    }
+  }
+});
+export const { approversReceived, approverRemoved, accountsReceived } = slice.actions;
+export default slice.reducer;
 
 // export const loadApprovers=(config)=>(dispatch)=>{
 //     return dispatch(apiCallBegan({

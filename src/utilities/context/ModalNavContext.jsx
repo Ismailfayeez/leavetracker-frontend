@@ -1,12 +1,13 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
-export const ModalNavContext = createContext({
+const ModalNavContext = createContext({
   modalList: [],
-  currentModal: "",
+  currentModal: '',
   modalData: {},
   showModal: false,
   setShowModal: () => {},
   setModalList: () => {},
   setCurrentModal: () => {},
-  setModalData: () => {},
+  setModalData: () => {}
 });
+export default ModalNavContext;

@@ -1,37 +1,34 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import {
   myProjectDetailreceived,
   projectMemberProfilereceived,
-  projectSectionCountReceived,
-} from "../../store/projects";
-import { loadAllData } from "../../../../store/common/dispatchMethods";
-import CreateProject from "../createProject/Index";
-import { useSelector } from "react-redux";
-import ModalContainer from "../utilities/ModalContainer";
-import { MY_PROJECTS_URL } from "../../apiConstants";
-import { PROJECT_SECTION_URL_PATHNAMES } from "../../apiConstants";
-import { PROJECT_SECTION_NAMES } from "../../project.constants";
-import { mapResponseToLocalKey } from "../../../../utilities/helper";
-import ProjectOwnerCheckRoute from "../../utilities/components/ProjectOwnerCheckRoute";
-import ProjectMemberCheckRoute from "../../utilities/components/ProjectMemberCheckRoute";
-import ProjectDetailMain from "./ProjectDetailMain";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faPencil } from "@fortawesome/free-solid-svg-icons";
-import "./projectDetail.scss";
-import Employee from "../employee/Employee";
-import Domain from "../domain/Domain";
-import LeaveType from "../leaveType/LeaveType";
-import LeaveDuration from "../leaveDuration/LeaveDuration";
-import Admin from "../admin/Admin";
-import Role from "../role/Role";
-import AdminRole from "../adminRole/AdminRole";
-import { ModalNavContext } from "../../../../utilities/context/ModalNavContext";
-import EditButton from "../../../../ui-kit/button/edit-button/EditButton";
-function ProjectDetail(props) {
+  projectSectionCountReceived
+} from '../../store/projects';
+import { loadAllData } from '../../../../store/common/dispatchMethods';
+import CreateProject from '../createProject/Index';
+import ModalContainer from '../utilities/ModalContainer';
+import { MY_PROJECTS_URL, PROJECT_SECTION_URL_PATHNAMES } from '../../apiConstants';
+import { PROJECT_SECTION_NAMES } from '../../project.constants';
+import { mapResponseToLocalKey } from '../../../../utilities/helper';
+import ProjectOwnerCheckRoute from '../../utilities/components/ProjectOwnerCheckRoute';
+import ProjectMemberCheckRoute from '../../utilities/components/ProjectMemberCheckRoute';
+import ProjectDetailMain from './ProjectDetailMain';
+import Employee from '../employee/Employee';
+import Domain from '../domain/Domain';
+import LeaveType from '../leaveType/LeaveType';
+import LeaveDuration from '../leaveDuration/LeaveDuration';
+import Admin from '../admin/Admin';
+import Role from '../role/Role';
+import AdminRole from '../adminRole/AdminRole';
+import ModalNavContext from '../../../../utilities/context/ModalNavContext';
+import EditButton from '../../../../ui-kit/button/edit-button/EditButton';
+import './projectDetail.scss';
+
+function ProjectDetail() {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -40,8 +37,8 @@ function ProjectDetail(props) {
   const [edit, setEdit] = useState(false);
   const [globalNav, setGlobalNav] = useState({
     prevNav: [],
-    currentNav: "",
-    nextNav: "",
+    currentNav: '',
+    nextNav: ''
   });
   const [globalVal, setGlobalVal] = useState({});
   const [showModal, setShowModal] = useState(false);
@@ -51,29 +48,29 @@ function ProjectDetail(props) {
   const { myProfile, sectionCounts } = PROJECT_SECTION_URL_PATHNAMES;
 
   const myProjectDetailUrl = `${MY_PROJECTS_URL}${projectId}/`;
-  const projectMemberProfileUrl = `${MY_PROJECTS_URL}${projectId}/` + myProfile;
-  const sectionCountUrl = `${MY_PROJECTS_URL}${projectId}/` + sectionCounts;
-  const ProjectDetail = useSelector(
-    (state) => state.entities.projects.myProjects.detail
-  );
+  const projectMemberProfileUrl = `${MY_PROJECTS_URL}${projectId}/${myProfile}`;
+  const sectionCountUrl = `${MY_PROJECTS_URL}${projectId}/${sectionCounts}`;
+  const projectDetail = useSelector((state) => state.entities.projects.myProjects.detail);
   const myProjects = useSelector((state) => state.entities.projects.myProjects);
   const { projectMemberProfile } = myProjects;
   const enableEdit = () => setEdit(!edit);
+  const localKeys = useMemo(
+    () => ({
+      [domain]: 'domain',
+      [leaveDuration]: 'leave_duration',
+      [leaveType]: 'leave_type',
+      [role]: 'role',
+      [employee]: 'employee',
+      [admin]: 'admin',
+      [adminRole]: 'admin_role'
+    }),
+    [admin, adminRole, domain, employee, leaveDuration, leaveType, role]
+  );
 
-  const localKeys = {
-    [domain]: "domain",
-    [leaveDuration]: "leave_duration",
-    [leaveType]: "leave_type",
-    [role]: "role",
-    [employee]: "employee",
-    [admin]: "admin",
-    [adminRole]: "admin_role",
-  };
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       setIsLoading(true);
-      if (projectId == "new") {
+      if (projectId === 'new') {
         setIsLoading(false);
         return;
       }
@@ -81,57 +78,62 @@ function ProjectDetail(props) {
         loadAllData([
           { url: myProjectDetailUrl },
           { url: projectMemberProfileUrl },
-          { url: sectionCountUrl },
+          { url: sectionCountUrl }
         ])
       );
       dispatch(myProjectDetailreceived({ data: response[0].data }));
       dispatch(projectMemberProfilereceived({ data: response[1].data }));
       dispatch(
         projectSectionCountReceived({
-          data: mapResponseToLocalKey(localKeys, response[2].data),
+          data: mapResponseToLocalKey(localKeys, response[2].data)
         })
       );
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
     setIsLoading(false);
-  };
+  }, [
+    dispatch,
+    localKeys,
+    myProjectDetailUrl,
+    projectId,
+    projectMemberProfileUrl,
+    sectionCountUrl
+  ]);
 
   useEffect(() => {
     fetchData();
-  }, []);
-
-  if (projectId == "new") return <CreateProject />;
+  }, [fetchData]);
+  const memoizedState = useMemo(
+    () => ({
+      globalNav,
+      setGlobalNav,
+      globalVal,
+      setGlobalVal,
+      showModal,
+      setShowModal
+    }),
+    [globalNav, globalVal, showModal]
+  );
+  if (projectId === 'new') return <CreateProject />;
   return (
-    <ModalNavContext.Provider
-      value={{
-        globalNav,
-        setGlobalNav,
-        globalVal,
-        setGlobalVal,
-        showModal,
-        setShowModal,
-      }}
-    >
+    <ModalNavContext.Provider value={memoizedState}>
       <ModalContainer />
       <div className="project-detail page-layout">
         {!isLoading && (
           <header className="page-layout__header">
             <div className="flex flex-justify--space-between flex-align--center">
               <div className="flex flex--center">
-                {location.pathname == `/project/${projectId}` && (
-                  <div onClick={() => navigate(-1)} className="back-arrow">
+                {location.pathname === `/project/${projectId}` && (
+                  <div onClick={() => navigate(-1)} className="back-arrow" role="presentation">
                     <FontAwesomeIcon icon={faArrowLeft} />
                   </div>
                 )}
-                <h3 style={{ marginBottom: "3px" }}>{ProjectDetail.name}</h3>
+                <h3 style={{ marginBottom: '3px' }}>{projectDetail.name}</h3>
               </div>
-              {location.pathname == `/project/${projectId}` &&
-                projectMemberProfile.owner && (
-                  <EditButton onClick={enableEdit} content={"Edit"} />
-                )}
+              {location.pathname === `/project/${projectId}` && projectMemberProfile.owner && (
+                <EditButton onClick={enableEdit} content="Edit" />
+              )}
             </div>
-            <div className="flex"></div>
+            <div className="flex" />
           </header>
         )}
         <Routes>
@@ -141,50 +143,50 @@ function ProjectDetail(props) {
               component: ProjectDetailMain,
               isLoading,
               edit,
-              enableEdit,
+              enableEdit
             })}
           />
 
           <Route
             path="employee"
             element={ProjectMemberCheckRoute({
-              component: Employee,
+              component: Employee
             })}
           />
           <Route
             path="role"
             element={ProjectMemberCheckRoute({
-              component: Role,
+              component: Role
             })}
           />
           <Route
             path="domain"
             element={ProjectMemberCheckRoute({
-              component: Domain,
+              component: Domain
             })}
           />
           <Route
             path="leave-duration"
             element={ProjectMemberCheckRoute({
-              component: LeaveDuration,
+              component: LeaveDuration
             })}
           />
           <Route
             path="leave-type"
             element={ProjectMemberCheckRoute({
-              component: LeaveType,
+              component: LeaveType
             })}
           />
           <Route
             path="admin"
             element={ProjectOwnerCheckRoute({
-              component: Admin,
+              component: Admin
             })}
           />
           <Route
             path="admin-role"
             element={ProjectOwnerCheckRoute({
-              component: AdminRole,
+              component: AdminRole
             })}
           />
         </Routes>

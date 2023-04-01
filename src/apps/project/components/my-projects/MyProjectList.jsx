@@ -1,53 +1,47 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import LoadingScreen from "../../../../ui-kit/loading/loadingScreen/LoadingScreen";
-import { MY_PROJECTS_URL } from "../../apiConstants";
-import { loadMyProjects } from "../../store/projects";
-import ProjectCard from "../../../../ui-kit/cards/apps/project/project-card/ProjectCard";
-import { ReactComponent as AddTasksImg } from "../../../../assets/images/add-tasks.svg";
-import AddButton from "../../../../ui-kit/button/add-button/AddButton";
-import NoResult from "../../../../ui-kit/no-result/NoResult";
-import "./myProject.scss";
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import LoadingScreen from '../../../../ui-kit/loading/loadingScreen/LoadingScreen';
+import { MY_PROJECTS_URL } from '../../apiConstants';
+import { loadMyProjects } from '../../store/projects';
+import ProjectCard from '../../../../ui-kit/cards/apps/project/project-card/ProjectCard';
+import { ReactComponent as AddTasksImg } from '../../../../assets/images/add-tasks.svg';
+import AddButton from '../../../../ui-kit/button/add-button/AddButton';
+import NoResult from '../../../../ui-kit/no-result/NoResult';
+import './myProject.scss';
 
-function MyProjectList({
-  isCreateProjectAccessAvailable,
-  setDisplayCreateProjectModal,
-}) {
+function MyProjectList({ isCreateProjectAccessAvailable, setDisplayCreateProjectModal }) {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const myProjects = useSelector((state) => state.entities.projects.myProjects);
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
-      if (!isLoading) setIsLoading(true);
+      setIsLoading(true);
       await dispatch(
         loadMyProjects({
-          url: MY_PROJECTS_URL,
+          url: MY_PROJECTS_URL
         })
       );
-    } catch (err) {
-      console.log(err);
-    }
-
-    if (isLoading) setIsLoading(false);
-  };
+    } catch (err) {}
+    setIsLoading(false);
+  }, [dispatch]);
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
   const getGroupLogoContent = (text) => {
     const result = text
-      .split(" ")
+      .split(' ')
       .map((name) => name[0])
-      .join("")
+      .join('')
       .slice(0, 2)
       .toUpperCase();
     return <div className="">{result}</div>;
   };
   const themes = [
-    "card--theme-pink",
-    "card--theme-green",
-    "card--theme-coral",
-    "card--theme-violet",
+    'card--theme-pink',
+    'card--theme-green',
+    'card--theme-coral',
+    'card--theme-violet'
   ];
 
   return (
@@ -65,10 +59,7 @@ function MyProjectList({
                   className={theme}
                   logo={getGroupLogoContent(project.name)}
                   title={
-                    <Link
-                      className="reactRouterLink"
-                      to={`/project/${project.id}`}
-                    >
+                    <Link className="reactRouterLink" to={`/project/${project.id}`}>
                       {project.name}
                     </Link>
                   }
@@ -89,7 +80,7 @@ function MyProjectList({
             </div>
           </div>
         ) : (
-          <NoResult statement={"No projects found"} />
+          <NoResult statement="No projects found" />
         ))}
     </>
   );

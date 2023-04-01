@@ -1,7 +1,8 @@
-import axios from "axios";
+import axios from 'axios';
+
 const getAccessToken = () => {
   try {
-    return localStorage.getItem("access");
+    return localStorage.getItem('access');
   } catch (err) {
     return null;
   }
@@ -9,9 +10,7 @@ const getAccessToken = () => {
 export default function httpService() {
   const { request } = axios;
   axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-  axios.defaults.headers.common["Authorization"] = getAccessToken()
-    ? `JWT ${getAccessToken()}`
-    : "";
+  axios.defaults.headers.common.Authorization = getAccessToken() ? `JWT ${getAccessToken()}` : '';
 
   axios.interceptors.request.use(
     (success) => success,
@@ -30,11 +29,11 @@ export default function httpService() {
           }
         }
       }
-      return Promise.reject({ response: { status: "unknown" } });
+      return Promise.reject({ response: { status: 'unknown' } });
     }
   );
 
   return {
-    request,
+    request
   };
 }

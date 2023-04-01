@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import "./listItemCard.scss";
+import React, { useRef } from 'react';
+import './listItemCard.scss';
 
 function ListItemCard({
   enableCheckbox,
@@ -8,7 +8,7 @@ function ListItemCard({
   subTitle,
   checked,
   disableCheckBoxInput,
-  handleChecked,
+  handleChecked
 }) {
   const inputRef = useRef(null);
 
@@ -24,7 +24,7 @@ function ListItemCard({
               disabled={disableCheckBoxInput}
               checked={checked}
               id={id}
-              onClick={(e) => handleChecked(e, id)}
+              onChange={(e) => handleChecked(e, id)}
             />
           </div>
         )}
@@ -32,12 +32,10 @@ function ListItemCard({
           <div
             className="list-item__title bold text-overflow--ellipsis"
             onClick={() => inputRef.current.click()}
-          >
+            role="presentation">
             {title}
           </div>
-          <div className="list-item__sub-title sub-text text-overflow--ellipsis">
-            {subTitle}
-          </div>
+          <div className="list-item__sub-title sub-text text-overflow--ellipsis">{subTitle}</div>
         </div>
       </div>
     </div>
