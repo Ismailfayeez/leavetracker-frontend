@@ -223,7 +223,7 @@ $margin-sizes: 2;
   }
   &--accent {
     background-color: $color-accent;
-    color: white;
+    color: white !important;
   }
   &--black {
     background-color: $black;
