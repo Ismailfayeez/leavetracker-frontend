@@ -1,4 +1,4 @@
-@import "styles/scss/global.scss";
+@import 'styles/scss/global.scss';
 // global style
 *,
 *::after,
@@ -91,7 +91,7 @@ select option {
 ::-webkit-scrollbar-thumb {
   border-left: 10px solid rgba(0, 0, 0, 0);
   background-clip: padding-box;
-  background-color: #d1d0d0;
+  background-color: transparent;
 }
 
 /* Handle on hover */

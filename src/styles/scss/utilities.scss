@@ -773,6 +773,11 @@ ul {
   background-color: white;
   border-radius: 2rem;
   padding: 1rem;
+  &:hover {
+    ::-webkit-scrollbar-thumb {
+      background-color: #d1d0d0;
+    }
+  }
 }
 .app-main {
   margin: auto;
