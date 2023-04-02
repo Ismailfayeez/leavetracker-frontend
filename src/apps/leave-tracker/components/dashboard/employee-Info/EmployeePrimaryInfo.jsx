@@ -11,8 +11,8 @@ function EmployeePrimaryInfo() {
   const leaveTaken = leaveBalance.reduce((acc, currentValue) => acc + currentValue.leave_taken, 0);
   const balance = leaveBalance.reduce((acc, currentValue) => acc + currentValue.balance, 0);
   const columns = [
-    { name: 'username', label: 'Name' },
-    { name: 'email', label: 'Email' },
+    { path: 'role.name', label: 'Role' },
+    { path: 'domain.name', label: 'Domain' },
     {
       name: 'leaveTaken',
       label: 'Total leave taken in this FY',

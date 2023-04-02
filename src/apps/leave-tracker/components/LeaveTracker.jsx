@@ -13,12 +13,12 @@ function LeaveTracker() {
   const currentUserLTData = useSelector(
     (state) => state.entities.auth.userProfile.currentUser.data.leaveTracker
   );
-  const currentEmployeeData = useSelector(
-    (state) => state.entities.leaveTracker.employeeAccountData.employeeProfile.currentEmployee.data
-  );
+  // const currentEmployeeData = useSelector(
+  //   (state) => state.entities.leaveTracker.employeeAccountData.employeeProfile.currentEmployee.data
+  // );
   const isCurrentProjectSelected =
     currentUserLTData.currentProject && currentUserLTData.currentProject.id;
-  const isEmployeeLoaded = currentEmployeeData.id;
+  // const isEmployeeLoaded = currentEmployeeData.id;
 
   const fetchLeaveTrackerBaseData = useCallback(async () => {
     if (!isCurrentProjectSelected) {
@@ -30,7 +30,7 @@ function LeaveTracker() {
   }, [dispatch, isCurrentProjectSelected]);
 
   const fetchEmployee = useCallback(async () => {
-    if (isCurrentProjectSelected && !isEmployeeLoaded) {
+    if (isCurrentProjectSelected) {
       setIsPageLoading(true);
       try {
         await dispatch(loadCurrentEmployee());
@@ -40,7 +40,7 @@ function LeaveTracker() {
     } else {
       setIsPageLoading(false);
     }
-  }, [dispatch, isCurrentProjectSelected, isEmployeeLoaded]);
+  }, [dispatch, isCurrentProjectSelected]);
 
   useEffect(() => {
     fetchLeaveTrackerBaseData();

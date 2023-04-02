@@ -84,7 +84,7 @@ function EditProfile(props) {
           errors
         })}
       </div>
-      <div className="btn-container">
+      <div className="btn-container flex flex--center">
         {renderButton({
           content: 'Submit',
           className: 'btn btn--md btn--matte-black',

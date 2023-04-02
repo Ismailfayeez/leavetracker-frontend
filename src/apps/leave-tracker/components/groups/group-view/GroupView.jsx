@@ -74,7 +74,7 @@ function GroupView(props) {
         <div className="back-arrow">
           <FontAwesomeIcon icon={faArrowLeft} onClick={() => navigate(-1)} />
         </div>
-        <h4 className="info-label margin--0">{data.name}</h4>
+        <h4 className="margin--0">{data.name}</h4>
       </header>
       <main className="page-layout__main">
         <InfoDisplayList

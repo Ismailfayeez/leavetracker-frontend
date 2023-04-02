@@ -103,10 +103,11 @@ $margin-sizes: 2;
   }
 }
 .label {
-  color: $color-label;
+  color: $color-heading;
 }
 .info-label {
-  color: $color-label;
+  color: $color-heading;
+  font-weight: bold;
   display: block;
   text-transform: lowercase;
   &::first-letter {
@@ -622,6 +623,7 @@ ul {
 // toast
 .toast-msg {
   font-size: 1.5rem;
+  color: $black;
 }
 
 // logo
