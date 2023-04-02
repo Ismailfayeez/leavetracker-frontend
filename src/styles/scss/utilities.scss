@@ -159,8 +159,8 @@ $margin-sizes: 2;
   }
   &--matte-black-outline {
     background-color: transparent;
-    border: 1px solid $matte-black;
-    color: $matte-black;
+    border: 1px solid $black;
+    color: $black;
     &:active,
     &:hover {
       border: 1px solid rgb(119, 117, 117);
@@ -171,7 +171,7 @@ $margin-sizes: 2;
     color: white;
   }
   &--matte-black {
-    background-color: $matte-black;
+    background-color: $black;
     color: white;
 
     &:active,
@@ -225,7 +225,7 @@ $margin-sizes: 2;
     color: white;
   }
   &--black {
-    background-color: $matte-black;
+    background-color: $black;
     color: white;
   }
   &--black-outline {
@@ -279,31 +279,31 @@ $margin-sizes: 2;
   }
   &--bluish-white {
     background-color: $color-primary !important;
-    color: $matte-black;
+    color: $black;
   }
   &--purple {
     background-color: #f0e0ee !important;
-    color: $matte-black;
+    color: $black;
   }
   &--desert {
     background-color: #f7f2d5 !important;
-    color: $matte-black;
+    color: $black;
   }
   &--pale-green {
     background-color: #e0ecde !important;
-    color: $matte-black;
+    color: $black;
   }
   &--grey-paste {
     background-color: #dff1e2 !important;
-    color: $matte-black;
+    color: $black;
   }
   &--orange {
     background-color: #fde8c9 !important;
-    color: $matte-black;
+    color: $black;
   }
   &--pale-blue-paste {
     background-color: #bce9d8 !important;
-    color: $matte-black;
+    color: $black;
   }
 }
 
@@ -653,7 +653,7 @@ ul {
   justify-content: center;
   align-items: center;
   &--black {
-    background-color: $matte-black;
+    background-color: $black;
     color: white;
   }
 }
@@ -678,6 +678,7 @@ ul {
 
 .sub-text {
   font-size: 1.5rem;
+  color: $color-body-sub-text;
 }
 
 .text-transform--capitalize {
@@ -786,7 +787,7 @@ ul {
 .back-arrow {
   margin-right: 0.5rem;
   cursor: pointer;
-  color: $matte-black;
+  color: $black;
 }
 
 .leave-dates {
@@ -824,9 +825,4 @@ ul {
     content: 'new';
     color: white;
   }
-}
-
-// color
-.color--title {
-  color: $matte-black;
 }

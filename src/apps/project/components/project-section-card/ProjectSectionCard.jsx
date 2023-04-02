@@ -9,12 +9,12 @@ function ProjectSectionCard({ label, path, icon: Icon, handleClickLabel, totalRe
         <div className="flex-item-grow">
           <div className="project-section__title card__item">
             {handleClickLabel ? (
-              <span onClick={handleClickLabel} className="label" role="presentation">
+              <span onClick={handleClickLabel} role="presentation">
                 {label}
               </span>
             ) : (
               <Link className="link-style-disable" to={path}>
-                <span className="label">{label}</span>
+                <span>{label}</span>
               </Link>
             )}
           </div>

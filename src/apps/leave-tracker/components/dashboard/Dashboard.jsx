@@ -19,7 +19,7 @@ function Dashboard() {
       variants={pageVariant}
       initial="hidden"
       animate="visible">
-      <header className="page-layout__header">
+      <header className="page-layout__header ">
         <h3>Hello, {lastName}</h3>
       </header>
       <main className="page-layout__main flex flex--column gap--20px">

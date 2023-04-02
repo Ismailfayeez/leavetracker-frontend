@@ -1,4 +1,4 @@
-@import "./colors.scss";
+@import './colors.scss';
 //sizes
 $xs: 0;
 $mobile: 480px;
@@ -12,24 +12,24 @@ $desktop: 992px;
 $xl-desktop: 1540px;
 
 // screen sizes
-$mobile_only: "(max-width:#{$mobile})";
-$tablet_only: "(min-width:#{$tablet-min}) and (max-width:#{$tablet-max})";
-$tablet_lr_only: "(min-width:#{$tablet-lr-min}) and (max-width:#{$tablet-lr-max})";
-$tablet_hr_only: "(min-width:#{$tablet-hr-min}) and (max-width:#{$tablet-hr-max})";
-$tablet: "(min-width:#{$tablet-lr-min})";
-$tablet_hr: "(min-width:#{$tablet-hr-min})";
-$desktop: "(min-width:#{$desktop})";
-$desktop_only: "(min-width:#{$desktop}) and (max-width:1539px)";
-$xl_desktop: "(min-width:#{$xl-desktop})";
+$mobile_only: '(max-width:#{$mobile})';
+$tablet_only: '(min-width:#{$tablet-min}) and (max-width:#{$tablet-max})';
+$tablet_lr_only: '(min-width:#{$tablet-lr-min}) and (max-width:#{$tablet-lr-max})';
+$tablet_hr_only: '(min-width:#{$tablet-hr-min}) and (max-width:#{$tablet-hr-max})';
+$tablet: '(min-width:#{$tablet-lr-min})';
+$tablet_hr: '(min-width:#{$tablet-hr-min})';
+$desktop: '(min-width:#{$desktop})';
+$desktop_only: '(min-width:#{$desktop}) and (max-width:1539px)';
+$xl_desktop: '(min-width:#{$xl-desktop})';
 
 // default values
 $color-primary: $icy-blue;
 $color-secondary: $icy-blue-1;
-$color-accent: $charcoal-black;
-$color-heading: $matte-black;
-$color-body: $gray-darker;
-$color-body-lighter: $gray;
-$color-label: $matte-black;
+$color-accent: $black;
+$color-heading: $black;
+$color-body: $black;
+$color-body-sub-text: $gray-darker;
+$color-label: $gray-darker;
 $color-border: $light-gray;
 $border-radius: 30px;
 $sidebar-width-md: 244px;

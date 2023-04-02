@@ -22,13 +22,15 @@ function GroupCard({ className, group, handleGroupName, handleSubscribe, handleU
             role="presentation">
             {name}
           </div>
-          <div className="card__item group__member-count">
+          <div className="card__item group__member-count sub-text">
             <div className="flex flex--center" style={{ whiteSpace: 'nowrap' }}>
               {memberCount} members
             </div>
           </div>{' '}
         </div>
-        <div className="card__item group__description text-overflow--ellipsis">{description}</div>
+        <div className="card__item group__description text-overflow--ellipsis sub-text">
+          {description}
+        </div>
 
         <div className=" group__subscribed flex--end">
           {enableSubscription &&

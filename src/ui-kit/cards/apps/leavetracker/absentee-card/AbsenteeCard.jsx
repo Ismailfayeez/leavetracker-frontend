@@ -19,7 +19,7 @@ function AbsenteeCard({ name, groups, handleClick }) {
               role="presentation">
               {name}
             </div>
-            <div className="card__item absentee__group-list text-overflow--ellipsis sub-text">
+            <div className="card__item absentee__group-list text-overflow--ellipsis sub-text ">
               {groups.join(', ')}
             </div>
           </div>

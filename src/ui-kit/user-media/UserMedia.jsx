@@ -13,7 +13,7 @@ function UserMedia() {
           <UserProfileImageHolder sentence={userData.username} />
         </div>
         <div className="media-content">
-          <div className="user__name label">
+          <div className="user__name">
             <Link className="link-style-disable" to="/my-profile">
               {userData.username}
             </Link>

@@ -7,9 +7,9 @@ function AnnouncementCard({ data, handleTitle }) {
   return (
     <div className="card announcement">
       <div className="flex flex-justify--space-between">
-        <span className="announcement__by sub-text">By {data.created_by}</span>
+        <span className="announcement__by sub-text ">By {data.created_by}</span>
         <div>
-          <span className="announcement__priority sub-text" style={{ color: priorityColor }}>
+          <span className="announcement__priority sub-text " style={{ color: priorityColor }}>
             {data.priority}
           </span>{' '}
           {!data.viewed_by && <span className="new-badge" />}

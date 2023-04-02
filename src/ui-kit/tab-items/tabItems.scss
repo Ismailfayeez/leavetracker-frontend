@@ -10,7 +10,6 @@
       width: 100%;
       padding: 0.5rem;
       background: white;
-      color: $matte-black;
       cursor: pointer;
       position: relative;
       user-select: none;
@@ -24,7 +23,7 @@
         left: 0;
         right: 0;
         height: 2px;
-        background: $matte-black;
+        background: $black;
       }
       &:hover {
         background-color: $hover-gray;

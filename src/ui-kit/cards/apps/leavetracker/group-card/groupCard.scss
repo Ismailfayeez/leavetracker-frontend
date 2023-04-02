@@ -1,23 +1,9 @@
 .group {
   $self: &;
   &.card {
-    .icon-container {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      overflow: hidden;
-    }
-    #{$self}__name {
-      font-size: 2rem;
-    }
-
-    #{$self}__description {
-      font-size: 1.6rem;
-    }
     #{$self}__member-count {
       display: flex;
       justify-content: flex-end;
-      font-size: 1.5rem;
       .badge {
         padding: 0.3rem 0.8rem;
       }

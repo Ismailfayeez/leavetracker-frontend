@@ -12,10 +12,10 @@ function ApproverCard({ approver, enableRemoveBtn, handleRemove, loading }) {
           <div className="profile-img">{approver.username.slice(0, 1)}</div>
         </div>
         <div className="flex-item-grow overflow--hidden">
-          <div className="approver__name label bold overflow--hidden text-overflow--ellipsis text-transform--capitalize">
+          <div className="approver__name bold overflow--hidden text-overflow--ellipsis text-transform--capitalize">
             {approver.username}
           </div>
-          <div className="approver__email sub-text overflow--hidden text-overflow--ellipsis">
+          <div className="approver__email sub-text  overflow--hidden text-overflow--ellipsis">
             {approver.email}
           </div>
         </div>

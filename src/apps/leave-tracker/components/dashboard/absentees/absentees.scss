@@ -1,7 +1,8 @@
-@import "../../../../../styles/scss/global.scss";
+@import '../../../../../styles/scss/global.scss';
 .absentees {
   &__selected-date {
     margin-bottom: 0.5rem;
+    color: $color-label;
   }
   &__list {
     width: 100%;
