@@ -33,11 +33,10 @@ function AdminDetail() {
   const viewFields = [
     { label: 'email', name: 'email' },
     { label: 'name', name: 'name' },
-    { label: 'role', path: 'role.code', name: 'role' }
+    { label: 'role', path: 'role', name: 'role' }
   ];
   const editFields = [
     {
-      path: 'role.code',
       name: 'role',
       label: 'role',
       displayContent: 'autoComplete'
@@ -50,7 +49,6 @@ function AdminDetail() {
       displayContent: 'autoComplete'
     },
     {
-      path: 'role.code',
       name: 'role',
       label: 'role',
       displayContent: 'autoComplete'

@@ -150,43 +150,50 @@ function ProjectDetail() {
           <Route
             path="employee"
             element={ProjectMemberCheckRoute({
-              component: Employee
+              component: Employee,
+              isLoading
             })}
           />
           <Route
             path="role"
             element={ProjectMemberCheckRoute({
-              component: Role
+              component: Role,
+              isLoading
             })}
           />
           <Route
             path="domain"
             element={ProjectMemberCheckRoute({
-              component: Domain
+              component: Domain,
+              isLoading
             })}
           />
           <Route
             path="leave-duration"
             element={ProjectMemberCheckRoute({
-              component: LeaveDuration
+              component: LeaveDuration,
+              isLoading
             })}
           />
           <Route
             path="leave-type"
             element={ProjectMemberCheckRoute({
-              component: LeaveType
+              component: LeaveType,
+              isLoading
             })}
           />
           <Route
             path="admin"
             element={ProjectOwnerCheckRoute({
-              component: Admin
+              component: Admin,
+              isLoading
             })}
           />
           <Route
             path="admin-role"
             element={ProjectOwnerCheckRoute({
-              component: AdminRole
+              component: AdminRole,
+              isLoading
             })}
           />
         </Routes>

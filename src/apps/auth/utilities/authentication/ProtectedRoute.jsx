@@ -8,7 +8,6 @@ function ProtectedRoute({ component: Component, isPageLoading, allowedAccess, ..
   const location = useLocation();
   const currentUser = useSelector((state) => state.entities.auth.userProfile.currentUser);
   const currentUserData = currentUser.data;
-
   if (currentUser.isLoading || isPageLoading) return <LoadingScreen />;
   if (!currentUserData.email)
     return <Navigate to="/auth/login" state={{ from: location }} replace />;

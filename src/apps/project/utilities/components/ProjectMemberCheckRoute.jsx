@@ -12,7 +12,6 @@ function ProjectMemberCheckRoute({
 }) {
   const { isProjectMember, isProjectOwner, isProjectAdminHasPermission } =
     useProjectMemberPermission(allowedAccess);
-
   if (isLoading) return <LoadingScreen />;
   if (isProjectMember) {
     if (!allowedAccess || isProjectOwner || isProjectAdminHasPermission)
