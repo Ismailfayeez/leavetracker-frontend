@@ -19,13 +19,13 @@ function DomainDetail() {
   const { domain: name } = PROJECT_SECTION_NAMES;
   const { domain: label } = PROJECT_SECTION_LABELS;
   const { domain: nestedUrlPathName } = PROJECT_SECTION_URL_PATHNAMES;
-  const { DOMAIN_EDIT, DOMAIN_DLT } = PROJECT_APP_PERMISSIONS;
+  const { DOMAIN_EDIT, DOMAIN_DELETE } = PROJECT_APP_PERMISSIONS;
   const baseUrl = `${MY_PROJECTS_URL}${projectId}/`;
   const [{ globalVal, globalNav }] = useModalNav(ModalNavContext);
   const { id } = globalVal[globalNav.currentNav] || {};
   const { isProjectOwner, isProjectAdminHasPermission } = useProjectMemberPermission(
     DOMAIN_EDIT,
-    DOMAIN_DLT
+    DOMAIN_DELETE
   );
   const primaryField = 'code';
 
@@ -44,7 +44,7 @@ function DomainDetail() {
         <ProjectSectionView
           fields={viewFields}
           hasPermissionEdit={isProjectOwner || isProjectAdminHasPermission[DOMAIN_EDIT]}
-          hasPermissionDelete={isProjectOwner || isProjectAdminHasPermission[DOMAIN_DLT]}
+          hasPermissionDelete={isProjectOwner || isProjectAdminHasPermission[DOMAIN_DELETE]}
         />
       )
     },

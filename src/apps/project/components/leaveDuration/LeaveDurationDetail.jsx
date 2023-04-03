@@ -19,12 +19,12 @@ function LeaveDurationDetail() {
   const { leaveDuration: name } = PROJECT_SECTION_NAMES;
   const { leaveDuration: label } = PROJECT_SECTION_LABELS;
   const { leaveDuration: nestedUrlPathName } = PROJECT_SECTION_URL_PATHNAMES;
-  const { LEAVE_DURATION_DLT, LEAVE_DURATION_EDIT } = PROJECT_APP_PERMISSIONS;
+  const { LEAVE_DURATION_DELETE, LEAVE_DURATION_EDIT } = PROJECT_APP_PERMISSIONS;
   const baseUrl = `${MY_PROJECTS_URL}${projectId}/`;
   const [{ globalVal, globalNav }] = useModalNav(ModalNavContext);
   const { id } = globalVal[globalNav.currentNav] || {};
   const { isProjectOwner, isProjectAdminHasPermission } = useProjectMemberPermission(
-    LEAVE_DURATION_DLT,
+    LEAVE_DURATION_DELETE,
     LEAVE_DURATION_EDIT
   );
   const primaryField = 'code';
@@ -46,7 +46,7 @@ function LeaveDurationDetail() {
         <ProjectSectionView
           fields={viewFields}
           hasPermissionEdit={isProjectOwner || isProjectAdminHasPermission[LEAVE_DURATION_EDIT]}
-          hasPermissionDelete={isProjectOwner || isProjectAdminHasPermission[LEAVE_DURATION_DLT]}
+          hasPermissionDelete={isProjectOwner || isProjectAdminHasPermission[LEAVE_DURATION_DELETE]}
         />
       )
     },

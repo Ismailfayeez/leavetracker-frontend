@@ -19,13 +19,13 @@ function LeaveTypeDetail() {
   const { leaveType: name } = PROJECT_SECTION_NAMES;
   const { leaveType: label } = PROJECT_SECTION_LABELS;
   const { leaveType: nestedUrlPathName } = PROJECT_SECTION_URL_PATHNAMES;
-  const { LEAVE_TYPE_DLT, LEAVE_TYPE_EDIT } = PROJECT_APP_PERMISSIONS;
+  const { LEAVE_TYPE_DELETE, LEAVE_TYPE_EDIT } = PROJECT_APP_PERMISSIONS;
   const baseUrl = `${MY_PROJECTS_URL}${projectId}/`;
   const [{ globalVal, globalNav }] = useModalNav(ModalNavContext);
   const { id } = globalVal[globalNav.currentNav] || {};
   const primaryField = 'code';
   const { isProjectOwner, isProjectAdminHasPermission } = useProjectMemberPermission(
-    LEAVE_TYPE_DLT,
+    LEAVE_TYPE_DELETE,
     LEAVE_TYPE_EDIT
   );
 
@@ -48,7 +48,7 @@ function LeaveTypeDetail() {
         <ProjectSectionView
           fields={viewFields}
           hasPermissionEdit={isProjectOwner || isProjectAdminHasPermission[LEAVE_TYPE_EDIT]}
-          hasPermissionDelete={isProjectOwner || isProjectAdminHasPermission[LEAVE_TYPE_DLT]}
+          hasPermissionDelete={isProjectOwner || isProjectAdminHasPermission[LEAVE_TYPE_DELETE]}
         />
       )
     },

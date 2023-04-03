@@ -20,13 +20,13 @@ function EmployeeDetail() {
   const { employee: name } = PROJECT_SECTION_NAMES;
   const { employee: label } = PROJECT_SECTION_LABELS;
   const { employee: nestedUrlPathName } = PROJECT_SECTION_URL_PATHNAMES;
-  const { EMPLOYEE_EDIT, EMPLOYEE_DLT } = PROJECT_APP_PERMISSIONS;
+  const { EMPLOYEE_EDIT, EMPLOYEE_DELETE } = PROJECT_APP_PERMISSIONS;
   const baseUrl = `${MY_PROJECTS_URL}${projectId}/`;
   const [{ globalVal, globalNav }] = useModalNav(ModalNavContext);
   const { id } = globalVal[globalNav.currentNav] || {};
   const { isProjectOwner, isProjectAdminHasPermission } = useProjectMemberPermission(
     EMPLOYEE_EDIT,
-    EMPLOYEE_DLT
+    EMPLOYEE_DELETE
   );
 
   const primaryField = 'email';
@@ -86,7 +86,7 @@ function EmployeeDetail() {
         <ProjectSectionView
           fields={viewFields}
           hasPermissionEdit={isProjectOwner || isProjectAdminHasPermission[EMPLOYEE_EDIT]}
-          hasPermissionDelete={isProjectOwner || isProjectAdminHasPermission[EMPLOYEE_DLT]}
+          hasPermissionDelete={isProjectOwner || isProjectAdminHasPermission[EMPLOYEE_DELETE]}
         />
       )
     },

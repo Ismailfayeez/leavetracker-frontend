@@ -20,14 +20,14 @@ function RoleDetail() {
   const { role: name } = PROJECT_SECTION_NAMES;
   const { role: label } = PROJECT_SECTION_LABELS;
   const { role: nestedUrlPathName } = PROJECT_SECTION_URL_PATHNAMES;
-  const { ROLE_EDIT, ROLE_DLT } = PROJECT_APP_PERMISSIONS;
+  const { ROLE_EDIT, ROLE_DELETE } = PROJECT_APP_PERMISSIONS;
   const baseUrl = `${MY_PROJECTS_URL}${projectId}/`;
   const [{ globalVal, globalNav }] = useModalNav(ModalNavContext);
   const { id } = globalVal[globalNav.currentNav] || {};
   const primaryField = 'code';
   const { isProjectOwner, isProjectAdminHasPermission } = useProjectMemberPermission(
     ROLE_EDIT,
-    ROLE_DLT
+    ROLE_DELETE
   );
 
   const viewFields = [
@@ -46,7 +46,7 @@ function RoleDetail() {
         <ProjectSectionView
           fields={viewFields}
           hasPermissionEdit={isProjectOwner || isProjectAdminHasPermission[ROLE_EDIT]}
-          hasPermissionDelete={isProjectOwner || isProjectAdminHasPermission[ROLE_DLT]}
+          hasPermissionDelete={isProjectOwner || isProjectAdminHasPermission[ROLE_DELETE]}
         />
       )
     },
