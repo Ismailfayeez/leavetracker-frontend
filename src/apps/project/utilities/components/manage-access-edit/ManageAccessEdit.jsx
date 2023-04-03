@@ -103,7 +103,7 @@ function ManageAccessEdit({ sectionConstants }) {
           {data.currentList.map((item) => (
             <span
               className={`badge sub-text ${
-                selected.includes(item.code) ? 'badge--black' : 'badge--primary'
+                selected.includes(item.code) ? 'badge--accent' : 'badge--primary'
               }`}
               onClick={() => handleSelect(item.code)}
               role="presentation">
@@ -117,7 +117,7 @@ function ManageAccessEdit({ sectionConstants }) {
             <span
               key={item.code}
               className={`badge sub-text ${
-                selected.includes(item.code) ? 'badge--black' : 'badge--primary'
+                selected.includes(item.code) ? 'badge--accent' : 'badge--primary'
               }`}
               onClick={() => handleSelect(item.code)}
               role="presentation">
@@ -135,12 +135,12 @@ function ManageAccessEdit({ sectionConstants }) {
 
         {renderButton({
           content: 'remove',
-          className: 'btn--md btn--brown',
+          className: 'btn--md btn--matte-black',
           onClick: removeFromCurrentList
         })}
         {renderButton({
           content: 'submit',
-          className: 'btn--md btn--matte-black',
+          className: 'btn--md btn--brown',
           onClick: handleSubmit,
           loading: isLoading ? 1 : 0
         })}
