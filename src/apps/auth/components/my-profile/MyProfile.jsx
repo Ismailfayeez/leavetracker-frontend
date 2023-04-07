@@ -23,7 +23,9 @@ function MyProfile({ handleLogoutUser }) {
 
   const columns = [
     { name: 'username', label: 'Name' },
-    { name: 'email', label: 'Email' }
+    { name: 'email', label: 'Email' },
+    { name: 'country', label: 'Country' },
+    { name: 'timezone', label: 'Timezone' }
   ];
 
   useEffect(() => {

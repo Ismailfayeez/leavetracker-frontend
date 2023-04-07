@@ -50,9 +50,11 @@ function EditProfile(props) {
   useEffect(() => {
     if (data.country) {
       const userTimezone = (timeZones.data[data.country] && timeZones.data[data.country][0]) || [];
-      setData((prevData) => ({ ...prevData, userTimezone }));
+      console.log(userTimezone);
+      setData((prevData) => ({ ...prevData, timezone: userTimezone }));
     }
   }, [data.country, timeZones.data]);
+  console.log(data);
   return (
     <form className=" flex flex--column  full-height" onSubmit={handleSubmit}>
       <div className="flex-item-grow flex flex--column gap--10px">
