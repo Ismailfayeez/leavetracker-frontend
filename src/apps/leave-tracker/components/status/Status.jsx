@@ -65,11 +65,13 @@ function Status() {
           requestDetails: [{ url: LEAVE_BALANCE_URL, name: 'leaveBalance' }]
         })
       );
-    } catch (err) {}
-    closeModal();
-    toast.success(
-      <span className="toast-msg">{`leave ${requestNumber} deleted successfully`}</span>
-    );
+      closeModal();
+      toast.success(
+        <span className="toast-msg">{`leave ${requestNumber} deleted successfully`}</span>
+      );
+    } catch (err) {
+      closeModal();
+    }
   };
 
   const getData = (name) => myLeaves[name].list;
