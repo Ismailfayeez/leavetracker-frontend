@@ -14,7 +14,7 @@ function Login() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const loginRef = useRef(null);
-  const [errors, validateForm, validateProperty] = useValidator(data, loginSchema);
+  const [errors, validateForm, validateProperty, setErrors] = useValidator(data, loginSchema);
   const handleBlur = ({ target: input }) => {
     validateProperty(input.name);
   };
@@ -34,6 +34,7 @@ function Login() {
     const error = validateForm();
     if (error) return;
     try {
+      setErrors('');
       setApiError('');
       setIsLoading(true);
       const { data: jwt } = await dispatch(login(data));
