@@ -1,5 +1,5 @@
-@import "../../styles/scss/global.scss";
-@import "../side-bar-nav/sideBarNav.scss";
+@import '../../styles/scss/global.scss';
+@import '../sidebar/sideBar.scss';
 
 .floating-side-bar-container {
   @include side-bar-container-mixin;

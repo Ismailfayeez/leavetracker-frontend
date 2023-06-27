@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect } from 'react';
 import { motion as m, AnimatePresence } from 'framer-motion';
-import SideBarNav from '../side-bar-nav/SideBarNav';
 import UserMedia from '../user-media/UserMedia';
 import './floatingSideBar.scss';
 import { floatingSideBarVariant, overlayVariant } from '../../utilities/AnimateVariants';
+import SideBar from '../sidebar/SideBar';
 
-function FloatingSideBar({ displayFloatingSideBar, setDisplayFloatingSideBar, appNavData }) {
+function FloatingSideBar({ displayFloatingSideBar, setDisplayFloatingSideBar, menuSectionList }) {
   const handleClickOutside = useCallback(() => {
     setDisplayFloatingSideBar(false);
   }, [setDisplayFloatingSideBar]);
@@ -41,7 +41,7 @@ function FloatingSideBar({ displayFloatingSideBar, setDisplayFloatingSideBar, ap
             className="floating-side-bar-container"
             onClick={(e) => e.stopPropagation()}>
             <UserMedia />
-            <SideBarNav appNavData={appNavData} />
+            <SideBar menuSectionList={menuSectionList} />
           </m.div>
         </>
       )}
