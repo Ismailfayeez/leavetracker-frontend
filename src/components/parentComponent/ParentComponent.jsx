@@ -8,8 +8,6 @@ import PublicRoute from '../../apps/auth/utilities/authentication/PublicRoute';
 import { logoutUser } from '../../store/authActions';
 import NavBar from '../../ui-kit/nav-bar/NavBar';
 import LeaveTracker from '../../apps/leave-tracker/components/LeaveTracker';
-import SideBarNav from '../../ui-kit/side-bar-nav/SideBarNav';
-import { appNavData } from '../../utilities/app-nav-data/appNavData';
 import Accounts from '../../apps/leave-tracker/components/accounts/Accounts';
 import ApiErrorModal from '../../ui-kit/api-error-modal/ApiErrorModal';
 import Project from '../../apps/project/components/project/Project';
@@ -25,6 +23,8 @@ import NavContent from '../nav-content/NavContent';
 import '../../styles/scss/global.scss';
 import './parentComponent.scss';
 import 'react-toastify/dist/ReactToastify.css';
+import SideBar from '../../ui-kit/sidebar/SideBar';
+import { menuSectionList } from '../../utilities/menu-sections/menuSectionList';
 
 function ParentComponent() {
   const dispatch = useDispatch();
@@ -68,6 +68,11 @@ function ParentComponent() {
   useEffect(() => {
     fetchCurrentUserData();
   }, [fetchCurrentUserData]);
+  const menuProps = {
+    announcements: {
+      new: announcements.some((announcement) => announcement.viewed_by === false)
+    }
+  };
   return (
     <div className={`parent-component  ${isAuthRoute ? 'bg-auth' : ''}`}>
       <ToastContainer />
@@ -87,21 +92,11 @@ function ParentComponent() {
               <FloatingSideBar
                 displayFloatingSideBar={displayFloatingSidebar}
                 setDisplayFloatingSideBar={setDisplayFloatingSideBar}
-                appNavData={appNavData({
-                  announcements: {
-                    new: announcements.some((announcement) => announcement.viewed_by === false)
-                  }
-                })}
+                menuSectionList={menuSectionList(menuProps)}
               />
             </div>
             <div className="display--desktop">
-              <SideBarNav
-                appNavData={appNavData({
-                  announcements: {
-                    new: announcements.some((announcement) => announcement.viewed_by === false)
-                  }
-                })}
-              />
+              <SideBar menuSectionList={menuSectionList(menuProps)} />
             </div>
           </section>
         )}
